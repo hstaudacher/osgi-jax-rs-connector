@@ -1,0 +1,17 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: OSGi JAX-RS Connector
+Bundle-SymbolicName: com.eclipsesource.jaxrs.connector
+Bundle-Version: 1.0.0.qualifier
+Bundle-Vendor: EclipseSource
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Import-Package: com.sun.jersey.api.core,
+ com.sun.jersey.spi.container.servlet,
+ javax.servlet;version="[2.3.0,4.0.0)",
+ javax.servlet.http;version="[2.3.0,4.0.0)",
+ javax.ws.rs,
+ javax.ws.rs.core,
+ javax.ws.rs.ext,
+ org.osgi.framework;version="[1.6.0,2.0.0)",
+ org.osgi.service.http;version="[1.2.1,2.0.0)",
+ org.osgi.util.tracker;version="[1.5.0,2.0.0)"
