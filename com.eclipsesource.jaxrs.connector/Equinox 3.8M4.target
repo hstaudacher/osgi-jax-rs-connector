@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<?pde version="3.8"?>
+
+<target name="Equinox 3.8M4" sequenceNumber="0">
+<locations>
+<location path="${project_loc:com.eclipsesource.jaxrs.connector}/equinox" type="Directory"/>
+<location path="${project_loc:com.eclipsesource.jaxrs.connector}/jersey" type="Directory"/>
+<location path="${project_loc:com.eclipsesource.jaxrs.connector}/testing" type="Directory"/>
+</locations>
+</target>
