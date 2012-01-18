@@ -1,4 +1,4 @@
-JAX-RS Connector for OSGi
+OSGi - JAX-RS Connector
 ======================================
 
 [JAX-RS (JSR 311)](http://jsr311.java.net/) is the community-driven Standard for 
