@@ -1,0 +1,13 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: JAX-RS Connector Console
+Bundle-SymbolicName: com.eclipsesource.jaxrs.connector.console
+Bundle-Version: 1.0.0.qualifier
+Bundle-Vendor: EclipseSource
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Import-Package: org.eclipse.equinox.http.jetty;version="[1.1.0,1.2.0)",
+ org.eclipse.osgi.framework.console;version="[1.1.0,1.2.0)",
+ org.osgi.framework;version="[1.7.0,2.0.0)",
+ org.osgi.service.cm;version="[1.4.0,1.5.0)"
+Bundle-ActivationPolicy: lazy
+Bundle-Activator: com.eclipsesource.jaxrs.connector.console.Activator
