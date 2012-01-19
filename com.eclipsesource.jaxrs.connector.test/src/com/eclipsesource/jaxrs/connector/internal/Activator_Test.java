@@ -14,7 +14,10 @@ import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.anyObject;
 import static org.mockito.Matchers.anyString;
 import static org.mockito.Matchers.eq;
+import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.never;
+import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -25,6 +28,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
+import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.Filter;
 import org.osgi.framework.InvalidSyntaxException;
@@ -40,10 +44,14 @@ public class Activator_Test {
   private BundleContext context;
   @Mock
   private ServiceRegistration registration;
+  @Mock
+  private Bundle jerseyServer;
 
   @Before
   public void setUp() throws InvalidSyntaxException {
-    activator = new Activator();
+    Activator original = new Activator();
+    activator = spy( original );
+    doReturn( jerseyServer ).when( activator ).getJerseyServerBundle();
     Filter filter = mock( Filter.class );
     when( context.createFilter( anyString() ) ).thenReturn( filter );
     when( context.registerService( anyString(), 
@@ -68,5 +76,21 @@ public class Activator_Test {
     activator.stop( context );
     
     verify( registration ).unregister();
+  }
+  
+  @Test
+  public void testStartsJerseyServer() throws Exception {
+    when( jerseyServer.getState() ).thenReturn( Bundle.INSTALLED );
+    activator.start( context );
+    
+    verify( jerseyServer ).start();
+  }
+  
+  @Test
+  public void testStartsNotJerseyServer() throws Exception {
+    when( jerseyServer.getState() ).thenReturn( Bundle.ACTIVE );
+    activator.start( context );
+    
+    verify( jerseyServer, never() ).start();
   }
 }

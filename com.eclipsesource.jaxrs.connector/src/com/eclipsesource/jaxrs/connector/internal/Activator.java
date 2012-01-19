@@ -10,11 +10,16 @@
  ******************************************************************************/
 package com.eclipsesource.jaxrs.connector.internal;
 
+import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleActivator;
 import org.osgi.framework.BundleContext;
+import org.osgi.framework.BundleException;
 import org.osgi.framework.Filter;
+import org.osgi.framework.FrameworkUtil;
 import org.osgi.framework.InvalidSyntaxException;
 import org.osgi.framework.ServiceRegistration;
+
+import com.sun.jersey.api.core.ResourceConfig;
 
 
 public class Activator implements BundleActivator {
@@ -26,12 +31,20 @@ public class Activator implements BundleActivator {
 
   @Override
   public void start( BundleContext context ) throws Exception {
+    startJerseyServer();
     jaxRsConnector = new JAXRSConnector( context );
     registration = context.registerService( JAXRSConnector.class.getName(), jaxRsConnector, null );
     openHttpServiceTracker( context );
     openAllServiceTracker( context );
   }
-  
+
+  private void startJerseyServer() throws BundleException {
+    Bundle bundle = getJerseyServerBundle();
+    if( bundle.getState() != Bundle.ACTIVE ) {
+      bundle.start();
+    }
+  }
+
   private void openHttpServiceTracker( BundleContext context ) {
     httpTracker = new HttpTracker( context, jaxRsConnector );
     httpTracker.open();
@@ -48,5 +61,10 @@ public class Activator implements BundleActivator {
     httpTracker.close();
     allTracker.close();
     registration.unregister();
+  }
+
+  // For testing purpose
+  Bundle getJerseyServerBundle() {
+    return FrameworkUtil.getBundle( ResourceConfig.class );
   }
 }
