@@ -1,10 +1,15 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <?pde version="3.8"?>
 
-<target name="Equinox 3.8M4" sequenceNumber="0">
+<target name="Equinox 3.8M4" sequenceNumber="2">
 <locations>
-<location path="${project_loc:com.eclipsesource.jaxrs.connector.target}/equinox" type="Directory"/>
 <location path="${project_loc:com.eclipsesource.jaxrs.connector.target}/jersey" type="Directory"/>
 <location path="${project_loc:com.eclipsesource.jaxrs.connector.target}/testing" type="Directory"/>
+<location includeAllPlatforms="false" includeMode="slicer" includeSource="true" type="InstallableUnit">
+<unit id="org.eclipse.equinox.compendium.sdk.feature.group" version="3.8.0.v20111010-1614-7X7aGGFFPGjtJJJ1PhSL3ja"/>
+<unit id="org.eclipse.equinox.core.sdk.feature.group" version="3.8.0.v20111111-1618-7yFARG3kFh1z-WFF9V8Msj93O"/>
+<unit id="org.eclipse.equinox.serverside.sdk.feature.group" version="3.8.0.v20111114-2124-9Q7dFb8FRWt32-_vXXd00E_mbe9G"/>
+<repository location="http://download.eclipse.org/eclipse/updates/3.8milestones"/>
+</location>
 </locations>
 </target>
