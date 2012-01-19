@@ -11,14 +11,13 @@
  ******************************************************************************/
 package com.eclipsesource.jaxrs.connector.internal;
 
-
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.ServiceReference;
 import org.osgi.service.http.HttpService;
 import org.osgi.util.tracker.ServiceTracker;
 
 
-class HttpTracker extends ServiceTracker<HttpService, HttpService> {
+public class HttpTracker extends ServiceTracker<HttpService, HttpService> {
 
   private final JAXRSConnector connector;
 

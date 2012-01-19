@@ -10,7 +10,6 @@
  ******************************************************************************/
 package com.eclipsesource.jaxrs.connector.internal;
 
-
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
@@ -18,34 +17,34 @@ import java.util.Set;
 import com.sun.jersey.api.core.DefaultResourceConfig;
 
 
-public class RootApplication extends DefaultResourceConfig {
+public class Application extends DefaultResourceConfig {
   
-  private List<Object> resourcePool;
+  private final List<Object> resources;
 
-  public RootApplication() {
-    resourcePool = new LinkedList<Object>();
+  public Application() {
+    resources = new LinkedList<Object>();
   }
   
   void addResource( Object resource ) {
-    resourcePool.add( resource );
+    resources.add( resource );
   }
   
   void removeResource( Object resource ) {
-    resourcePool.remove( resource );
+    resources.remove( resource );
   }
   
   boolean hasResources() {
-    return !resourcePool.isEmpty();
+    return !resources.isEmpty();
   }
   
   public List<Object> getResources() {
-    return new LinkedList<Object>( resourcePool );
+    return new LinkedList<Object>( resources );
   }
 
   @Override
   public Set<Object> getSingletons() {
     Set<Object> singletons = super.getSingletons();
-    singletons.addAll( resourcePool );
+    singletons.addAll( resources );
     return singletons;
   }
   

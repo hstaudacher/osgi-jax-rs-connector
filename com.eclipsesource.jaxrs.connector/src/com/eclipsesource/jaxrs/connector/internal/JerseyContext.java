@@ -24,15 +24,15 @@ public class JerseyContext {
 
   static final String APPLICATION_ROOT = "/";
 
-  private final RootApplication rootApplication;
+  private final Application application;
   private final ServletContainer servletContainer;
   private final HttpService httpService;
   private boolean isApplicationRegistered;
 
   public JerseyContext( HttpService httpService ) {
     this.httpService = httpService;
-    this.rootApplication = new RootApplication();
-    this.servletContainer = new ServletContainer( rootApplication );
+    this.application = new Application();
+    this.servletContainer = new ServletContainer( application );
   }
 
   public void addResource( Object resource ) {
@@ -104,14 +104,14 @@ public class JerseyContext {
     return getRootApplication().getResources();
   }
 
-  // For testing purpose only
+  // For testing purpose
   ServletContainer getServletContainer() {
     return servletContainer;
   }
   
-  // For testing purpose only
-  RootApplication getRootApplication() {
-    return rootApplication;
+  // For testing purpose
+  Application getRootApplication() {
+    return application;
   }
 
 }

@@ -10,7 +10,6 @@
  ******************************************************************************/
 package com.eclipsesource.jaxrs.connector.internal;
 
-
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
@@ -27,11 +26,11 @@ import org.osgi.framework.InvalidSyntaxException;
 
 public class RootApplication_Test {
   
-  private RootApplication application;
+  private Application application;
 
   @Before
   public void setUp() {
-    RootApplication original = new RootApplication();
+    Application original = new Application();
     application = spy( original );
   }
   

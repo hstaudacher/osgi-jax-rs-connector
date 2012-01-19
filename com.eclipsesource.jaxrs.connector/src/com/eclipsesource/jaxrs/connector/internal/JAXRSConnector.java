@@ -10,7 +10,6 @@
  ******************************************************************************/
 package com.eclipsesource.jaxrs.connector.internal;
 
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;

@@ -17,7 +17,7 @@ import org.osgi.framework.BundleContext;
 import org.osgi.framework.ServiceReference;
 
 
-class ServiceContainer<S> {
+public class ServiceContainer<S> {
 
   private final Set<ServiceHolder<S>> services;
   private final BundleContext bundleContext;

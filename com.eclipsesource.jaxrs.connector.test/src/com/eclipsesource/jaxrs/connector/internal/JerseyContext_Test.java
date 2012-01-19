@@ -48,7 +48,7 @@ public class JerseyContext_Test {
   @Mock
   private HttpService httpService;
   @Mock
-  private RootApplication rootApplication;
+  private Application rootApplication;
 
   @Before
   public void setUp() {

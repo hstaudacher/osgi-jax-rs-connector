@@ -13,6 +13,7 @@ package com.eclipsesource.jaxrs.connector.example;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 
+
 @Path( value = "/test" )
 public class ExampleService {
   
