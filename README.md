@@ -30,7 +30,8 @@ Jersey 1.11 is included in the software repository.
 Installation
 ------------
 
-Install from this software repository into your target: http://hstaudacher.github.com/osgi-jax-rs-connector
+Install from this software repository into your target: http://hstaudacher.github.com/osgi-jax-rs-connector  
+If dependencies can't be satisfied please disable "include required software" within the target editor.
 
 Usage
 -----
