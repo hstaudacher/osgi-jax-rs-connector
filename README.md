@@ -13,7 +13,7 @@ Features
 When the com.eclipsesource.jaxrs.connector bundle is activated all @Path annotated
 objects that are registered as OSGi services will be published as RESTful web services.
 Services can be added or removed during runtime and will be published or postponed.
-To publish services on different ports the "http.port" service property can be used.
+To publish services on different ports the *http.port* service property can be used.
 The connector detects configuration changes during runtime (e.g. when done by the 
 OSGi Configuration Admin Service).
 
