@@ -2,10 +2,10 @@ OSGi - JAX-RS Connector
 ======================================
 
 [JAX-RS (JSR 311)](http://jsr311.java.net/) is the community-driven Standard for 
-building RESTful Web services with Java. The reference implementation for JAX-RS is 
+building RESTful web services with Java. The reference implementation for JAX-RS is 
 [Jersey](http://jersey.java.net/) and ships as OSGi bundles. This project connects 
-Jersey and OSGi at the service level. This means OSGi service can be published as 
-RESTful Web services really easy.
+Jersey and OSGi at the service level. This means that OSGi services can be published as 
+RESTful web services by simply registering them as OSGi services ;).
 
 Features
 --------
@@ -15,12 +15,13 @@ objects that are registered as OSGi services will be published as RESTful web se
 Services can be added or removed during runtime and will be published or postponed.
 To publish services on different ports the "http.port" service property can be used.
 The connector detects configuration changes during runtime (e.g. when done by the 
-Config Admin Service).
+OSGi Configuration Admin Service).
 
 Requirements
 ------------
 
-OSGi Core Specification 4.2 and an OSGi HttpService implementation (e.g. Equinox, Felix).
+* OSGi Core Specification 4.2 and an OSGi HttpService implementation (e.g. Equinox, Felix).
+* JRE 1.6 (same as Jersey)
 
 Jersey version
 --------------
@@ -36,7 +37,7 @@ If dependencies can't be satisfied please disable "include required software" wi
 Usage
 -----
 
-* For Eclipse: Add the com.eclipsesource.jaxrs.connector.feature (JAX-RS Connector Feature) to your target using the url above.
+* For Eclipse: Add the com.eclipsesource.jaxrs.connector.feature (OSGi JAX-RS Connector) to your target using the url above.
 * Add the com.eclipsesource.jaxrs.connector and the 3 Jersey bundles to your OSGi instance.
 * Convert some OSGi service to resources like in [this tutorial](http://jersey.java.net/nonav/documentation/latest/getting-started.html#d4e45)
 * Point your client to the specified url
