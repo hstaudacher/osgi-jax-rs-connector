@@ -14,11 +14,11 @@ import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 
 
-@Path( value = "/test" )
+@Path( "/osgi-jax-rs" )
 public class ExampleService {
   
   @GET
   public String seyHello() {
-    return "it works. JAX-RS is integrated well with OSGi.";
+    return "JAX-RS and OSGi are a lovely couple.";
   }
 }
