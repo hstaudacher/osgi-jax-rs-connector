@@ -31,7 +31,12 @@ Jersey 1.11 is included in the software repository.
 Installation
 ------------
 
-Install from this software repository into your target: http://hstaudacher.github.com/osgi-jax-rs-connector  
+Install from this software repository into your target: http://hstaudacher.github.com/osgi-jax-rs-connector 
+or download the binaries:
+* [com.eclipsesource.jaxrs.connector_1.0.0.201201191236.jar](http://hstaudacher.github.com/osgi-jax-rs-connector/plugins/com.eclipsesource.jaxrs.connector_1.0.0.201201191236.jar) [(src bundle)[http://hstaudacher.github.com/osgi-jax-rs-connector/plugins/com.eclipsesource.jaxrs.connector.source_1.0.0.201201191236.jar]
+* [com.sun.jersey.jersey-core_1.11.0.jar](http://hstaudacher.github.com/osgi-jax-rs-connector/plugins/com.sun.jersey.jersey-core_1.11.0.jar)  
+* [com.sun.jersey.jersey-server_1.11.0.jar](http://hstaudacher.github.com/osgi-jax-rs-connector/plugins/com.sun.jersey.jersey-server_1.11.0.jar)
+* [com.sun.jersey.jersey-servlet_1.11.0.jar](http://hstaudacher.github.com/osgi-jax-rs-connector/plugins/com.sun.jersey.jersey-servlet_1.11.0.jar)  
 If dependencies can't be satisfied please disable "include required software" within the target editor.
 
 Usage
