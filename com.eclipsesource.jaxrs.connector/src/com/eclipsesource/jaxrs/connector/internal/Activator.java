@@ -28,13 +28,18 @@ public class Activator implements BundleActivator {
   private JAXRSConnector jaxRsConnector;
   private HttpTracker httpTracker;
   private ResourceTracker allTracker;
+  private ModelClassProviderTracker modelTracker;
+  static Activator INSTANCE;
 
   @Override
   public void start( BundleContext context ) throws Exception {
     startJerseyServer();
+    INSTANCE = this;
     jaxRsConnector = new JAXRSConnector( context );
     registration = context.registerService( JAXRSConnector.class.getName(), jaxRsConnector, null );
+    
     openHttpServiceTracker( context );
+    openModelClassesTracker( context );
     openAllServiceTracker( context );
   }
 
@@ -49,6 +54,11 @@ public class Activator implements BundleActivator {
     httpTracker = new HttpTracker( context, jaxRsConnector );
     httpTracker.open();
   }
+  
+  private void openModelClassesTracker(BundleContext context) {
+    modelTracker = new ModelClassProviderTracker( context );
+    modelTracker.open();
+  }
 
   private void openAllServiceTracker( BundleContext context ) throws InvalidSyntaxException {
     Filter filter = context.createFilter( ResourceTracker.ANY_SERVICE_FILTER );
@@ -60,11 +70,18 @@ public class Activator implements BundleActivator {
   public void stop( BundleContext context ) throws Exception {
     httpTracker.close();
     allTracker.close();
+    modelTracker.close();
     registration.unregister();
+    INSTANCE = null;
   }
 
   // For testing purpose
   Bundle getJerseyServerBundle() {
     return FrameworkUtil.getBundle( ResourceConfig.class );
+  }
+  
+  
+  void registerJaxbcontextProvider( DelegatingJAXBContextProvider jaxbcontextProvider ) {
+    modelTracker.addDelegatingJAXBContextProvider( jaxbcontextProvider );
   }
 }

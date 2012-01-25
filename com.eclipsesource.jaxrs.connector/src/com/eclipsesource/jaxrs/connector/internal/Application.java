@@ -23,6 +23,7 @@ public class Application extends DefaultResourceConfig {
 
   public Application() {
     resources = new LinkedList<Object>();
+    getClasses().add( DelegatingJAXBContextProvider.class );
   }
   
   void addResource( Object resource ) {
