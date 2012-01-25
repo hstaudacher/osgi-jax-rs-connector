@@ -18,3 +18,4 @@ Import-Package: com.sun.jersey.api.core,
  org.osgi.framework;version="[1.6.0,2.0.0)",
  org.osgi.service.http;version="[1.2.1,2.0.0)",
  org.osgi.util.tracker;version="[1.5.0,2.0.0)"
+Export-Package: com.eclipsesource.jaxrs.connector
