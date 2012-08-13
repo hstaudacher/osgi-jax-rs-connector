@@ -2,7 +2,7 @@
 <feature
       id="com.eclipsesource.jaxrs.connector.feature"
       label="OSGi - JAX-RS Connector"
-      version="1.0.4.qualifier"
+      version="1.0.5.qualifier"
       provider-name="EclipseSource">
 
    <description>
@@ -25,7 +25,7 @@
          unpack="false"/>
 
    <plugin
-         id="com.sun.jersey.jersey-core"
+         id="com.sun.jersey.core"
          download-size="0"
          install-size="0"
          version="0.0.0"
@@ -39,7 +39,7 @@
          unpack="false"/>
 
    <plugin
-         id="com.sun.jersey.jersey-servlet"
+         id="com.sun.jersey.servlet"
          download-size="0"
          install-size="0"
          version="0.0.0"
