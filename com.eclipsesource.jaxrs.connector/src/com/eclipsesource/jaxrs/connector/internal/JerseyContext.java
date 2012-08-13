@@ -100,7 +100,11 @@ public class JerseyContext {
 
   public List<Object> eliminate() {
     getServletContainer().destroy();
-    httpService.unregister( APPLICATION_ROOT );
+    try {
+      httpService.unregister( APPLICATION_ROOT );
+    } catch( IllegalArgumentException iae ) {
+      // do nothing
+    }
     return getRootApplication().getResources();
   }
 
