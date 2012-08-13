@@ -10,6 +10,8 @@
  ******************************************************************************/
 package com.eclipsesource.jaxrs.connector.internal;
 
+import javax.ws.rs.Path;
+
 import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleActivator;
 import org.osgi.framework.BundleContext;
@@ -18,8 +20,6 @@ import org.osgi.framework.Filter;
 import org.osgi.framework.FrameworkUtil;
 import org.osgi.framework.InvalidSyntaxException;
 import org.osgi.framework.ServiceRegistration;
-
-import com.sun.jersey.api.core.ResourceConfig;
 
 
 public class Activator implements BundleActivator {
@@ -39,7 +39,7 @@ public class Activator implements BundleActivator {
   }
 
   private void startJerseyServer() throws BundleException {
-    Bundle bundle = getJerseyServerBundle();
+    Bundle bundle = getJerseyAPIBundle();
     if( bundle.getState() != Bundle.ACTIVE ) {
       bundle.start();
     }
@@ -64,7 +64,7 @@ public class Activator implements BundleActivator {
   }
 
   // For testing purpose
-  Bundle getJerseyServerBundle() {
-    return FrameworkUtil.getBundle( ResourceConfig.class );
+  Bundle getJerseyAPIBundle() {
+    return FrameworkUtil.getBundle( Path.class );
   }
 }

@@ -9,12 +9,13 @@ Bundle-Localization: plugin
 Bundle-Activator: com.eclipsesource.jaxrs.connector.internal.Activator
 Bundle-ActivationPolicy: lazy
 Import-Package: com.sun.jersey.api.core,
- com.sun.jersey.spi.container.servlet,
+ com.sun.jersey.server.impl.container,
+ com.sun.jersey.spi.container.servlet;version="[1.13.0,2.0.0)",
  javax.servlet;version="[2.3.0,4.0.0)",
  javax.servlet.http;version="[2.3.0,4.0.0)",
- javax.ws.rs,
- javax.ws.rs.core,
- javax.ws.rs.ext,
+ javax.ws.rs;version="[1.1.1,1.2.0)",
+ javax.ws.rs.core;version="[1.1.1,1.2.0)",
+ javax.ws.rs.ext;version="[1.1.1,1.2.0)",
  org.osgi.framework;version="[1.6.0,2.0.0)",
  org.osgi.service.http;version="[1.2.0,2.0.0)",
  org.osgi.util.tracker;version="[1.5.0,2.0.0)"

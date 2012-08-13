@@ -51,7 +51,7 @@ public class Activator_Test {
   public void setUp() throws InvalidSyntaxException {
     Activator original = new Activator();
     activator = spy( original );
-    doReturn( jerseyServer ).when( activator ).getJerseyServerBundle();
+    doReturn( jerseyServer ).when( activator ).getJerseyAPIBundle();
     Filter filter = mock( Filter.class );
     when( context.createFilter( anyString() ) ).thenReturn( filter );
     when( context.registerService( anyString(), 

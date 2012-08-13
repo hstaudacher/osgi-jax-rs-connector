@@ -17,6 +17,7 @@ import javax.servlet.ServletException;
 import org.osgi.service.http.HttpService;
 import org.osgi.service.http.NamespaceException;
 
+import com.sun.jersey.server.impl.container.WebApplicationProviderImpl;
 import com.sun.jersey.spi.container.servlet.ServletContainer;
 
 
@@ -39,7 +40,13 @@ public class JerseyContext {
     getRootApplication().addResource( resource );
     registerServletWhenNotAlreadyRegistered();
     if( isApplicationRegistered ) {
-      getServletContainer().reload();
+      ClassLoader original = Thread.currentThread().getContextClassLoader();
+      try {
+        Thread.currentThread().setContextClassLoader( WebApplicationProviderImpl.class.getClassLoader() );
+        getServletContainer().reload();
+      } finally {
+        Thread.currentThread().setContextClassLoader( original );
+      }
     }
   }
 
@@ -73,10 +80,17 @@ public class JerseyContext {
   }
 
   private void registerServlet() throws ServletException, NamespaceException {
-    httpService.registerServlet( APPLICATION_ROOT, 
-                                 getServletContainer(), 
-                                 null, 
-                                 null );
+    ClassLoader original = Thread.currentThread().getContextClassLoader();
+    try {
+      Thread.currentThread().setContextClassLoader( WebApplicationProviderImpl.class.getClassLoader() );
+      httpService.registerServlet( APPLICATION_ROOT, 
+                                   getServletContainer(), 
+                                   null, 
+                                   null );
+    } finally {
+      Thread.currentThread().setContextClassLoader( original );
+    }
+    
   }
 
   private void resetContextClassloader( ClassLoader loader ) {
