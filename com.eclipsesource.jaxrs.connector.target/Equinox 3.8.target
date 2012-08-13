@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <?pde version="3.8"?>
 
-<target name="Equinox 3.8M4" sequenceNumber="2">
+<target name="Equinox 3.8M4" sequenceNumber="3">
 <locations>
 <location path="${project_loc:com.eclipsesource.jaxrs.connector.target}/jersey" type="Directory"/>
 <location path="${project_loc:com.eclipsesource.jaxrs.connector.target}/testing" type="Directory"/>
@@ -9,7 +9,7 @@
 <unit id="org.eclipse.equinox.compendium.sdk.feature.group" version="3.8.0.v20120522-1841-7X7eGb7FPGjtJjv1kjS_NdG"/>
 <unit id="org.eclipse.equinox.core.sdk.feature.group" version="3.8.0.v20120522-1813-85FAcGbBFoYTldHrOJw3cF4q"/>
 <unit id="org.eclipse.equinox.serverside.sdk.feature.group" version="3.8.0.v20120522-1841-9Q7dFszFYGis9uYGz0QodZP3fH0t"/>
-<repository location="http://download.eclipse.org/eclipse/updates/3.8milestones"/>
+<repository location="http://download.eclipse.org/eclipse/updates/3.8"/>
 </location>
 </locations>
 </target>
