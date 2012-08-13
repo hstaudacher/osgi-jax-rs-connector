@@ -13,6 +13,7 @@ package com.eclipsesource.jaxrs.connector.internal;
 import java.util.List;
 
 import javax.servlet.ServletException;
+import javax.ws.rs.core.Request;
 
 import org.osgi.service.http.HttpService;
 import org.osgi.service.http.NamespaceException;
@@ -42,7 +43,7 @@ public class JerseyContext {
     if( isApplicationRegistered ) {
       ClassLoader original = Thread.currentThread().getContextClassLoader();
       try {
-        Thread.currentThread().setContextClassLoader( WebApplicationProviderImpl.class.getClassLoader() );
+        Thread.currentThread().setContextClassLoader( Request.class.getClassLoader() );
         getServletContainer().reload();
       } finally {
         Thread.currentThread().setContextClassLoader( original );
