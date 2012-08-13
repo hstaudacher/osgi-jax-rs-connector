@@ -132,7 +132,7 @@ public class JAXRSConnector {
     ServiceHolder<HttpService>[] serviceHolders = httpServices.getServices();
     HttpService result = null;
     for( ServiceHolder<HttpService> serviceHolder : serviceHolders ) {
-      Object servicePort = serviceHolder.getReference().getProperty( RESOURCE_HTTP_PORT_PROPERTY );
+      Object servicePort = getPort( serviceHolder );
       if( servicePort.equals( port ) ) {
         result = serviceHolder.getService();
       }
