@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: %Bundle-Name
 Bundle-SymbolicName: com.eclipsesource.jaxrs.connector
-Bundle-Version: 1.0.6.qualifier
+Bundle-Version: 2.0.0.qualifier
 Bundle-Vendor: %Bundle-Name
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Bundle-Localization: plugin
@@ -17,5 +17,6 @@ Import-Package: com.sun.jersey.api.core,
  javax.ws.rs.core;version="[1.1.1,1.2.0)",
  javax.ws.rs.ext;version="[1.1.1,1.2.0)",
  org.osgi.framework;version="[1.6.0,2.0.0)",
+ org.osgi.service.cm;version="[1.4.0,2.0.0)",
  org.osgi.service.http;version="[1.2.0,2.0.0)",
  org.osgi.util.tracker;version="[1.5.0,2.0.0)"

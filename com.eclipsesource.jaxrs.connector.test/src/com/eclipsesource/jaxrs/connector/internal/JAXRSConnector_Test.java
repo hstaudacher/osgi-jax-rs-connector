@@ -13,7 +13,9 @@ package com.eclipsesource.jaxrs.connector.internal;
 import static org.junit.Assert.assertSame;
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.anyString;
+import static org.mockito.Matchers.eq;
 import static org.mockito.Mockito.doReturn;
+import static org.mockito.Mockito.inOrder;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.spy;
@@ -26,6 +28,7 @@ import java.util.ArrayList;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.InOrder;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 import org.osgi.framework.BundleContext;
@@ -51,7 +54,7 @@ public class JAXRSConnector_Test {
   public void setUp() {
     JAXRSConnector original = new JAXRSConnector( bundleContext );
     connector = spy( original );
-    doReturn( jerseyContext ).when( connector ).createJerseyContext( any( HttpService.class ) );
+    doReturn( jerseyContext ).when( connector ).createJerseyContext( any( HttpService.class ), anyString() );
   }
   
   @Test
@@ -103,6 +106,24 @@ public class JAXRSConnector_Test {
     connector.addHttpService( httpServiceReference );
     
     verify( jerseyContext ).addResource( resource );
+  }
+  
+  @SuppressWarnings( "unchecked" )
+  @Test
+  public void testUpdatePath() {
+    mockHttpService();
+    Object resource = new Object();
+    when( bundleContext.getService( resourceServiceReference ) ).thenReturn( resource );
+    
+    connector.addResource( resourceServiceReference );
+    connector.addHttpService( httpServiceReference );
+    connector.updatePath( "/test" );
+    
+    InOrder order = inOrder( connector );
+    order.verify( connector ).createJerseyContext( any( HttpService.class ), anyString() );
+    order.verify( connector ).doRemoveHttpService( any( HttpService.class ) );
+    order.verify( connector ).doAddHttpService( any( ServiceReference.class ) );
+    order.verify( connector ).createJerseyContext( any( HttpService.class ), eq( "/test" ) );
   }
   
   @Test

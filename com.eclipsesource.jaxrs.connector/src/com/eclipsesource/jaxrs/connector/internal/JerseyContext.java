@@ -24,15 +24,15 @@ import com.sun.jersey.spi.container.servlet.ServletContainer;
 
 public class JerseyContext {
 
-  static final String APPLICATION_ROOT = "/";
-
   private final Application application;
   private final ServletContainer servletContainer;
   private final HttpService httpService;
+  private final String rootPath;
   private boolean isApplicationRegistered;
 
-  public JerseyContext( HttpService httpService ) {
+  public JerseyContext( HttpService httpService, String rootPath ) {
     this.httpService = httpService;
+    this.rootPath = rootPath == null ? "/services" : rootPath;
     this.application = new Application();
     this.servletContainer = new ServletContainer( application );
   }
@@ -41,12 +41,12 @@ public class JerseyContext {
     getRootApplication().addResource( resource );
     registerServletWhenNotAlreadyRegistered();
     if( isApplicationRegistered ) {
-      ClassLoader original = Thread.currentThread().getContextClassLoader();
+      ClassLoader original = getContextClassloader();
       try {
         Thread.currentThread().setContextClassLoader( Request.class.getClassLoader() );
         getServletContainer().reload();
       } finally {
-        Thread.currentThread().setContextClassLoader( original );
+        resetContextClassloader( original );
       }
     }
   }
@@ -81,17 +81,16 @@ public class JerseyContext {
   }
 
   private void registerServlet() throws ServletException, NamespaceException {
-    ClassLoader original = Thread.currentThread().getContextClassLoader();
+    ClassLoader original = getContextClassloader();
     try {
       Thread.currentThread().setContextClassLoader( WebApplicationProviderImpl.class.getClassLoader() );
-      httpService.registerServlet( APPLICATION_ROOT, 
+      httpService.registerServlet( rootPath, 
                                    getServletContainer(), 
                                    null, 
                                    null );
     } finally {
-      Thread.currentThread().setContextClassLoader( original );
+      resetContextClassloader( original );
     }
-    
   }
 
   private void resetContextClassloader( ClassLoader loader ) {
@@ -108,7 +107,7 @@ public class JerseyContext {
 
   private void unregisterServletWhenNoresourcePresents() {
     if( !getRootApplication().hasResources() ) {
-      httpService.unregister( APPLICATION_ROOT );
+      httpService.unregister( rootPath );
       isApplicationRegistered = false;
     }
   }
@@ -116,7 +115,7 @@ public class JerseyContext {
   public List<Object> eliminate() {
     getServletContainer().destroy();
     try {
-      httpService.unregister( APPLICATION_ROOT );
+      httpService.unregister( rootPath );
     } catch( IllegalArgumentException iae ) {
       // do nothing
     }

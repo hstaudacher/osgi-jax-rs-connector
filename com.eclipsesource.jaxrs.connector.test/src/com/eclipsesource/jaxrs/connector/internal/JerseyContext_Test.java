@@ -52,7 +52,7 @@ public class JerseyContext_Test {
 
   @Before
   public void setUp() {
-    JerseyContext original = new JerseyContext( httpService );
+    JerseyContext original = new JerseyContext( httpService, "/test" );
     jerseyContext = spy( original );
     doReturn( servletContainer ).when( jerseyContext ).getServletContainer();
     doReturn( rootApplication ).when( jerseyContext ).getRootApplication();
@@ -65,7 +65,7 @@ public class JerseyContext_Test {
     jerseyContext.addResource( resource );
     
     verify( rootApplication ).addResource( resource );
-    verify( httpService ).registerServlet( JerseyContext.APPLICATION_ROOT, servletContainer, null, null );
+    verify( httpService ).registerServlet( "/test", servletContainer, null, null );
   }
   
   @Test
@@ -78,8 +78,8 @@ public class JerseyContext_Test {
 
     verify( rootApplication ).addResource( resource );
     verify( rootApplication ).removeResource( resource );
-    verify( httpService ).registerServlet( JerseyContext.APPLICATION_ROOT, servletContainer, null, null );
-    verify( httpService ).unregister( JerseyContext.APPLICATION_ROOT );
+    verify( httpService ).registerServlet( "/test", servletContainer, null, null );
+    verify( httpService ).unregister( "/test" );
   }
   
   @Test
@@ -96,8 +96,8 @@ public class JerseyContext_Test {
     verify( rootApplication ).addResource( resource );
     verify( rootApplication ).addResource( resource2 );
     verify( rootApplication ).removeResource( resource );
-    verify( httpService ).registerServlet( JerseyContext.APPLICATION_ROOT, servletContainer, null, null );
-    verify( httpService, never() ).unregister( JerseyContext.APPLICATION_ROOT );
+    verify( httpService ).registerServlet( "/test", servletContainer, null, null );
+    verify( httpService, never() ).unregister( "/test" );
   }
   
   
@@ -112,7 +112,7 @@ public class JerseyContext_Test {
     List<Object> resources = jerseyContext.eliminate();
     
     verify( rootApplication ).addResource( resource );
-    verify( httpService ).unregister( JerseyContext.APPLICATION_ROOT );
+    verify( httpService ).unregister( "/test" );
     verify( servletContainer ).destroy();
     assertEquals( list, resources );
   }

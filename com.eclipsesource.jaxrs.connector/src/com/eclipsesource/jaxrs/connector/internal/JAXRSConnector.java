@@ -34,6 +34,7 @@ public class JAXRSConnector {
   private final Map<HttpService, JerseyContext> contextMap;
   private final BundleContext bundleContext;
   private final List<ServiceHolder<?>> resourceCache;
+  private String rootPath;
 
   JAXRSConnector( BundleContext bundleContext ) {
     this.bundleContext = bundleContext;
@@ -43,16 +44,31 @@ public class JAXRSConnector {
     this.resourceCache = new ArrayList<ServiceHolder<?>>();
   }
   
+  void updatePath( String rootPath ) {
+    synchronized( lock ) {
+      doUpdatePath( rootPath );
+    }
+  }
+
+  private void doUpdatePath( String rootPath ) {
+    this.rootPath = rootPath;
+    ServiceHolder<HttpService>[] services = httpServices.getServices();
+    for( ServiceHolder<HttpService> serviceHolder : services ) {
+      doRemoveHttpService( serviceHolder.getService() );
+      doAddHttpService( serviceHolder.getReference() );
+    }
+  }
+  
   HttpService addHttpService( ServiceReference<HttpService> reference ) {
     synchronized( lock ) {
       return doAddHttpService( reference );
     }
   }
 
-  private HttpService doAddHttpService( ServiceReference<HttpService> reference ) {
+  HttpService doAddHttpService( ServiceReference<HttpService> reference ) {
     ServiceHolder<HttpService> serviceHolder = httpServices.add( reference );
     HttpService service = serviceHolder.getService();
-    contextMap.put( service, createJerseyContext( service ) );
+    contextMap.put( service, createJerseyContext( service, rootPath ) );
     clearCache();
     return service;
   }
@@ -71,7 +87,7 @@ public class JAXRSConnector {
     }
   }
 
-  private void doRemoveHttpService( HttpService service ) {
+  void doRemoveHttpService( HttpService service ) {
     JerseyContext context = contextMap.remove( service );
     if( context != null ) {
       cacheFreedResources( context );
@@ -162,8 +178,8 @@ public class JAXRSConnector {
   }
 
   // For testing purpose
-  JerseyContext createJerseyContext( HttpService service ) {
-    return new JerseyContext( service );
+  JerseyContext createJerseyContext( HttpService service, String rootPath ) {
+    return new JerseyContext( service, rootPath );
   }
   
 }
