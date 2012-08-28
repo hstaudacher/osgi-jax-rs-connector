@@ -19,6 +19,12 @@ OSGi Configuration Admin Service).
 **New in 2.0:** Use the config admin to specify the root path. The default root path is /services. You can configure the path by 
 specifying a config with the service.pid **com.eclipsesource.jaxrs.connector** and the property **root*. The path needs to be a valid servlet path e.g. "/api".
 
+Alternatives
+------------
+
+* [Neil Bartlett's jaxrs-osgi-extender](https://github.com/njbartlett/jaxrs-osgi-extender)
+* OSGi Remote Services (e.g. [Apache CXF](http://cxf.apache.org/distributed-osgi-reference.html#DistributedOSGiReference-ServiceProviderpropertiesForConfiguringRESTfulJAXRSbasedendpointsandconsumers))
+
 Requirements
 ------------
 
