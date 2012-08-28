@@ -17,7 +17,7 @@ To publish services on different ports the *http.port* service property can be u
 The connector detects configuration changes during runtime (e.g. when done by the 
 OSGi Configuration Admin Service).  
 **New in 2.0:** Use the config admin to specify the root path. The default root path is /services. You can configure the path by 
-specifying a config with the service.pid **com.eclipsesource.jaxrs.connector** and the property **root*. The path needs to be a valid servlet path e.g. "/api".
+specifying a config with the service.pid **com.eclipsesource.jaxrs.connector** and the property **root**. The path needs to be a valid servlet path e.g. "/api".
 
 Alternatives
 ------------
