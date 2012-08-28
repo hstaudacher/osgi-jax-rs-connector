@@ -42,7 +42,7 @@ Installation
 Install from this software repository into your target: http://hstaudacher.github.com/osgi-jax-rs-connector 
 or download the binaries:
 
-* [com.eclipsesource.jaxrs.connector_2.0.0.201208151950.jar](http://hstaudacher.github.com/osgi-jax-rs-connector/plugins/com.eclipsesource.jaxrs.connector_2.0.0.201208151950.jar) - [(src bundle)](http://hstaudacher.github.com/osgi-jax-rs-connector/plugins/com.eclipsesource.jaxrs.connector.source_2.0.0.201208151950.jar)
+* [com.eclipsesource.jaxrs.connector_2.0.0.201208151950.jar](http://hstaudacher.github.com/osgi-jax-rs-connector/plugins/com.eclipsesource.jaxrs.connector_2.0.0.201208151950.jar) - ([src bundle](http://hstaudacher.github.com/osgi-jax-rs-connector/plugins/com.eclipsesource.jaxrs.connector.source_2.0.0.201208151950.jar))
 * [com.sun.jersey.core_1.13.0.jar](http://hstaudacher.github.com/osgi-jax-rs-connector/plugins/com.sun.jersey.core_1.13.0.jar)  
 * [com.sun.jersey.jersey-server_1.13.0.jar](http://hstaudacher.github.com/osgi-jax-rs-connector/plugins/com.sun.jersey.jersey-server_1.13.0.jar)
 * [com.sun.jersey.servlet_1.13.0.jar](http://hstaudacher.github.com/osgi-jax-rs-connector/plugins/com.sun.jersey.servlet_1.13.0.jar)  
