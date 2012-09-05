@@ -11,6 +11,7 @@
 package com.eclipsesource.jaxrs.connector.internal;
 
 import javax.ws.rs.Path;
+import javax.ws.rs.ext.Provider;
 
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.Filter;
@@ -66,7 +67,8 @@ public class ResourceTracker extends ServiceTracker {
   }
 
   private boolean isResource( Object service ) {
-    return service != null && service.getClass().isAnnotationPresent( Path.class );
+    return service != null && ( service.getClass().isAnnotationPresent( Path.class ) ||
+        service.getClass().isAnnotationPresent( Provider.class ));
   }
   
 }
