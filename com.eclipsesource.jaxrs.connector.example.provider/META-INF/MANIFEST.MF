@@ -1,0 +1,11 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: OSGi JAX-RS Connector DS Provider Example
+Bundle-SymbolicName: com.eclipsesource.jaxrs.connector.example.provider
+Bundle-Version: 1.0.0.qualifier
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Import-Package: javax.ws.rs,
+ javax.ws.rs.core,
+ javax.ws.rs.ext
+Service-Component: OSGI-INF/ProductService.xml, OSGI-INF/ProductProvider.xml
+ 
