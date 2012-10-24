@@ -1,4 +1,4 @@
-OSGi - JAX-RS Connector 2.0.0
+OSGi - JAX-RS Connector 2.1.0
 =============================
 
 [JAX-RS (JSR 311)](http://jsr311.java.net/) is the community-driven Standard for 
@@ -16,8 +16,12 @@ Services can be added or removed during runtime and will be published or postpon
 To publish services on different ports the *http.port* service property can be used.
 The connector detects configuration changes during runtime (e.g. when done by the 
 OSGi Configuration Admin Service).  
+
 **New in 2.0:** Use the config admin to specify the root path. The default root path is /services. You can configure the path by 
-specifying a config with the service.pid **com.eclipsesource.jaxrs.connector** and the property **root**. The path needs to be a valid servlet path e.g. "/api".
+specifying a config with the service.pid **com.eclipsesource.jaxrs.connector** and the property **root**. The path needs to be a valid servlet path e.g. "/api".  
+
+**New in 2.1:** Besides @Path annotated object it's now possible to register @Provider annotated objects as OSGi services too. Thanks to Dirk Lecluse for this contribution.
+
 
 Alternatives
 ------------
@@ -42,7 +46,7 @@ Installation
 Install from this software repository into your target: http://hstaudacher.github.com/osgi-jax-rs-connector 
 or download the binaries:
 
-* [com.eclipsesource.jaxrs.connector_2.0.0.201208151950.jar](http://hstaudacher.github.com/osgi-jax-rs-connector/plugins/com.eclipsesource.jaxrs.connector_2.0.0.201208151950.jar) - ([src bundle](http://hstaudacher.github.com/osgi-jax-rs-connector/plugins/com.eclipsesource.jaxrs.connector.source_2.0.0.201208151950.jar))
+* [com.eclipsesource.jaxrs.connector_2.1.0.201210242039.jar](http://hstaudacher.github.com/osgi-jax-rs-connector/plugins/com.eclipsesource.jaxrs.connector_2.1.0.201210242039.jar) - ([src bundle](http://hstaudacher.github.com/osgi-jax-rs-connector/plugins/com.eclipsesource.jaxrs.connector.source_2.1.0.201210242039.jar))
 * [com.sun.jersey.core_1.13.0.jar](http://hstaudacher.github.com/osgi-jax-rs-connector/plugins/com.sun.jersey.core_1.13.0.jar)  
 * [com.sun.jersey.jersey-server_1.13.0.jar](http://hstaudacher.github.com/osgi-jax-rs-connector/plugins/com.sun.jersey.jersey-server_1.13.0.jar)
 * [com.sun.jersey.servlet_1.13.0.jar](http://hstaudacher.github.com/osgi-jax-rs-connector/plugins/com.sun.jersey.servlet_1.13.0.jar)  
