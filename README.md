@@ -10,17 +10,17 @@ RESTful web services by simply registering them as OSGi services ;).
 Features
 --------
 
-When the com.eclipsesource.jaxrs.connector bundle is activated all @Path annotated
+When the `com.eclipsesource.jaxrs.connector` bundle is activated all `@Path`/`@Provider` annotated
 objects that are registered as OSGi services will be published as RESTful web services.
 Services can be added or removed during runtime and will be published or postponed.
-To publish services on different ports the *http.port* service property can be used.
+To publish services on different ports the `http.port` service property can be used.
 The connector detects configuration changes during runtime (e.g. when done by the 
 OSGi Configuration Admin Service).  
 
 **New in 2.0:** Use the config admin to specify the root path. The default root path is /services. You can configure the path by 
-specifying a config with the service.pid **com.eclipsesource.jaxrs.connector** and the property **root**. The path needs to be a valid servlet path e.g. "/api".  
+specifying a config with the service.pid `com.eclipsesource.jaxrs.connector` and the property `root`. The path needs to be a valid servlet path e.g. "/api".  
 
-**New in 2.1:** Besides @Path annotated object it's now possible to register @Provider annotated objects as OSGi services too. Thanks to Dirk Lecluse for this contribution.
+**New in 2.1:** Besides `@Path` annotated object it's now possible to register `@Provider` annotated objects as OSGi services too. Thanks to Dirk Lecluse for this contribution.
 
 
 Alternatives
@@ -60,6 +60,14 @@ Usage
 * Add the com.eclipsesource.jaxrs.connector and the 3 Jersey bundles to your OSGi instance.
 * Convert some OSGi service to resources like in [this tutorial](http://jersey.java.net/nonav/documentation/latest/getting-started.html#d4e45)
 * Point your client to the specified url
+
+Examples
+--------
+This git repository contains two example bundles. A @Path annotated resource will be registred in `com.eclipsesource.jaxrs.connector.example` 
+and `com.eclipsesource.jaxrs.connector.example.ds`. In the `ds` bundle OSGi Declarative Services will be used to register
+the service and it provides an additional example for @Provider annotated providers. If you want to run the examples within
+your Eclipse IDE use the launch configurations located in the bundles.  
+After you have started the bundles a service will be available at `http://localhost:9090/services/example`.
 
 License
 -------
