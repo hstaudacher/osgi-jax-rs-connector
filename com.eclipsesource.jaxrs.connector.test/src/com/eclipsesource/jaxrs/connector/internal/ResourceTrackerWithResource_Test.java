@@ -31,7 +31,7 @@ import org.osgi.framework.ServiceReference;
 
 @RunWith( MockitoJUnitRunner.class )
 @SuppressWarnings( { "rawtypes", "unchecked" } )
-public class ResourceTracker_Test {
+public class ResourceTrackerWithResource_Test {
   
   private ResourceTracker resourceTracker;
   @Mock

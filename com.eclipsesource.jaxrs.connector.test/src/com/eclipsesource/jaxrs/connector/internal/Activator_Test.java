@@ -33,6 +33,7 @@ import org.osgi.framework.BundleContext;
 import org.osgi.framework.Filter;
 import org.osgi.framework.InvalidSyntaxException;
 import org.osgi.framework.ServiceRegistration;
+import org.osgi.service.cm.ManagedService;
 
 
 @RunWith( MockitoJUnitRunner.class )
@@ -43,7 +44,9 @@ public class Activator_Test {
   @Mock
   private BundleContext context;
   @Mock
-  private ServiceRegistration registration;
+  private ServiceRegistration connectorRegistration;
+  @Mock
+  private ServiceRegistration configRegistration;
   @Mock
   private Bundle jerseyServer;
 
@@ -54,18 +57,23 @@ public class Activator_Test {
     doReturn( jerseyServer ).when( activator ).getJerseyAPIBundle();
     Filter filter = mock( Filter.class );
     when( context.createFilter( anyString() ) ).thenReturn( filter );
-    when( context.registerService( anyString(), 
+    when( context.registerService( eq( JAXRSConnector.class.getName() ), 
                                    anyObject(), 
-                                   any( Dictionary.class ) ) ).thenReturn( registration );
+                                   any( Dictionary.class ) ) ).thenReturn( connectorRegistration );
+    when( context.registerService( eq( ManagedService.class.getName() ), 
+                                   anyObject(), 
+                                   any( Dictionary.class ) ) ).thenReturn( configRegistration );
   }
   
   @Test
   public void testRegisterService() throws Exception {
-    
     activator.start( context );
     
     verify( context ).registerService( eq( JAXRSConnector.class.getName() ), 
                                        any( JAXRSConnector.class ), 
+                                       any( Dictionary.class ) );
+    verify( context ).registerService( eq( ManagedService.class.getName() ), 
+                                       any( Configuration.class ), 
                                        any( Dictionary.class ) );
   }
   
@@ -75,7 +83,8 @@ public class Activator_Test {
     
     activator.stop( context );
     
-    verify( registration ).unregister();
+    verify( connectorRegistration ).unregister();
+    verify( configRegistration ).unregister();
   }
   
   @Test

@@ -19,7 +19,8 @@ import com.eclipsesource.jaxrs.connector.internal.Configuration_Test;
 import com.eclipsesource.jaxrs.connector.internal.HttpTracker_Test;
 import com.eclipsesource.jaxrs.connector.internal.JAXRSConnector_Test;
 import com.eclipsesource.jaxrs.connector.internal.JerseyContext_Test;
-import com.eclipsesource.jaxrs.connector.internal.ResourceTracker_Test;
+import com.eclipsesource.jaxrs.connector.internal.ResourceTrackerWithProvider_Test;
+import com.eclipsesource.jaxrs.connector.internal.ResourceTrackerWithResource_Test;
 import com.eclipsesource.jaxrs.connector.internal.RootApplication_Test;
 import com.eclipsesource.jaxrs.connector.internal.ServiceContainer_Test;
 
@@ -31,7 +32,8 @@ import com.eclipsesource.jaxrs.connector.internal.ServiceContainer_Test;
   Activator_Test.class,
   ServiceContainer_Test.class,
   HttpTracker_Test.class,
-  ResourceTracker_Test.class,
+  ResourceTrackerWithResource_Test.class,
+  ResourceTrackerWithProvider_Test.class,
   JerseyContext_Test.class,
   Configuration_Test.class
 } )

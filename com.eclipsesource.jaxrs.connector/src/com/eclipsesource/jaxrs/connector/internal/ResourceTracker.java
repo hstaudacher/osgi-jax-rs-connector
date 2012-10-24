@@ -6,11 +6,13 @@
  * http://www.eclipse.org/legal/epl-v10.html
  *
  * Contributors:
- *    Holger Staudacher - initial API and implementation
+ *    Holger Staudacher - initial API and implementation, ongoing development
+ *    Dirk Lecluse - added tracking of Provider classes
  ******************************************************************************/
 package com.eclipsesource.jaxrs.connector.internal;
 
 import javax.ws.rs.Path;
+import javax.ws.rs.ext.Provider;
 
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.Filter;
@@ -66,7 +68,12 @@ public class ResourceTracker extends ServiceTracker {
   }
 
   private boolean isResource( Object service ) {
-    return service != null && service.getClass().isAnnotationPresent( Path.class );
+    return service != null && hasRegisterableAnnotation( service );
+  }
+
+  private boolean hasRegisterableAnnotation( Object service ) {
+    return service.getClass().isAnnotationPresent( Path.class ) 
+           || service.getClass().isAnnotationPresent( Provider.class );
   }
   
 }
