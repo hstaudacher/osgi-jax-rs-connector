@@ -59,8 +59,9 @@ Usage
 * For Eclipse: Add the com.eclipsesource.jaxrs.connector.feature (OSGi JAX-RS Connector) to your target using the url above.
 * Add the com.eclipsesource.jaxrs.connector and the 3 Jersey bundles to your OSGi instance.
 * Convert some OSGi service to resources like in [this tutorial](http://jersey.java.net/nonav/documentation/latest/getting-started.html#d4e45)
-* Point your client to the specified url. Don't forget that the default root path is /services. So registering a 
-service with the path /example would lead to /services/example.
+* Point your client to the specified url. Don't forget that the default root path is `/services`. So registering a 
+service with the path `/example` would lead to `/services/example`.  
+
 Examples
 --------
 This git repository contains two example bundles. A @Path annotated resource will be registred in `com.eclipsesource.jaxrs.connector.example` 
