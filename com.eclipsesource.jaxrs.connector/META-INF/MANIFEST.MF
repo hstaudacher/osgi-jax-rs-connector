@@ -2,15 +2,15 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: %Bundle-Name
 Bundle-SymbolicName: com.eclipsesource.jaxrs.connector
-Bundle-Version: 2.1.0.qualifier
+Bundle-Version: 2.1.1.qualifier
 Bundle-Vendor: %Bundle-Name
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Bundle-Localization: plugin
 Bundle-Activator: com.eclipsesource.jaxrs.connector.internal.Activator
 Bundle-ActivationPolicy: lazy
-Import-Package: com.sun.jersey.api.core,
- com.sun.jersey.server.impl.container,
- com.sun.jersey.spi.container.servlet;version="[1.13.0,2.0.0)",
+Import-Package: com.sun.jersey.api.core;version="[1.15.0,2.0.0)",
+ com.sun.jersey.server.impl.container;version="[1.15.0,2.0.0)",
+ com.sun.jersey.spi.container.servlet;version="[1.15.0,2.0.0)",
  javax.servlet;version="[2.3.0,4.0.0)",
  javax.servlet.http;version="[2.3.0,4.0.0)",
  javax.ws.rs;version="[1.1.1,1.2.0)",
