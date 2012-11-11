@@ -1,4 +1,4 @@
-OSGi - JAX-RS Connector 2.1.0
+OSGi - JAX-RS Connector 2.1.1
 =============================
 
 [JAX-RS (JSR 311)](http://jsr311.java.net/) is the community-driven Standard for 
@@ -22,6 +22,8 @@ specifying a config with the service.pid `com.eclipsesource.jaxrs.connector` and
 
 **New in 2.1:** Besides `@Path` annotated object it's now possible to register `@Provider` annotated objects as OSGi services too. Thanks to Dirk Lecluse for this contribution.
 
+**New in 2.1.1:** Updated included Jersey Version (1.15)
+
 
 Alternatives
 ------------
@@ -38,7 +40,7 @@ Requirements
 Jersey version
 --------------
 
-Jersey 1.13 is included in the software repository.
+Jersey 1.15 is included in the software repository.
 
 Installation
 ------------
@@ -47,9 +49,9 @@ Install from this software repository into your target: http://hstaudacher.githu
 or download the binaries:
 
 * [com.eclipsesource.jaxrs.connector_2.1.0.201210242039.jar](http://hstaudacher.github.com/osgi-jax-rs-connector/plugins/com.eclipsesource.jaxrs.connector_2.1.0.201210242039.jar) - ([src bundle](http://hstaudacher.github.com/osgi-jax-rs-connector/plugins/com.eclipsesource.jaxrs.connector.source_2.1.0.201210242039.jar))
-* [com.sun.jersey.core_1.13.0.jar](http://hstaudacher.github.com/osgi-jax-rs-connector/plugins/com.sun.jersey.core_1.13.0.jar)  
-* [com.sun.jersey.jersey-server_1.13.0.jar](http://hstaudacher.github.com/osgi-jax-rs-connector/plugins/com.sun.jersey.jersey-server_1.13.0.jar)
-* [com.sun.jersey.servlet_1.13.0.jar](http://hstaudacher.github.com/osgi-jax-rs-connector/plugins/com.sun.jersey.servlet_1.13.0.jar)  
+* [com.sun.jersey.core_1.15.0.jar](http://hstaudacher.github.com/osgi-jax-rs-connector/plugins/com.sun.jersey.core_1.15.0.jar)  
+* [com.sun.jersey.jersey-server_1.15.0.jar](http://hstaudacher.github.com/osgi-jax-rs-connector/plugins/com.sun.jersey.jersey-server_1.15.0.jar)
+* [com.sun.jersey.servlet_1.15.0.jar](http://hstaudacher.github.com/osgi-jax-rs-connector/plugins/com.sun.jersey.servlet_1.15.0.jar)  
 
 If dependencies can't be satisfied please disable "include required software" within the target editor.
 
@@ -68,11 +70,11 @@ This git repository contains two example bundles. A @Path annotated resource wil
 and `com.eclipsesource.jaxrs.connector.example.ds`. In the `ds` bundle OSGi Declarative Services will be used to register
 the service and it provides an additional example for @Provider annotated providers. If you want to run the examples within
 your Eclipse IDE use the launch configurations located in the bundles.  
-After you have started the bundles a service will be available at `http://localhost:9090/services/example`.
+After you have started the bundles a service will be available at `http://localhost:9090/services/osgi-jax-rs`.
 
 License
 -------
 
 The code is published under the terms of the [Eclipse Public License, version 1.0](http://www.eclipse.org/legal/epl-v10.html).
 
-Included binaries from [Jersey](http://jersey.java.net/), version 1.13, which are published under two licenses, the [CDDL 1.1 and GPL 2 with CPE](http://glassfish.java.net/public/CDDL+GPL_1_1.html)
+Included binaries from [Jersey](http://jersey.java.net/), version 1.15, which are published under two licenses, the [CDDL 1.1 and GPL 2 with CPE](http://glassfish.java.net/public/CDDL+GPL_1_1.html)
