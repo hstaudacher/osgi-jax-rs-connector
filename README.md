@@ -17,31 +17,6 @@ To publish services on different ports the `http.port` service property can be u
 The connector detects configuration changes during runtime (e.g. when done by the 
 OSGi Configuration Admin Service).  
 
-**New in 2.0:** Use the config admin to specify the root path. The default root path is /services. You can configure the path by 
-specifying a config with the service.pid `com.eclipsesource.jaxrs.connector` and the property `root`. The path needs to be a valid servlet path e.g. "/api".  
-
-**New in 2.1:** Besides `@Path` annotated object it's now possible to register `@Provider` annotated objects as OSGi services too. Thanks to Dirk Lecluse for this contribution.
-
-**New in 2.1.1:** Updated included Jersey Version (1.15)
-
-
-Alternatives
-------------
-
-* [Neil Bartlett's jaxrs-osgi-extender](https://github.com/njbartlett/jaxrs-osgi-extender)
-* OSGi Remote Services (e.g. [Apache CXF](http://cxf.apache.org/distributed-osgi-reference.html#DistributedOSGiReference-ServiceProviderpropertiesForConfiguringRESTfulJAXRSbasedendpointsandconsumers))
-
-Requirements
-------------
-
-* OSGi Core Specification 4.2 and an OSGi HttpService implementation (e.g. Equinox, Felix).
-* JRE 1.6 (same as Jersey)
-
-Jersey version
---------------
-
-Jersey 1.15 is included in the software repository.
-
 Installation
 ------------
 
@@ -71,6 +46,31 @@ and `com.eclipsesource.jaxrs.connector.example.ds`. In the `ds` bundle OSGi Decl
 the service and it provides an additional example for @Provider annotated providers. If you want to run the examples within
 your Eclipse IDE use the launch configurations located in the bundles.  
 After you have started the bundles a service will be available at `http://localhost:9090/services/osgi-jax-rs`.
+
+Requirements
+------------
+
+* OSGi Core Specification 4.2 and an OSGi HttpService implementation (e.g. Equinox, Felix).
+* JRE 1.6 (same as Jersey)
+
+Alternatives
+------------
+
+* [Neil Bartlett's jaxrs-osgi-extender](https://github.com/njbartlett/jaxrs-osgi-extender)
+* OSGi Remote Services (e.g. [Apache CXF](http://cxf.apache.org/distributed-osgi-reference.html#DistributedOSGiReference-ServiceProviderpropertiesForConfiguringRESTfulJAXRSbasedendpointsandconsumers))
+
+Jersey version
+--------------
+
+Jersey 1.15 is included in the software repository.  
+
+Changelog
+---------
+
+* **1.0 (Jan 23rd, 2012):** Functionality to publish `@Path` annotated OSGi services as web resources.
+* **2.0 (Aug 27th, 2012):** Use the config admin to specify the root path. The default root path is /services. You can configure the path by specifying a config with the service.pid `com.eclipsesource.jaxrs.connector` and the property `root`. The path needs to be a valid servlet path e.g. "/api".  
+* **2.1 (Oct 26th, 2012):** Besides `@Path` annotated object it's now possible to register `@Provider` annotated objects as OSGi services too. Thanks to Dirk Lecluse for this contribution.
+* **2.1.1 (Nov 11th, 2012):** Updated included Jersey Version (1.15).
 
 License
 -------
