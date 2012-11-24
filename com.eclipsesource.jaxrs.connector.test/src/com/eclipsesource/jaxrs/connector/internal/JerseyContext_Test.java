@@ -20,13 +20,15 @@ import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-import java.util.ArrayList;
 import java.util.Dictionary;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.servlet.Servlet;
 import javax.servlet.ServletException;
 
+import org.glassfish.jersey.servlet.ServletContainer;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -35,8 +37,6 @@ import org.mockito.runners.MockitoJUnitRunner;
 import org.osgi.service.http.HttpContext;
 import org.osgi.service.http.HttpService;
 import org.osgi.service.http.NamespaceException;
-
-import com.sun.jersey.spi.container.servlet.ServletContainer;
 
 
 @RunWith( MockitoJUnitRunner.class )
@@ -48,7 +48,7 @@ public class JerseyContext_Test {
   @Mock
   private HttpService httpService;
   @Mock
-  private Application rootApplication;
+  private RootApplication rootApplication;
 
   @Before
   public void setUp() {
@@ -104,9 +104,9 @@ public class JerseyContext_Test {
   @Test
   public void testEliminate() throws ServletException, NamespaceException {
     Object resource = new Object();
-    ArrayList<Object> list = new ArrayList<Object>();
+    Set<Object> list = new HashSet<Object>();
     list.add( resource );
-    when( rootApplication.getResources() ).thenReturn( list );
+    when( rootApplication.getSingletons() ).thenReturn( list );
     jerseyContext.addResource( resource );
     
     List<Object> resources = jerseyContext.eliminate();
@@ -114,7 +114,8 @@ public class JerseyContext_Test {
     verify( rootApplication ).addResource( resource );
     verify( httpService ).unregister( "/test" );
     verify( servletContainer ).destroy();
-    assertEquals( list, resources );
+    assertEquals( 1, resources.size() );
+    assertEquals( resource, resources.get( 0 ) );
   }
   
   @Test( expected = IllegalStateException.class )

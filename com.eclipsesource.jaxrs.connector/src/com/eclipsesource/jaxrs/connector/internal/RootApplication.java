@@ -10,18 +10,19 @@
  ******************************************************************************/
 package com.eclipsesource.jaxrs.connector.internal;
 
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 
-import com.sun.jersey.api.core.DefaultResourceConfig;
+import javax.ws.rs.core.Application;
 
 
-public class Application extends DefaultResourceConfig {
+public class RootApplication extends Application {
   
   private final List<Object> resources;
 
-  public Application() {
+  public RootApplication() {
     resources = new LinkedList<Object>();
   }
   
@@ -36,14 +37,10 @@ public class Application extends DefaultResourceConfig {
   boolean hasResources() {
     return !resources.isEmpty();
   }
-  
-  public List<Object> getResources() {
-    return new LinkedList<Object>( resources );
-  }
 
   @Override
   public Set<Object> getSingletons() {
-    Set<Object> singletons = super.getSingletons();
+    Set<Object> singletons = new HashSet<Object>( super.getSingletons() );
     singletons.addAll( resources );
     return singletons;
   }

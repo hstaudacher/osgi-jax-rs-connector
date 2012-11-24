@@ -2,20 +2,20 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: %Bundle-Name
 Bundle-SymbolicName: com.eclipsesource.jaxrs.connector
-Bundle-Version: 2.2.0.qualifier
+Bundle-Version: 3.0.0.qualifier
 Bundle-Vendor: %Bundle-Name
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Bundle-Localization: plugin
 Bundle-Activator: com.eclipsesource.jaxrs.connector.internal.Activator
 Bundle-ActivationPolicy: lazy
-Import-Package: com.sun.jersey.api.core;version="[1.15.0,2.0.0)",
- com.sun.jersey.server.impl.container;version="[1.15.0,2.0.0)",
- com.sun.jersey.spi.container.servlet;version="[1.15.0,2.0.0)",
- javax.servlet;version="[2.3.0,4.0.0)",
+Import-Package: javax.servlet;version="[2.3.0,4.0.0)",
  javax.servlet.http;version="[2.3.0,4.0.0)",
- javax.ws.rs;version="[1.1.1,1.2.0)",
- javax.ws.rs.core;version="[1.1.1,1.2.0)",
- javax.ws.rs.ext;version="[1.1.1,1.2.0)",
+ javax.ws.rs;version="2.0.0",
+ javax.ws.rs.core;version="2.0.0",
+ javax.ws.rs.ext;version="2.0.0",
+ org.glassfish.jersey.internal;version="[2.0.0,2.1.0)",
+ org.glassfish.jersey.server;version="[2.0.0,2.1.0)",
+ org.glassfish.jersey.servlet;version="[2.0.0,2.1.0)",
  org.osgi.framework;version="[1.6.0,2.0.0)",
  org.osgi.service.cm;version="[1.4.0,2.0.0)",
  org.osgi.service.http;version="[1.2.0,2.0.0)",

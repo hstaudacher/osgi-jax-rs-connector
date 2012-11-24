@@ -38,7 +38,7 @@ public class Activator implements BundleActivator {
   @Override
   public void start( BundleContext context ) throws Exception {
     System.setProperty( "javax.ws.rs.ext.RuntimeDelegate", 
-                        "com.sun.jersey.server.impl.provider.RuntimeDelegateImpl" );
+                        "org.glassfish.jersey.server.internal.RuntimeDelegateImpl" );
     startJerseyServer();
     jaxRsConnector = new JAXRSConnector( context );
     registerConfiguration( context );

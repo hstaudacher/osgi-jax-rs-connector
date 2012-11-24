@@ -16,7 +16,6 @@ import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.spy;
 
-import java.util.List;
 import java.util.Set;
 
 import org.junit.Before;
@@ -26,11 +25,11 @@ import org.osgi.framework.InvalidSyntaxException;
 
 public class RootApplication_Test {
   
-  private Application application;
+  private RootApplication application;
 
   @Before
   public void setUp() {
-    Application original = new Application();
+    RootApplication original = new RootApplication();
     application = spy( original );
   }
   
@@ -71,7 +70,7 @@ public class RootApplication_Test {
     Object resource2 = mock( Object.class );
     application.addResource( resource2 );
     
-    List<Object> resources = application.getResources();
+    Set<Object> resources = application.getSingletons();
     assertEquals( 2, resources.size() );
     assertTrue( resources.contains( resource1 ) );
     assertTrue( resources.contains( resource2 ) );
@@ -84,7 +83,7 @@ public class RootApplication_Test {
     Object resource2 = mock( Object.class );
     application.addResource( resource2 );
 
-    List<Object> resources = application.getResources();
+    Set<Object> resources = application.getSingletons();
     application.removeResource( resource1 );
     
     assertEquals( 2, resources.size() );

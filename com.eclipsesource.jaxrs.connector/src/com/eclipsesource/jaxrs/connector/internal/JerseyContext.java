@@ -10,22 +10,23 @@
  ******************************************************************************/
 package com.eclipsesource.jaxrs.connector.internal;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.ServletException;
+import javax.ws.rs.core.Application;
 import javax.ws.rs.core.Request;
 
+import org.glassfish.jersey.server.ResourceConfig;
+import org.glassfish.jersey.servlet.ServletContainer;
 import org.osgi.service.http.HttpService;
 import org.osgi.service.http.NamespaceException;
-
-import com.sun.jersey.server.impl.container.WebApplicationProviderImpl;
-import com.sun.jersey.spi.container.servlet.ServletContainer;
 
 
 public class JerseyContext {
 
-  private final Application application;
-  private final ServletContainer servletContainer;
+  private final RootApplication application;
+  private ServletContainer servletContainer;
   private final HttpService httpService;
   private final String rootPath;
   private boolean isApplicationRegistered;
@@ -33,8 +34,8 @@ public class JerseyContext {
   public JerseyContext( HttpService httpService, String rootPath ) {
     this.httpService = httpService;
     this.rootPath = rootPath == null ? "/services" : rootPath;
-    this.application = new Application();
-    this.servletContainer = new ServletContainer( application );
+    this.application = new RootApplication();
+    this.servletContainer = new ServletContainer( ResourceConfig.forApplication( application ) );
   }
 
   public void addResource( Object resource ) {
@@ -44,7 +45,7 @@ public class JerseyContext {
       ClassLoader original = getContextClassloader();
       try {
         Thread.currentThread().setContextClassLoader( Request.class.getClassLoader() );
-        getServletContainer().reload();
+        getServletContainer().reload( ResourceConfig.forApplication( application ) );
       } finally {
         resetContextClassloader( original );
       }
@@ -83,7 +84,7 @@ public class JerseyContext {
   private void registerServlet() throws ServletException, NamespaceException {
     ClassLoader original = getContextClassloader();
     try {
-      Thread.currentThread().setContextClassLoader( WebApplicationProviderImpl.class.getClassLoader() );
+      Thread.currentThread().setContextClassLoader( Application.class.getClassLoader() );
       httpService.registerServlet( rootPath, 
                                    getServletContainer(), 
                                    null, 
@@ -100,7 +101,7 @@ public class JerseyContext {
   public void removeResource( Object resource ) {
     getRootApplication().removeResource( resource );
     if( isApplicationRegistered ) {
-      getServletContainer().reload();
+      getServletContainer().reload( ResourceConfig.forApplication( application ) );
     }
     unregisterServletWhenNoresourcePresents();
   }
@@ -108,6 +109,7 @@ public class JerseyContext {
   private void unregisterServletWhenNoresourcePresents() {
     if( !getRootApplication().hasResources() ) {
       httpService.unregister( rootPath );
+      servletContainer = new ServletContainer( ResourceConfig.forApplication( application ) );
       isApplicationRegistered = false;
     }
   }
@@ -119,7 +121,7 @@ public class JerseyContext {
     } catch( IllegalArgumentException iae ) {
       // do nothing
     }
-    return getRootApplication().getResources();
+    return new ArrayList<Object>( getRootApplication().getSingletons() );
   }
 
   // For testing purpose
@@ -128,7 +130,7 @@ public class JerseyContext {
   }
   
   // For testing purpose
-  Application getRootApplication() {
+  RootApplication getRootApplication() {
     return application;
   }
 
