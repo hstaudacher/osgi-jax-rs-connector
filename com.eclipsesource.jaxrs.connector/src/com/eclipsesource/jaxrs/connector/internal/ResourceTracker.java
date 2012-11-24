@@ -72,8 +72,18 @@ public class ResourceTracker extends ServiceTracker {
   }
 
   private boolean hasRegisterableAnnotation( Object service ) {
-    return service.getClass().isAnnotationPresent( Path.class ) 
-           || service.getClass().isAnnotationPresent( Provider.class );
+    boolean result = isRegisterableAnnotationPresent( service.getClass() );
+    if( !result ) {
+      Class<?>[] interfaces = service.getClass().getInterfaces();
+      for( Class<?> type : interfaces ) {
+        result = result || isRegisterableAnnotationPresent( type );
+      }
+    }
+    return result;
+  }
+
+  private boolean isRegisterableAnnotationPresent( Class<?> type ) {
+    return type.isAnnotationPresent( Path.class ) || type.isAnnotationPresent( Provider.class );
   }
   
 }
