@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <site>
-   <feature url="features/com.eclipsesource.jaxrs.connector.feature_2.1.1.qualifier.jar" id="com.eclipsesource.jaxrs.connector.feature" version="2.1.1.qualifier">
+   <feature url="features/com.eclipsesource.jaxrs.connector.feature_2.2.0.qualifier.jar" id="com.eclipsesource.jaxrs.connector.feature" version="2.2.0.qualifier">
       <category name="com.eclipsesource.jaxrs.connector"/>
    </feature>
    <category-def name="com.eclipsesource.jaxrs.connector" label="OSGi - JAX-RS Connector"/>

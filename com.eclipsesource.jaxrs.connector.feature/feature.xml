@@ -2,7 +2,7 @@
 <feature
       id="com.eclipsesource.jaxrs.connector.feature"
       label="OSGi - JAX-RS Connector"
-      version="2.1.1.qualifier"
+      version="2.2.0.qualifier"
       provider-name="EclipseSource">
 
    <description>

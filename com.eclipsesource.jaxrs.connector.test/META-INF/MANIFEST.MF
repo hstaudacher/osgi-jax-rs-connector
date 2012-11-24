@@ -2,9 +2,9 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: OSGi JAX-RS Connector Tests
 Bundle-SymbolicName: com.eclipsesource.jaxrs.connector.test
-Bundle-Version: 2.1.0.qualifier
+Bundle-Version: 2.2.0.qualifier
 Bundle-Vendor: EclipseSource
-Fragment-Host: com.eclipsesource.jaxrs.connector;bundle-version="2.1.0"
+Fragment-Host: com.eclipsesource.jaxrs.connector;bundle-version="2.2.0"
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Require-Bundle: org.junit;bundle-version="[4.8.0,4.9.0)",
  org.mockito;bundle-version="1.8.4",
