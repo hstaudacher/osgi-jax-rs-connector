@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<site>
-   <feature url="features/com.eclipsesource.jaxrs.connector.feature_3.0.0.qualifier.jar" id="com.eclipsesource.jaxrs.connector.feature" version="3.0.0.qualifier">
-      <category name="com.eclipsesource.jaxrs.connector"/>
-   </feature>
-   <category-def name="com.eclipsesource.jaxrs.connector" label="OSGi - JAX-RS Connector"/>
-</site>
