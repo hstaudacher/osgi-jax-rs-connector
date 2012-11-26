@@ -10,16 +10,19 @@ import com.eclipsesource.jaxrs.consumer.ConsumerPublisher;
 public class Activator implements BundleActivator {
 
   private ServiceRegistration<?> registration;
+  private ConsumerPublisherImpl publisher;
 
   @Override
   public void start( BundleContext context ) throws Exception {
+    publisher = new ConsumerPublisherImpl( context );
     registration = context.registerService( ConsumerPublisher.class.getName(), 
-                                            new ConsumerPublisherImpl( context ),
+                                            publisher,
                                             null );
   }
 
   @Override
   public void stop( BundleContext context ) throws Exception {
+    publisher.unregister();
     registration.unregister();
   }
 }
