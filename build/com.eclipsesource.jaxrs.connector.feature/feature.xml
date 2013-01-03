@@ -2,7 +2,7 @@
 <feature
       id="com.eclipsesource.jaxrs.connector.feature"
       label="OSGi - JAX-RS Connector"
-      version="3.0.0.qualifier"
+      version="2.2.0.qualifier"
       provider-name="EclipseSource">
 
    <description>
@@ -124,6 +124,20 @@
 
    <plugin
          id="javax.servlet-api"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="com.eclipsesource.jaxrs.consumer"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="javax.validation.api"
          download-size="0"
          install-size="0"
          version="0.0.0"
