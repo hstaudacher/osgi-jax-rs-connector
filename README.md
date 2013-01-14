@@ -17,7 +17,7 @@ To publish services on different ports the `http.port` service property can be u
 The connector detects configuration changes during runtime (e.g. when done by the 
 OSGi Configuration Admin Service).  
 
-The second major feature of the connector is the consumer part. The idea behind this is to be able to reuse the @Path/@Provide 
+The second major feature of the connector is the consumer part. The idea behind this is to be able to reuse the @Path/@Provider 
 interfaces for consuming the services. See these posts for a detailed description: [Consuming REST services in Java the cool way](http://eclipsesource.com/blogs/2012/11/27/consuming-rest-services-in-java-the-cool-way/), [Consuming REST services in OSGi the cool way](http://eclipsesource.com/blogs/2012/11/28/consuming-rest-services-in-osgi-the-cool-way/).
 
 Installation
