@@ -1,11 +1,11 @@
-OSGi - JAX-RS Connector 2.1.1
+OSGi - JAX-RS Connector 2.2.0
 =============================
 
 [JAX-RS (JSR 311)](http://jsr311.java.net/) is the community-driven Standard for 
 building RESTful web services with Java. The reference implementation for JAX-RS is 
 [Jersey](http://jersey.java.net/) and ships as OSGi bundles. This project connects 
 Jersey and OSGi at the service level. This means that OSGi services can be published as 
-RESTful web services by simply registering them as OSGi services ;).
+RESTful web services by simply registering them as OSGi services and also consumed as OSGi services ;).
 
 Features
 --------
@@ -17,16 +17,17 @@ To publish services on different ports the `http.port` service property can be u
 The connector detects configuration changes during runtime (e.g. when done by the 
 OSGi Configuration Admin Service).  
 
+The second major feature of the connector is the consumer part. The idea behind this is to be able to reuse the @Path/@Provide 
+interfaces for consuming the services. See these posts for a detailed description: [Consuming REST services in Java the cool way](http://eclipsesource.com/blogs/2012/11/27/consuming-rest-services-in-java-the-cool-way/), [Consuming REST services in OSGi the cool way](http://eclipsesource.com/blogs/2012/11/28/consuming-rest-services-in-osgi-the-cool-way/).
+
 Installation
 ------------
 
 Install from this software repository into your target: http://hstaudacher.github.com/osgi-jax-rs-connector 
 or download the binaries:
 
-* [com.eclipsesource.jaxrs.connector_2.1.1.201211112004.jar](http://search.maven.org/remotecontent?filepath=com/eclipsesource/osgi-jaxrs-connector/2.1.1/osgi-jaxrs-connector-2.1.1.jar) - ([src bundle](http://search.maven.org/remotecontent?filepath=com/eclipsesource/osgi-jaxrs-connector/2.1.1/osgi-jaxrs-connector-2.1.1-sources.jar))
-* [com.sun.jersey.core_1.15.0.jar](http://hstaudacher.github.com/osgi-jax-rs-connector/plugins/com.sun.jersey.core_1.15.0.jar)  
-* [com.sun.jersey.jersey-server_1.15.0.jar](http://hstaudacher.github.com/osgi-jax-rs-connector/plugins/com.sun.jersey.jersey-server_1.15.0.jar)
-* [com.sun.jersey.servlet_1.15.0.jar](http://hstaudacher.github.com/osgi-jax-rs-connector/plugins/com.sun.jersey.servlet_1.15.0.jar)  
+* [com.eclipsesource.jaxrs.connector_2.2.0.201301032207.jar](http://hstaudacher.github.com/osgi-jax-rs-connector/plugins/com.eclipsesource.jaxrs.connector_2.2.0.201301032207.jar)
+* [com.eclipsesource.jaxrs.consumer_1.0.0.201301032207.jar](http://hstaudacher.github.com/osgi-jax-rs-connector/plugins/com.eclipsesource.jaxrs.consumer_1.0.0.201301032207.jar)
 
 If dependencies can't be satisfied please disable "include required software" within the target editor.
 
@@ -38,6 +39,7 @@ Usage
 * Convert some OSGi service to resources like in [this tutorial](http://jersey.java.net/nonav/documentation/latest/getting-started.html#d4e45)
 * Point your client to the specified url. Don't forget that the default root path is `/services`. So registering a 
 service with the path `/example` would lead to `/services/example`.  
+* [Read this post to see how to handle the consumer.](http://eclipsesource.com/blogs/2012/11/28/consuming-rest-services-in-osgi-the-cool-way/)
 
 Examples
 --------
@@ -62,7 +64,7 @@ Alternatives
 Jersey version
 --------------
 
-Jersey 1.15 is included in the software repository.  
+Jersey 2.0 (m11) is included in the software repository.  
 
 Changelog
 ---------
@@ -71,10 +73,11 @@ Changelog
 * **2.0 (Aug 27th, 2012):** Use the config admin to specify the root path. The default root path is /services. You can configure the path by specifying a config with the service.pid `com.eclipsesource.jaxrs.connector` and the property `root`. The path needs to be a valid servlet path e.g. "/api".  
 * **2.1 (Oct 26th, 2012):** Besides `@Path` annotated object it's now possible to register `@Provider` annotated objects as OSGi services too. Thanks to Dirk Lecluse for this contribution.
 * **2.1.1 (Nov 11th, 2012):** Updated included Jersey Version (1.15).
+* **2.2.0 (Jan 3rd, 2013):** Updated included Jersey Version (2.0 m11). Added Consumer integration.
 
 License
 -------
 
 The code is published under the terms of the [Eclipse Public License, version 1.0](http://www.eclipse.org/legal/epl-v10.html).
 
-Included binaries from [Jersey](http://jersey.java.net/), version 1.15, which are published under two licenses, the [CDDL 1.1 and GPL 2 with CPE](http://glassfish.java.net/public/CDDL+GPL_1_1.html)
+Included binaries from [Jersey](http://jersey.java.net/), version 2.0 m11, which are published under two licenses, the [CDDL 1.1 and GPL 2 with CPE](http://glassfish.java.net/public/CDDL+GPL_1_1.html)
