@@ -10,6 +10,8 @@
  ******************************************************************************/
 package com.eclipsesource.jaxrs.consumer.internal;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.anyString;
 import static org.mockito.Matchers.eq;
@@ -24,6 +26,7 @@ import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 
 import org.junit.Test;
+import org.mockito.ArgumentCaptor;
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.ServiceRegistration;
 
@@ -52,6 +55,23 @@ public class ConsumerPublisherImplTest {
     
     verify( context ).registerService( eq( Resource1.class.getName() ), any( Resource1.class ), any( Dictionary.class ) );
     verify( context ).registerService( eq( Resource2.class.getName() ), any( Resource2.class ), any( Dictionary.class ) );
+  }
+  
+  @Test
+  @SuppressWarnings( {
+    "unchecked", "rawtypes"
+  } )
+  public void testDoesExcludeResourcesFromConnectorPublishing() {
+    BundleContext context = mock( BundleContext.class );
+    ConsumerPublisherImpl publisher = new ConsumerPublisherImpl( context );
+    
+    publisher.publishConsumers( "http://localhost", new Class[] { Resource1.class }, null );
+    
+    ArgumentCaptor<Dictionary> captor = ArgumentCaptor.forClass( Dictionary.class );
+    verify( context ).registerService( eq( Resource1.class.getName() ), any( Resource1.class ), captor.capture() );
+    Object property = captor.getValue().get( "com.eclipsesource.jaxrs.publish" );
+    assertNotNull( property );
+    assertEquals( "false", property );
   }
   
   @Test

@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2012 EclipseSource and others.
+ * Copyright (c) 2012-2013 EclipseSource and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -8,8 +8,11 @@
  * Contributors:
  *    Holger Staudacher - initial API and implementation, ongoing development
  *    Dirk Lecluse - added tracking of Provider classes
+ *    Frank Appel - specified Filter to exclude resources from publishing
  ******************************************************************************/
 package com.eclipsesource.jaxrs.connector.internal;
+
+import static com.eclipsesource.jaxrs.connector.ServiceProperties.PUBLISH;
 
 import javax.ws.rs.Path;
 import javax.ws.rs.ext.Provider;
@@ -20,11 +23,9 @@ import org.osgi.framework.ServiceReference;
 import org.osgi.util.tracker.ServiceTracker;
 
 
-// TODO: check if we can remove the suppress warnings
-@SuppressWarnings( { "rawtypes", "unchecked" } )
-public class ResourceTracker extends ServiceTracker {
+public class ResourceTracker extends ServiceTracker<Object, Object> {
   
-  static final String ANY_SERVICE_FILTER = "(objectClass=*)";
+  static final String ANY_SERVICE_FILTER = "(&(objectClass=*)(!(" + PUBLISH + "=false)))";
   
   private final BundleContext context;
   private final JAXRSConnector connector;
@@ -36,12 +37,12 @@ public class ResourceTracker extends ServiceTracker {
   }
   
   @Override
-  public Object addingService( ServiceReference reference ) {
+  public Object addingService( ServiceReference<Object> reference ) {
     Object service = context.getService( reference );
     return delegateAddService( reference, service );
   }
 
-  private Object delegateAddService( ServiceReference reference, Object service ) {
+  private Object delegateAddService( ServiceReference<Object> reference, Object service ) {
     Object result;
     if( isResource( service ) ) {
       result = connector.addResource( reference );
@@ -52,7 +53,7 @@ public class ResourceTracker extends ServiceTracker {
   }
 
   @Override
-  public void removedService( ServiceReference reference, Object service ) {
+  public void removedService( ServiceReference<Object> reference, Object service ) {
     if( isResource( service ) ) {
       connector.removeResource( service );
     }
@@ -60,7 +61,7 @@ public class ResourceTracker extends ServiceTracker {
   }
   
   @Override
-  public void modifiedService( ServiceReference reference, Object service ) {
+  public void modifiedService( ServiceReference<Object> reference, Object service ) {
     if( isResource( service ) ) {
       connector.removeResource( service );
       delegateAddService( reference, service );

@@ -1,16 +1,19 @@
 /*******************************************************************************
- * Copyright (c) 2012 EclipseSource and others.
+ * Copyright (c) 2012-2013 EclipseSource and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v10.html
  *
  * Contributors:
- *    Holger Staudacher - initial API and implementation
+ *    Holger Staudacher - initial API and implementation, ongoing development
+ *    Frank Appel - specified property to exclude resources from publishing
  ******************************************************************************/
 package com.eclipsesource.jaxrs.consumer.internal;
 
 import java.util.ArrayList;
+import java.util.Dictionary;
+import java.util.Hashtable;
 import java.util.List;
 
 import org.osgi.framework.BundleContext;
@@ -34,7 +37,9 @@ public class ConsumerPublisherImpl implements ConsumerPublisher {
   public void publishConsumers( String baseUrl, Class<?>[] types, Object[] providers ) {
     for( Class<?> type : types ) {
       Object resource = ConsumerFactory.createConsumer( baseUrl, type, providers );
-      ServiceRegistration<?> registration = context.registerService( type.getName(), resource, null );
+      Dictionary<String, Object> properties = new Hashtable<String, Object>();
+      properties.put( "com.eclipsesource.jaxrs.publish", "false" );
+      ServiceRegistration<?> registration = context.registerService( type.getName(), resource, properties );
       registrations.add( registration );
     }
   }
