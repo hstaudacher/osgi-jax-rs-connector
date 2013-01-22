@@ -24,7 +24,8 @@ import org.osgi.util.tracker.ServiceTracker;
 @SuppressWarnings( { "rawtypes", "unchecked" } )
 public class ResourceTracker extends ServiceTracker {
   
-  static final String ANY_SERVICE_FILTER = "(objectClass=*)";
+  static final String ANY_SERVICE_FILTER
+    = "(&(objectClass=*)(!(com.eclipsesource.no.resource=true)))";
   
   private final BundleContext context;
   private final JAXRSConnector connector;
