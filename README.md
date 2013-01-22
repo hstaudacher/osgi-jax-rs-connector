@@ -1,4 +1,4 @@
-OSGi - JAX-RS Connector 2.2.0
+OSGi - JAX-RS Connector 2.3.0
 =============================
 
 [JAX-RS (JSR 311)](http://jsr311.java.net/) is the community-driven Standard for 
@@ -26,8 +26,8 @@ Installation
 Install from this software repository into your target: http://hstaudacher.github.com/osgi-jax-rs-connector 
 or download the binaries:
 
-* [com.eclipsesource.jaxrs.connector_2.2.0.201301032207.jar](http://hstaudacher.github.com/osgi-jax-rs-connector/plugins/com.eclipsesource.jaxrs.connector_2.2.0.201301032207.jar)
-* [com.eclipsesource.jaxrs.consumer_1.0.0.201301032207.jar](http://hstaudacher.github.com/osgi-jax-rs-connector/plugins/com.eclipsesource.jaxrs.consumer_1.0.0.201301032207.jar)
+* [com.eclipsesource.jaxrs.connector_2.3.0.201301222112.jar](http://hstaudacher.github.com/osgi-jax-rs-connector/plugins/com.eclipsesource.jaxrs.connector_2.3.0.201301222112.jar)
+* [com.eclipsesource.jaxrs.consumer_1.1.0.201301222112.jar](http://hstaudacher.github.com/osgi-jax-rs-connector/plugins/com.eclipsesource.jaxrs.consumer_1.1.0.201301222112.jar)
 
 If dependencies can't be satisfied please disable "include required software" within the target editor.
 
@@ -74,6 +74,7 @@ Changelog
 * **2.1 (Oct 26th, 2012):** Besides `@Path` annotated object it's now possible to register `@Provider` annotated objects as OSGi services too. Thanks to Dirk Lecluse for this contribution.
 * **2.1.1 (Nov 11th, 2012):** Updated included Jersey Version (1.15).
 * **2.2.0 (Jan 3rd, 2013):** Updated included Jersey Version (2.0 m11). Added Consumer integration.
+* **2.3.0 (Jan 22th, 2013):** Added service property to exclude a resource from publishing. See `ServiceProperties`.  
 
 License
 -------
