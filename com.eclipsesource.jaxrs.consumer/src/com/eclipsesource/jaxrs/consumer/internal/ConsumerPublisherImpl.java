@@ -11,6 +11,8 @@
 package com.eclipsesource.jaxrs.consumer.internal;
 
 import java.util.ArrayList;
+import java.util.Dictionary;
+import java.util.Hashtable;
 import java.util.List;
 
 import org.osgi.framework.BundleContext;
@@ -34,7 +36,10 @@ public class ConsumerPublisherImpl implements ConsumerPublisher {
   public void publishConsumers( String baseUrl, Class<?>[] types, Object[] providers ) {
     for( Class<?> type : types ) {
       Object resource = ConsumerFactory.createConsumer( baseUrl, type, providers );
-      ServiceRegistration<?> registration = context.registerService( type.getName(), resource, null );
+      Dictionary<String, Object> properties = new Hashtable<String, Object>();
+      properties.put( "com.eclipsesource.no.resource", "true" );
+      ServiceRegistration<?> registration
+       = context.registerService( type.getName(), resource, properties );
       registrations.add( registration );
     }
   }
