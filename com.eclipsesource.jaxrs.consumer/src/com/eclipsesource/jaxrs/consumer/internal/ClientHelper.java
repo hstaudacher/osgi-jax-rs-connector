@@ -70,7 +70,7 @@ public class ClientHelper {
         }
       };
       SslConfig sslConfig = new SslConfig( verifier, ctx );
-      config.setProperty( ClientProperties.SSL_CONFIG, sslConfig );
+      config.property( ClientProperties.SSL_CONFIG, sslConfig );
     } catch( Exception shouldNotHappen ) {
       throw new IllegalStateException( shouldNotHappen );
     }

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<?pde version="3.8"?><target name="Equinox 3.8" sequenceNumber="7">
+<?pde version="3.8"?><target name="Equinox 3.8" sequenceNumber="8">
 <locations>
 <location path="${project_loc:com.eclipsesource.jaxrs.connector.target}/jersey2" type="Directory"/>
 <location includeAllPlatforms="false" includeConfigurePhase="false" includeMode="slicer" includeSource="true" type="InstallableUnit">
@@ -12,5 +12,6 @@
 <unit id="com.eclipsesource.osgi.additionals.feature.group" version="1.8.0.201212292349"/>
 <repository location="http://hstaudacher.github.com/osgi-additionals"/>
 </location>
+<location path="${project_loc:com.eclipsesource.jaxrs.connector.target}/jersey2/sources" type="Directory"/>
 </locations>
 </target>

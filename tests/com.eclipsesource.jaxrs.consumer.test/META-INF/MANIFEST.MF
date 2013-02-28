@@ -2,9 +2,9 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: JAX-RS Consumer Test
 Bundle-SymbolicName: com.eclipsesource.jaxrs.consumer.test
-Bundle-Version: 1.1.0.qualifier
+Bundle-Version: 1.2.0.qualifier
 Bundle-Vendor: EclipseSource
-Fragment-Host: com.eclipsesource.jaxrs.consumer;bundle-version="1.1.0"
+Fragment-Host: com.eclipsesource.jaxrs.consumer;bundle-version="1.2.0"
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Require-Bundle: org.mockito.mockito-all;bundle-version="1.9.5",
  org.junit;bundle-version="4.10.0"

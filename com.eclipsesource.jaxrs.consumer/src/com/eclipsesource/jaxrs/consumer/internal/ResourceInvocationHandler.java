@@ -23,7 +23,7 @@ import javax.ws.rs.OPTIONS;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
 import javax.ws.rs.client.Client;
-import javax.ws.rs.client.ClientFactory;
+import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.Entity;
 import javax.ws.rs.client.Invocation.Builder;
 import javax.ws.rs.core.Form;
@@ -42,7 +42,7 @@ public class ResourceInvocationHandler implements InvocationHandler {
   public ResourceInvocationHandler( String serviceUrl, Object... customProviders ) {
     ClientConfig config = ClientHelper.createClientConfig();
     registerProviders( config, customProviders );
-    this.client = ClientFactory.newClient( config );
+    this.client = ClientBuilder.newClient( config );
     this.baseUrl = serviceUrl;
   }
 
