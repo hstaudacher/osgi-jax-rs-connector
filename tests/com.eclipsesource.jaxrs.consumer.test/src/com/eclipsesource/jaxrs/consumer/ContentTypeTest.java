@@ -15,6 +15,7 @@ import static com.github.restdriver.clientdriver.ClientDriverRequest.Method.POST
 import static com.github.restdriver.clientdriver.ClientDriverRequest.Method.PUT;
 import static com.github.restdriver.clientdriver.RestClientDriver.giveResponse;
 import static com.github.restdriver.clientdriver.RestClientDriver.onRequestTo;
+import static javax.ws.rs.core.MediaType.TEXT_PLAIN;
 import static org.junit.Assert.assertEquals;
 
 import javax.ws.rs.Consumes;
@@ -48,7 +49,8 @@ public class ContentTypeTest {
   public void testContenttypeWithSimplePostWithContent() {
     driver.addExpectation( onRequestTo( "/test" )
                            .withMethod( POST )
-                           .withBody( "test", MediaType.APPLICATION_JSON ), giveResponse( "postWithBody" ) );
+                           .withBody( "test", MediaType.APPLICATION_JSON ), 
+                           giveResponse( "postWithBody", TEXT_PLAIN ) );
     
     FakeResource resource = createResource( FakeResource.class, driver.getBaseUrl() );
     
@@ -59,7 +61,7 @@ public class ContentTypeTest {
   public void testContenttypeWithSimplePut() {
     driver.addExpectation( onRequestTo( "/test" )
                            .withMethod( PUT )
-                           .withBody( "test", MediaType.APPLICATION_JSON ), giveResponse( "put" ) );
+                           .withBody( "test", MediaType.APPLICATION_JSON ), giveResponse( "put", TEXT_PLAIN ) );
     
     FakeResource resource = createResource( FakeResource.class, driver.getBaseUrl() );
     

@@ -16,6 +16,7 @@ import static com.github.restdriver.clientdriver.RestClientDriver.giveResponse;
 import static com.github.restdriver.clientdriver.RestClientDriver.onRequestTo;
 import static javax.ws.rs.core.HttpHeaders.CONTENT_TYPE;
 import static javax.ws.rs.core.MediaType.APPLICATION_FORM_URLENCODED;
+import static javax.ws.rs.core.MediaType.TEXT_PLAIN;
 import static org.junit.Assert.assertEquals;
 
 import javax.ws.rs.FormParam;
@@ -53,7 +54,7 @@ public class AdvancedPostReuqestsTest {
   
   @Test
   public void testPostWithSubPath() {
-    driver.addExpectation( onRequestTo( "/test/foo" ).withMethod( POST ), giveResponse( "post" ) );
+    driver.addExpectation( onRequestTo( "/test/foo" ).withMethod( POST ), giveResponse( "post", TEXT_PLAIN ) );
     
     FakeResource resource = createResource( FakeResource.class, driver.getBaseUrl() );
     
@@ -66,7 +67,7 @@ public class AdvancedPostReuqestsTest {
                            .withMethod( POST )
                            .withParam( "foo", "bar" )
                            .withHeader( CONTENT_TYPE, APPLICATION_FORM_URLENCODED ), 
-                           giveResponse( "post" ) );
+                           giveResponse( "post", TEXT_PLAIN ) );
     
     FakeResource resource = createResource( FakeResource.class, driver.getBaseUrl() );
     
@@ -75,7 +76,7 @@ public class AdvancedPostReuqestsTest {
   
   @Test
   public void testPostWithPathParam() {
-    driver.addExpectation( onRequestTo( "/test/bar/bar2" ).withMethod( POST ), giveResponse( "post" ) );
+    driver.addExpectation( onRequestTo( "/test/bar/bar2" ).withMethod( POST ), giveResponse( "post", TEXT_PLAIN ) );
     
     FakeResource resource = createResource( FakeResource.class, driver.getBaseUrl() );
     
@@ -86,7 +87,7 @@ public class AdvancedPostReuqestsTest {
   public void testPostWithMatrixParams() {
 //    TODO: Extend ClientDriver to not strip of the matrix paramters. See HttpRealRequest contructor.
 //    driver.addExpectation( onRequestTo( "/test;foo=bar;foo1=bar1;foo2=bar2" ).withMethod( GET ), giveResponse( "post" ) );
-    driver.addExpectation( onRequestTo( "/test" ).withMethod( POST ), giveResponse( "post" ) );
+    driver.addExpectation( onRequestTo( "/test" ).withMethod( POST ), giveResponse( "post", TEXT_PLAIN ) );
     
     FakeResource resource = createResource( FakeResource.class, driver.getBaseUrl() );
     

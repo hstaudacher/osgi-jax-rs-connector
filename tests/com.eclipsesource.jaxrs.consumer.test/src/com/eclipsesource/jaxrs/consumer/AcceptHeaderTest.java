@@ -63,7 +63,7 @@ public class AcceptHeaderTest {
   public void testAcceptHeaderWithSimpleGet() {
     driver.addExpectation( onRequestTo( "/test" )
                            .withMethod( GET )
-                           .withHeader( ACCEPT, TEXT_PLAIN ), giveResponse( "get" ) );
+                           .withHeader( ACCEPT, TEXT_PLAIN ), giveResponse( "get", TEXT_PLAIN ) );
     
     FakeResource resource = createResource( FakeResource.class, driver.getBaseUrl() );
     
@@ -74,7 +74,7 @@ public class AcceptHeaderTest {
   public void testAcceptHeaderWithSimplePost() {
     driver.addExpectation( onRequestTo( "/test" )
                            .withMethod( POST )
-                           .withHeader( ACCEPT, TEXT_PLAIN ), giveResponse( "post" ) );
+                           .withHeader( ACCEPT, TEXT_PLAIN ), giveResponse( "post", TEXT_PLAIN ) );
     
     FakeResource resource = createResource( FakeResource.class, driver.getBaseUrl() );
     
@@ -86,7 +86,7 @@ public class AcceptHeaderTest {
     driver.addExpectation( onRequestTo( "/test" )
                            .withMethod( POST )
                            .withBody( "test", MediaType.TEXT_PLAIN )
-                           .withHeader( ACCEPT, TEXT_PLAIN ), giveResponse( "postWithBody" ) );
+                           .withHeader( ACCEPT, TEXT_PLAIN ), giveResponse( "postWithBody", TEXT_PLAIN ) );
     
     FakeResource resource = createResource( FakeResource.class, driver.getBaseUrl() );
     
@@ -98,7 +98,7 @@ public class AcceptHeaderTest {
     driver.addExpectation( onRequestTo( "/test" )
                            .withMethod( PUT )
                            .withBody( "test", MediaType.TEXT_PLAIN )
-                           .withHeader( ACCEPT, TEXT_PLAIN ), giveResponse( "put" ) );
+                           .withHeader( ACCEPT, TEXT_PLAIN ), giveResponse( "put", TEXT_PLAIN ) );
     
     FakeResource resource = createResource( FakeResource.class, driver.getBaseUrl() );
     
@@ -109,7 +109,7 @@ public class AcceptHeaderTest {
   public void testAcceptHeaderWithSimpleDelete() {
     driver.addExpectation( onRequestTo( "/test" )
                            .withMethod( DELETE )
-                           .withHeader( ACCEPT, TEXT_PLAIN ), giveResponse( "delete" ) );
+                           .withHeader( ACCEPT, TEXT_PLAIN ), giveResponse( "delete", TEXT_PLAIN ) );
     
     FakeResource resource = createResource( FakeResource.class, driver.getBaseUrl() );
     

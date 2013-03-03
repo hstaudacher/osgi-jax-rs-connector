@@ -14,6 +14,7 @@ import static com.eclipsesource.jaxrs.consumer.test.TestUtil.createResource;
 import static com.github.restdriver.clientdriver.ClientDriverRequest.Method.GET;
 import static com.github.restdriver.clientdriver.RestClientDriver.giveResponse;
 import static com.github.restdriver.clientdriver.RestClientDriver.onRequestTo;
+import static javax.ws.rs.core.MediaType.TEXT_PLAIN;
 import static org.junit.Assert.assertEquals;
 
 import javax.ws.rs.GET;
@@ -51,7 +52,7 @@ public class AdvancedGetRequestsTest {
   
   @Test
   public void testGetWithSubPath() {
-    driver.addExpectation( onRequestTo( "/test/foo" ).withMethod( GET ), giveResponse( "get" ) );
+    driver.addExpectation( onRequestTo( "/test/foo" ).withMethod( GET ), giveResponse( "get", TEXT_PLAIN ) );
     
     FakeResource resource = createResource( FakeResource.class, driver.getBaseUrl() );
     
@@ -60,7 +61,8 @@ public class AdvancedGetRequestsTest {
   
   @Test
   public void testGetWithQueryParam() {
-    driver.addExpectation( onRequestTo( "/test" ).withMethod( GET ).withParam( "foo", "bar" ), giveResponse( "get" ) );
+    driver.addExpectation( onRequestTo( "/test" ).withMethod( GET ).withParam( "foo", "bar" ), 
+                           giveResponse( "get", TEXT_PLAIN ) );
     
     FakeResource resource = createResource( FakeResource.class, driver.getBaseUrl() );
     
@@ -69,7 +71,7 @@ public class AdvancedGetRequestsTest {
   
   @Test
   public void testGetWithPathParam() {
-    driver.addExpectation( onRequestTo( "/test/bar/bar2" ).withMethod( GET ), giveResponse( "get" ) );
+    driver.addExpectation( onRequestTo( "/test/bar/bar2" ).withMethod( GET ), giveResponse( "get", TEXT_PLAIN ) );
     
     FakeResource resource = createResource( FakeResource.class, driver.getBaseUrl() );
     
@@ -80,7 +82,7 @@ public class AdvancedGetRequestsTest {
   public void testGetWithMatrixParams() {
 //    TODO: Extend ClientDriver to not strip of the matrix paramters. See HttpRealRequest contructor.
 //    driver.addExpectation( onRequestTo( "/test;foo=bar;foo1=bar1;foo2=bar2" ).withMethod( GET ), giveResponse( "get" ) );
-    driver.addExpectation( onRequestTo( "/test" ).withMethod( GET ), giveResponse( "get" ) );
+    driver.addExpectation( onRequestTo( "/test" ).withMethod( GET ), giveResponse( "get", TEXT_PLAIN ) );
     
     FakeResource resource = createResource( FakeResource.class, driver.getBaseUrl() );
     

@@ -44,7 +44,7 @@ public class PathParamTest {
   
   @Test
   public void testGetWithSubPath() {
-    driver.addExpectation( onRequestTo( "/test/foo" ).withMethod( GET ), giveResponse( "get" ) );
+    driver.addExpectation( onRequestTo( "/test/foo" ).withMethod( GET ), giveResponse( "get", TEXT_PLAIN) );
     
     FakeResource resource = createResource( FakeResource.class, driver.getBaseUrl() );
     
@@ -55,7 +55,7 @@ public class PathParamTest {
   public void testPostWithSubPath() {
     driver.addExpectation( onRequestTo( "/test/foo" )
                            .withMethod( POST )
-                           .withBody( "content", TEXT_PLAIN ), giveResponse( "post" ) );
+                           .withBody( "content", TEXT_PLAIN ), giveResponse( "post", TEXT_PLAIN ) );
     
     FakeResource resource = createResource( FakeResource.class, driver.getBaseUrl() );
     

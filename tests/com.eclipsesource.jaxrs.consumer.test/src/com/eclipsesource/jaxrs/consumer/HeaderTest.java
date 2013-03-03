@@ -19,6 +19,7 @@ import static com.github.restdriver.clientdriver.ClientDriverRequest.Method.POST
 import static com.github.restdriver.clientdriver.ClientDriverRequest.Method.PUT;
 import static com.github.restdriver.clientdriver.RestClientDriver.giveResponse;
 import static com.github.restdriver.clientdriver.RestClientDriver.onRequestTo;
+import static javax.ws.rs.core.MediaType.TEXT_PLAIN;
 import static org.junit.Assert.assertEquals;
 
 import javax.ws.rs.DELETE;
@@ -65,7 +66,7 @@ public class HeaderTest {
   public void testSimpleGet() {
     driver.addExpectation( onRequestTo( "/test" )
                            .withMethod( GET )
-                           .withHeader( "foo", "bar" ), giveResponse( "get" ) );
+                           .withHeader( "foo", "bar" ), giveResponse( "get", TEXT_PLAIN ) );
     
     FakeResource resource = createResource( FakeResource.class, driver.getBaseUrl() );
     
@@ -76,7 +77,7 @@ public class HeaderTest {
   public void testSimplePost() {
     driver.addExpectation( onRequestTo( "/test" )
                            .withMethod( POST )
-                           .withHeader( "foo", "bar" ), giveResponse( "post" ) );
+                           .withHeader( "foo", "bar" ), giveResponse( "post", TEXT_PLAIN ) );
     
     FakeResource resource = createResource( FakeResource.class, driver.getBaseUrl() );
     
@@ -88,7 +89,7 @@ public class HeaderTest {
     driver.addExpectation( onRequestTo( "/test" )
                            .withMethod( POST )
                            .withBody( "test", MediaType.TEXT_PLAIN )
-                           .withHeader( "foo", "bar" ), giveResponse( "postWithBody" ) );
+                           .withHeader( "foo", "bar" ), giveResponse( "postWithBody", TEXT_PLAIN ) );
     
     FakeResource resource = createResource( FakeResource.class, driver.getBaseUrl() );
     
@@ -100,7 +101,7 @@ public class HeaderTest {
     driver.addExpectation( onRequestTo( "/test" )
                            .withMethod( PUT )
                            .withBody( "test", MediaType.TEXT_PLAIN )
-                           .withHeader( "foo", "bar" ), giveResponse( "put" ) );
+                           .withHeader( "foo", "bar" ), giveResponse( "put", TEXT_PLAIN ) );
     
     FakeResource resource = createResource( FakeResource.class, driver.getBaseUrl() );
     
@@ -111,7 +112,7 @@ public class HeaderTest {
   public void testSimpleDelete() {
     driver.addExpectation( onRequestTo( "/test" )
                            .withMethod( DELETE )
-                           .withHeader( "foo", "bar" ), giveResponse( "delete" ) );
+                           .withHeader( "foo", "bar" ), giveResponse( "delete", TEXT_PLAIN ) );
     
     FakeResource resource = createResource( FakeResource.class, driver.getBaseUrl() );
     

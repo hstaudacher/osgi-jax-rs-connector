@@ -55,7 +55,7 @@ public class CustomProviderTest {
   
   @Test
   public void testSimpleGetWithCustomProvider() {
-    driver.addExpectation( onRequestTo( "/test" ).withMethod( GET ), giveResponse( "get" ) );
+    driver.addExpectation( onRequestTo( "/test" ).withMethod( GET ), giveResponse( "get", TEXT_PLAIN ) );
     
     CustomType content = resource.getContent();
     assertEquals( "get", content.getValue() );
@@ -66,7 +66,7 @@ public class CustomProviderTest {
     CustomType customType = new CustomType( "foo" );
     driver.addExpectation( onRequestTo( "/test" )
                            .withMethod( POST )
-                           .withBody( customType.getValue(), TEXT_PLAIN ), giveResponse( "bar" ) );
+                           .withBody( customType.getValue(), TEXT_PLAIN ), giveResponse( "bar", TEXT_PLAIN ) );
     
     CustomType content = resource.postContent( customType );
     assertEquals( "bar", content.getValue() );

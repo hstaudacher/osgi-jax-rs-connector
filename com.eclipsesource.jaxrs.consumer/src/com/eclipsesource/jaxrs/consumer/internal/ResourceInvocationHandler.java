@@ -10,6 +10,9 @@
  ******************************************************************************/
 package com.eclipsesource.jaxrs.consumer.internal;
 
+import static javax.ws.rs.core.Response.Status.Family.CLIENT_ERROR;
+import static javax.ws.rs.core.Response.Status.Family.SERVER_ERROR;
+
 import java.lang.annotation.Annotation;
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
@@ -28,6 +31,8 @@ import javax.ws.rs.client.Entity;
 import javax.ws.rs.client.Invocation.Builder;
 import javax.ws.rs.core.Form;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
+import javax.ws.rs.core.Response.Status.Family;
 import javax.ws.rs.ext.Provider;
 
 import org.glassfish.jersey.client.ClientConfig;
@@ -60,28 +65,72 @@ public class ResourceInvocationHandler implements InvocationHandler {
 
   @Override
   public Object invoke( Object proxy, Method method, Object[] parameter ) throws Throwable {
-    RequestConfigurer configurer = new RequestConfigurer( client, baseUrl );
-    Builder request = configurer.configure( method, parameter );
-    return sendRequest( method, parameter, request );
+    RequestConfigurer configurer = new RequestConfigurer( client, baseUrl, method, parameter );
+    return sendRequest( method, parameter, configurer );
   }
 
-  private Object sendRequest( Method method, Object[] parameter, Builder request ) {
+  private Object sendRequest( Method method, Object[] parameter, RequestConfigurer configurer ) {
     Object result = null;
+    Builder request = configurer.configure();
     if( method.isAnnotationPresent( GET.class ) ) {
-      checkHasNoFormParameter( method );
-      result = request.get().readEntity(  method.getReturnType()  );
+      result = sendGetRequest( configurer, method, request );
     } if( method.isAnnotationPresent( POST.class ) ) {
-      result = request.post( getPostEntity( method, parameter ) ).readEntity( method.getReturnType() );
+      result = sendPostRequest( configurer, method, parameter, request );
     } if( method.isAnnotationPresent( PUT.class ) ) {
-      result = request.put( getEntity( method, parameter ) ).readEntity( method.getReturnType() );
+      result = sendPutRequest( configurer, method, parameter, request );
     } if( method.isAnnotationPresent( DELETE.class ) ) {
-      result = request.delete().readEntity( method.getReturnType() );
+      result = sendDeleteRequest( configurer, method, request );
     } if( method.isAnnotationPresent( HEAD.class ) ) {
-      result = request.head().readEntity( method.getReturnType() );
+      result = sendHeadRequest( configurer, method, request );
     } if( method.isAnnotationPresent( OPTIONS.class ) ) {
-      result = request.options().readEntity( method.getReturnType() );
+      result = sendOptionsRequest( configurer, method, request );
     }
     return result;
+  }
+
+  private Object sendGetRequest( RequestConfigurer configurer, Method method, Builder request ) {
+    checkHasNoFormParameter( method );
+    Response response = request.get();
+    validateResponse( configurer, response, "GET" );
+    return response.readEntity(  method.getReturnType()  );
+  }
+
+  private Object sendPostRequest( RequestConfigurer configurer, Method method, Object[] parameter, Builder request ) {
+    Response response = request.post( getPostEntity( method, parameter ) );
+    validateResponse( configurer, response, "POST" );
+    return response.readEntity( method.getReturnType() );
+  }
+
+  private Object sendPutRequest( RequestConfigurer configurer, Method method, Object[] parameter, Builder request ) {
+    Response response = request.put( getEntity( method, parameter ) );
+    validateResponse( configurer, response, "PUT" );
+    return response.readEntity( method.getReturnType() );
+  }
+
+  private Object sendDeleteRequest( RequestConfigurer configurer, Method method, Builder request ) {
+    Response response = request.delete();
+    validateResponse( configurer, response, "DELETE" );
+    return response.readEntity( method.getReturnType() );
+  }
+
+  private Object sendHeadRequest( RequestConfigurer configurer, Method method, Builder request ) {
+    Response response = request.head();
+    validateResponse( configurer, response, "HEAD" );
+    return response.readEntity( method.getReturnType() );
+  }
+
+  private Object sendOptionsRequest( RequestConfigurer configurer, Method method, Builder request ) {
+    Response response = request.options();
+    validateResponse( configurer, response, "OPTIONS" );
+    return response.readEntity( method.getReturnType() );
+  }
+
+  private void validateResponse( RequestConfigurer configurer, Response response, String method ) {
+    Family family = response.getStatusInfo().getFamily();
+    if( family == SERVER_ERROR || family == CLIENT_ERROR ) {
+      RequestError requestError = new RequestError( configurer, response, method );
+      throw new IllegalStateException( requestError.getMessage() );
+    }
   }
 
   private void checkHasNoFormParameter( Method method ) {

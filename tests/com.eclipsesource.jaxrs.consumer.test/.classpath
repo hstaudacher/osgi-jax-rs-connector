@@ -10,7 +10,6 @@
 	<classpathentry kind="lib" path="lib/jetty-http-8.1.8.v20121106.jar"/>
 	<classpathentry kind="lib" path="lib/jetty-jmx-8.1.8.v20121106.jar"/>
 	<classpathentry kind="lib" path="lib/jetty-server-8.1.8.v20121106.jar"/>
-	<classpathentry kind="lib" path="lib/rest-client-driver-1.1.27.jar" sourcepath="lib/rest-client-driver-1.1.27-sources.jar"/>
 	<classpathentry kind="lib" path="lib/slf4j-nop-1.7.2.jar"/>
 	<classpathentry kind="lib" path="lib/slf4j-api-1.7.2.jar"/>
 	<classpathentry kind="lib" path="lib/jetty-util-8.1.8.v20121106.jar"/>
@@ -18,5 +17,11 @@
 	<classpathentry kind="lib" path="lib/commons-codec-1.7.jar"/>
 	<classpathentry kind="lib" path="lib/commons-io-2.4.jar"/>
 	<classpathentry kind="lib" path="lib/commons-lang-2.6.jar"/>
+	<classpathentry kind="lib" path="lib/rest-client-driver-1.1.30-sources.jar"/>
+	<classpathentry kind="lib" path="lib/rest-client-driver-1.1.30.jar" sourcepath="lib/rest-client-driver-1.1.30-sources.jar"/>
+	<classpathentry kind="lib" path="lib/rest-driver-shared-1.1.30-sources.jar"/>
+	<classpathentry kind="lib" path="lib/rest-driver-shared-1.1.30.jar"/>
+	<classpathentry kind="lib" path="lib/guava-14.0.jar"/>
+	<classpathentry kind="lib" path="lib/servlet-api-2.5.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

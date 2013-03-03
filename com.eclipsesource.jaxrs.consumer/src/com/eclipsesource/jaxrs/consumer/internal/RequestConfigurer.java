@@ -34,22 +34,31 @@ public class RequestConfigurer {
   
   private final String baseUrl;
   private final Client client;
+  private final Method method;
+  private final Object[] parameter;
 
-  public RequestConfigurer( Client client, String baseUrl ) {
+  public RequestConfigurer( Client client, String baseUrl, Method method, Object[] parameter ) {
     this.client = client;
     this.baseUrl = baseUrl;
+    this.method = method;
+    this.parameter = parameter;
   }
   
-  public Builder configure( Method method, Object[] parameter ) {
-    WebTarget target = computeTarget( method, parameter );
-    target = addQueryParameters( target, method, parameter );
-    target = addMatrixParameters( target, method, parameter );
+  public Builder configure() {
+    WebTarget target = computeTarget();
+    target = addQueryParameters( target );
+    target = addMatrixParameters( target );
     Builder request = target.request();
-    request = addHeaders( request, method, parameter );
+    request = addHeaders( request );
     return request;
   }
   
-  private WebTarget computeTarget( Method method, Object[] parameter ) {
+  public String getRequestUrl() {
+    WebTarget target = computeTarget();
+    return target.getUri().toString();
+  }
+  
+  private WebTarget computeTarget() {
     String serviceUrl = baseUrl;
     if( method.isAnnotationPresent( Path.class ) ) {
       serviceUrl += method.getAnnotation( Path.class ).value();
@@ -92,7 +101,7 @@ public class RequestConfigurer {
     }
   }
   
-  private WebTarget addQueryParameters( WebTarget target, Method method, Object[] parameter ) {
+  private WebTarget addQueryParameters( WebTarget target ) {
     WebTarget result = target;
     Annotation[][] parameterAnnotations = method.getParameterAnnotations();
     for( int i = 0; i < parameterAnnotations.length; i++ ) {
@@ -114,7 +123,7 @@ public class RequestConfigurer {
     return null;
   }
   
-  private WebTarget addMatrixParameters( WebTarget target, Method method, Object[] parameter ) {
+  private WebTarget addMatrixParameters( WebTarget target ) {
     WebTarget result = target;
     Annotation[][] parameterAnnotations = method.getParameterAnnotations();
     for( int i = 0; i < parameterAnnotations.length; i++ ) {
@@ -136,7 +145,7 @@ public class RequestConfigurer {
     return null;
   }
   
-  private Builder addHeaders( Builder request, Method method, Object[] parameter ) {
+  private Builder addHeaders( Builder request ) {
     Builder result = request;
     Annotation[][] parameterAnnotations = method.getParameterAnnotations();
     for( int i = 0; i < parameterAnnotations.length; i++ ) {
@@ -146,11 +155,11 @@ public class RequestConfigurer {
         result = result.header( paramName, parameter[ i ] );
       }
     }
-    result = addAcceptHeader( request, method );
+    result = addAcceptHeader( request );
     return result;
   }
   
-  private Builder addAcceptHeader( Builder request, Method method ) {
+  private Builder addAcceptHeader( Builder request ) {
     Builder result = request;
     MediaType accept = MediaType.WILDCARD_TYPE;
     if( method.isAnnotationPresent( Produces.class ) ) {
