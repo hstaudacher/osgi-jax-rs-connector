@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2012 EclipseSource and others.
+ * Copyright (c) 2012,2013 EclipseSource and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -29,13 +29,13 @@ import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.Entity;
 import javax.ws.rs.client.Invocation.Builder;
+import javax.ws.rs.core.Configuration;
 import javax.ws.rs.core.Form;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status.Family;
 import javax.ws.rs.ext.Provider;
 
-import org.glassfish.jersey.client.ClientConfig;
 import org.glassfish.jersey.message.internal.MediaTypes;
 
 
@@ -45,17 +45,20 @@ public class ResourceInvocationHandler implements InvocationHandler {
   private final String baseUrl;
 
   public ResourceInvocationHandler( String serviceUrl, Object... customProviders ) {
-    ClientConfig config = ClientHelper.createClientConfig();
-    registerProviders( config, customProviders );
-    this.client = ClientBuilder.newClient( config );
+    ClientBuilder clientBuilder = ClientBuilder.newBuilder();
+    registerProviders( clientBuilder, customProviders );
+    Configuration configuration = clientBuilder.sslContext( ClientHelper.createSSLContext() )
+                                               .hostnameVerifier( ClientHelper.createHostNameVerifier() )
+                                               .getConfiguration();
+    this.client = ClientBuilder.newClient( configuration );
     this.baseUrl = serviceUrl;
   }
 
-  private void registerProviders( ClientConfig config, Object[] customProviders ) {
+  private void registerProviders( ClientBuilder clientBuilder, Object[] customProviders ) {
     if( customProviders != null ) {
       for( Object provider : customProviders ) {
         if( provider.getClass().isAnnotationPresent( Provider.class ) ) {
-          config.register( provider );
+          clientBuilder.register( provider );
         } else {
           throw new IllegalArgumentException( provider.getClass().getName() + " is not annotated with @Provider" );
         }

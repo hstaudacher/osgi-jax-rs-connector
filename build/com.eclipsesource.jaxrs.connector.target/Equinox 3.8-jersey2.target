@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<?pde version="3.8"?><target name="Equinox 3.8" sequenceNumber="9">
+<?pde version="3.8"?><target name="Equinox 3.8" sequenceNumber="15">
 <locations>
-<location path="${project_loc:com.eclipsesource.jaxrs.connector.target}/jersey2" type="Directory"/>
+<location path="/Applications/eclipse/eclipse3-juno" type="Profile"/>
 <location includeAllPlatforms="false" includeConfigurePhase="false" includeMode="slicer" includeSource="true" type="InstallableUnit">
 <unit id="org.eclipse.equinox.compendium.sdk.feature.group" version="3.8.0.v20120522-1841-7X7eGb7FPGjtJjv1kjS_NdG"/>
 <unit id="org.eclipse.equinox.core.sdk.feature.group" version="3.8.0.v20120522-1813-85FAcGbBFoYTldHrOJw3cF4q"/>
 <unit id="org.eclipse.equinox.serverside.sdk.feature.group" version="3.8.0.v20120522-1841-9Q7dFszFYGis9uYGz0QodZP3fH0t"/>
 <repository location="http://download.eclipse.org/eclipse/updates/3.8"/>
 </location>
+<location path="${project_loc:com.eclipsesource.jaxrs.connector.target}/jersey2/bundles" type="Directory"/>
+<location path="${project_loc:com.eclipsesource.jaxrs.connector.target}/jersey2/source-bundles" type="Directory"/>
 <location includeAllPlatforms="false" includeConfigurePhase="false" includeMode="slicer" includeSource="true" type="InstallableUnit">
-<unit id="com.eclipsesource.osgi.additionals.feature.group" version="1.8.0.201212292349"/>
+<unit id="com.eclipsesource.osgi.additionals.feature.group" version="1.19.0.201305291433"/>
 <repository location="http://hstaudacher.github.com/osgi-additionals"/>
 </location>
-<location path="${project_loc:com.eclipsesource.jaxrs.connector.target}/jersey2/sources" type="Directory"/>
-<location path="/Applications/eclipse/eclipse3-juno" type="Profile"/>
 </locations>
 </target>
