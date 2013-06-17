@@ -25,13 +25,6 @@
          unpack="false"/>
 
    <plugin
-         id="com.eclipsesource.jaxrs.publisher.source"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
          id="org.glassfish.hk2.api"
          download-size="0"
          install-size="0"
@@ -131,13 +124,6 @@
 
    <plugin
          id="com.eclipsesource.jaxrs.consumer"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
-         id="com.eclipsesource.jaxrs.consumer.source"
          download-size="0"
          install-size="0"
          version="0.0.0"
