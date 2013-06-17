@@ -2,7 +2,7 @@
 <feature
       id="com.eclipsesource.jaxrs.connector.feature"
       label="OSGi - JAX-RS Connector"
-      version="2.4.5.qualifier"
+      version="3.0.0.qualifier"
       provider-name="EclipseSource">
 
    <description>
@@ -18,14 +18,14 @@
    </license>
 
    <plugin
-         id="com.eclipsesource.jaxrs.connector"
+         id="com.eclipsesource.jaxrs.publisher"
          download-size="0"
          install-size="0"
          version="0.0.0"
          unpack="false"/>
 
    <plugin
-         id="com.eclipsesource.jaxrs.connector.source"
+         id="com.eclipsesource.jaxrs.publisher.source"
          download-size="0"
          install-size="0"
          version="0.0.0"
