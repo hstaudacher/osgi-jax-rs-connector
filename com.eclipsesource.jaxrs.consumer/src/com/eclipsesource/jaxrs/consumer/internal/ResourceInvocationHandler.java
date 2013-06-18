@@ -50,6 +50,7 @@ public class ResourceInvocationHandler implements InvocationHandler {
     Configuration configuration = clientBuilder.sslContext( ClientHelper.createSSLContext() )
                                                .hostnameVerifier( ClientHelper.createHostNameVerifier() )
                                                .getConfiguration();
+    TLSUtil.initializeUntrustedContext();
     this.client = ClientBuilder.newClient( configuration );
     this.baseUrl = serviceUrl;
   }
