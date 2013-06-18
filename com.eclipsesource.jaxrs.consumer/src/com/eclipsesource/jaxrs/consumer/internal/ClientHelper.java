@@ -26,25 +26,25 @@ public class ClientHelper {
   public static SSLContext createSSLContext() {
     TrustManager[] certs = new TrustManager[]{
       new X509TrustManager() {
-        
+
         @Override
         public X509Certificate[] getAcceptedIssuers() {
           return null;
         }
-        
+
         @Override
         public void checkServerTrusted( X509Certificate[] chain, String authType )
-            throws CertificateException
-            {
+          throws CertificateException
+        {
           // no content
-            }
-        
+        }
+
         @Override
         public void checkClientTrusted( X509Certificate[] chain, String authType )
-            throws CertificateException
-            {
+          throws CertificateException
+        {
           // no content
-            }
+        }
       }
     };
     SSLContext ctx = null;
@@ -71,5 +71,5 @@ public class ClientHelper {
   private ClientHelper() {
     // prevent instantiation
   }
-  
+
 }
