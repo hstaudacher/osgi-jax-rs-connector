@@ -50,7 +50,7 @@ Install from this software repository into your target: `http://hstaudacher.gith
 <dependency>
     <groupId>com.eclipsesource</groupId>
     <artifactId>jaxrs-consumer</artifactId>
-    <version>2.0.0</version>
+    <version>2.0.2</version>
 </dependency>
 ```
 
