@@ -3,5 +3,9 @@
    <feature url="features/com.eclipsesource.jaxrs.connector.feature_3.0.0.qualifier.jar" id="com.eclipsesource.jaxrs.connector.feature" version="3.0.0.qualifier">
       <category name="com.eclipsesource.jaxrs.connector"/>
    </feature>
+   <feature url="features/com.eclipsesource.jaxrs.moxy.feature_3.0.0.qualifier.jar" id="com.eclipsesource.jaxrs.moxy.feature" version="3.0.0.qualifier">
+      <category name="com.eclipsesource.jaxrs.moxy"/>
+   </feature>
    <category-def name="com.eclipsesource.jaxrs.connector" label="OSGi - JAX-RS Connector"/>
+   <category-def name="com.eclipsesource.jaxrs.moxy" label="OSGi - JAX-RS Connector"/>
 </site>
