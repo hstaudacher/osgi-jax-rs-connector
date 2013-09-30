@@ -100,16 +100,7 @@ The example for the consumer is splitted into two bundles called `com.eclipsesou
 Jersey 2.3.1 + dependencies are included in the p2 software repository.  
 
 ## Changelog
-* **1.0 (Jan 23rd, 2012):** Functionality to publish `@Path` annotated OSGi services as web resources.
-* **2.0 (Aug 27th, 2012):** Use the config admin to specify the root path. The default root path is /services. You can configure the path by specifying a config with the service.pid `com.eclipsesource.jaxrs.connector` and the property `root`. The path needs to be a valid servlet path e.g. "/api".  
-* **2.1 (Oct 26th, 2012):** Besides `@Path` annotated object it's now possible to register `@Provider` annotated objects as OSGi services too. Thanks to Dirk Lecluse for this contribution.
-* **2.1.1 (Nov 11th, 2012):** Updated included Jersey Version (1.15).
-* **2.2.0 (Jan 3rd, 2013):** Updated included Jersey Version (2.0 m11). Added Consumer integration.
-* **2.3.0 (Jan 22th, 2013):** Added service property to exclude a resource from publishing. See [ServiceProperties](https://github.com/hstaudacher/osgi-jax-rs-connector/blob/master/com.eclipsesource.jaxrs.publisher/src/com/eclipsesource/jaxrs/publisher/ServiceProperties.java).
-* **2.4.0 (Feb 28th, 2013):** Updated included Jersey Version (2.0 m12).
-* **2.4.1 (Mar 3rd, 2013):** Adds error handling to consumer.
-* **3.0.0 (Jun 17th, 2013):** Updates Jersey version to 2.0 (release). Renames connector bundle to consumer.
-* **3.1.0 (Sep 30th, 2013):** Updates Jersey version to 2.3.1 (release). Reduces JRE level to Java6 (#12). Adds custom providers for MOXy (#15, thanks @BryanHunt) and Gson. Adds metatype for configuring the base URL (#14, thanks @BryanHunt). Adds API to consumer to be able to pass in custom client configuration (#13). Restructures p2 repository. Adds support for bndtools (#11).
+Checkout the [github releases](https://github.com/hstaudacher/osgi-jax-rs-connector/releases).
 
 ## License
 The code is published under the terms of the [Eclipse Public License, version 1.0](http://www.eclipse.org/legal/epl-v10.html).
