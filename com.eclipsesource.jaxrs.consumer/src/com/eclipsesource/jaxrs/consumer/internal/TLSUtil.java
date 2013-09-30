@@ -1,7 +1,5 @@
 package com.eclipsesource.jaxrs.consumer.internal;
 
-import java.security.KeyManagementException;
-import java.security.NoSuchAlgorithmException;
 import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
 
@@ -42,7 +40,7 @@ public class TLSUtil {
       ctx = SSLContext.getInstance( "TLS" );
       ctx.init( null, new TrustManager[] { tm }, null );
       SSLContext.setDefault( ctx );
-    } catch( NoSuchAlgorithmException | KeyManagementException shouldNotHappen ) {
+    } catch( Exception shouldNotHappen ) {
       throw new IllegalStateException( shouldNotHappen );
     }
     HttpsURLConnection.setDefaultHostnameVerifier( new HostnameVerifier() {

@@ -15,7 +15,7 @@
 <listEntry value="org.eclipse.debug.ui.launchGroup.run"/>
 <listEntry value="org.eclipse.debug.ui.launchGroup.debug"/>
 </listAttribute>
-<stringAttribute key="org.eclipse.jdt.launching.JRE_CONTAINER" value="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JDK 1.7.0"/>
+<stringAttribute key="org.eclipse.jdt.launching.JRE_CONTAINER" value="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.7"/>
 <stringAttribute key="org.eclipse.jdt.launching.PROGRAM_ARGUMENTS" value="-os ${target.os} -ws ${target.ws} -arch ${target.arch} -nl ${target.nl} -consoleLog -console"/>
 <stringAttribute key="org.eclipse.jdt.launching.SOURCE_PATH_PROVIDER" value="org.eclipse.pde.ui.workbenchClasspathProvider"/>
 <stringAttribute key="org.eclipse.jdt.launching.VM_ARGUMENTS" value="-Declipse.ignoreApp=true&#13;&#10;-Dosgi.noShutdown=true"/>
@@ -25,5 +25,5 @@
 <booleanAttribute key="tracing" value="false"/>
 <booleanAttribute key="useCustomFeatures" value="false"/>
 <booleanAttribute key="useDefaultConfigArea" value="true"/>
-<stringAttribute key="workspace_bundles" value="com.eclipsesource.jaxrs.consumer,com.eclipsesource.jaxrs.consumer.example,com.eclipsesource.jaxrs.consumer.example.caller"/>
+<stringAttribute key="workspace_bundles" value="com.eclipsesource.jaxrs.consumer.example.caller@default:default,com.eclipsesource.jaxrs.consumer.example@default:default,com.eclipsesource.jaxrs.consumer@default:default"/>
 </launchConfiguration>
