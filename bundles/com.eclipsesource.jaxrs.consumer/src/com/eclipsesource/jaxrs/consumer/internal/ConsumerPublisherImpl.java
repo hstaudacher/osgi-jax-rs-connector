@@ -16,6 +16,7 @@ import java.util.Dictionary;
 import java.util.Hashtable;
 import java.util.List;
 
+import org.glassfish.jersey.client.ClientConfig;
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.ServiceRegistration;
 
@@ -36,11 +37,21 @@ public class ConsumerPublisherImpl implements ConsumerPublisher {
   @Override
   public void publishConsumers( String baseUrl, Class<?>[] types, Object[] providers ) {
     for( Class<?> type : types ) {
-      Object resource = ConsumerFactory.createConsumer( baseUrl, type, providers );
+      ClientConfig config = new ClientConfig();
+      registerProviders( config, providers );
+      Object resource = ConsumerFactory.createConsumer( baseUrl, config, type );
       Dictionary<String, Object> properties = new Hashtable<String, Object>();
       properties.put( "com.eclipsesource.jaxrs.publish", "false" );
       ServiceRegistration<?> registration = context.registerService( type.getName(), resource, properties );
       registrations.add( registration );
+    }
+  }
+
+  private void registerProviders( ClientConfig config, Object[] providers ) {
+    if( providers != null ) {
+      for( Object provider : providers ) {
+        config.register( provider );
+      }
     }
   }
 

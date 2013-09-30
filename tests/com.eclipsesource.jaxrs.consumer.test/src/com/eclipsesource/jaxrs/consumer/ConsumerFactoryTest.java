@@ -53,4 +53,9 @@ public class ConsumerFactoryTest {
   public void testFailsWithNullUrl() {
     ConsumerFactory.createConsumer( null, IFakeResource.class );
   }
+  
+  @Test( expected = IllegalArgumentException.class )
+  public void testFailsWithNullConfiguration() {
+    ConsumerFactory.createConsumer( "http://localhost", null, IFakeResource.class );
+  }
 }

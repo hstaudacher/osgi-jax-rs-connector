@@ -31,6 +31,7 @@ import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.core.MediaType;
 
+import org.glassfish.jersey.client.ClientConfig;
 import org.junit.Rule;
 import org.junit.Test;
 
@@ -66,6 +67,18 @@ public class SimpleRequestsTest {
                            giveResponse( "get", "text/plain" ).withStatus( 200 ) );
     
     FakeResource resource = createResource( FakeResource.class, driver.getBaseUrl() );
+    
+    assertEquals( "get", resource.getContent() );
+  }
+  
+  @Test
+  public void testSimpleGetWithConfiguration() {
+    driver.addExpectation( onRequestTo( "/test" ).withMethod( GET ), 
+                           giveResponse( "get", "text/plain" ).withStatus( 200 ) );
+    
+    FakeResource resource = ConsumerFactory.createConsumer( driver.getBaseUrl(),
+                                                            new ClientConfig(),
+                                                            FakeResource.class );
     
     assertEquals( "get", resource.getContent() );
   }

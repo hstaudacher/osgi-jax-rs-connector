@@ -10,6 +10,8 @@
  ******************************************************************************/
 package com.eclipsesource.jaxrs.consumer.example;
 
+import org.glassfish.jersey.client.ClientConfig;
+
 import com.eclipsesource.jaxrs.consumer.ConsumerFactory;
 
 
@@ -17,9 +19,10 @@ public class Main {
   
   public static void main( String[] args ) {
     String baseUrl = "https://api.github.com";
-    GitHubUsers users = ConsumerFactory.createConsumer( baseUrl, 
-                                                        GitHubUsers.class, 
-                                                        new GitHubUserProvider() );
+    ClientConfig config = new ClientConfig().register( new GitHubUserProvider() );
+    GitHubUsers users = ConsumerFactory.createConsumer( baseUrl,
+                                                        config,
+                                                        GitHubUsers.class );
     System.out.println( users.getUser( "hstaudacher" ) );
   }
 }

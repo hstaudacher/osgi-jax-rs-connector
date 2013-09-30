@@ -21,6 +21,7 @@ import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 
+import org.glassfish.jersey.client.ClientConfig;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -49,8 +50,8 @@ public class CustomProviderTest {
   
   @Before
   public void setUp() {
-    CustomProvider customProvider = new CustomProvider();
-    resource = ConsumerFactory.createConsumer( driver.getBaseUrl(), FakeResource.class, customProvider );
+    ClientConfig config = new ClientConfig().register( new CustomProvider() );
+    resource = ConsumerFactory.createConsumer( driver.getBaseUrl(), config, FakeResource.class );
   }
   
   @Test

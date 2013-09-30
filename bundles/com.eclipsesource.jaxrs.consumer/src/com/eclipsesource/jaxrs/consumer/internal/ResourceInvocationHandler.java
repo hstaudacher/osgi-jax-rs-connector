@@ -29,11 +29,11 @@ import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.Entity;
 import javax.ws.rs.client.Invocation.Builder;
+import javax.ws.rs.core.Configuration;
 import javax.ws.rs.core.Form;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status.Family;
-import javax.ws.rs.ext.Provider;
 
 import org.glassfish.jersey.message.internal.MediaTypes;
 
@@ -43,25 +43,13 @@ public class ResourceInvocationHandler implements InvocationHandler {
   private final Client client;
   private final String baseUrl;
 
-  public ResourceInvocationHandler( String serviceUrl, Object... customProviders ) {
+  public ResourceInvocationHandler( String baseUrl, Configuration configuration ) {
     ClientBuilder clientBuilder = ClientBuilder.newBuilder();
-    registerProviders( clientBuilder, customProviders );
-    this.client = clientBuilder.sslContext( ClientHelper.createSSLContext() )
+    this.client = clientBuilder.withConfig( configuration )
+                               .sslContext( ClientHelper.createSSLContext() )
                                .hostnameVerifier( ClientHelper.createHostNameVerifier() )
                                .build();
-    this.baseUrl = serviceUrl;
-  }
-
-  private void registerProviders( ClientBuilder clientBuilder, Object[] customProviders ) {
-    if( customProviders != null ) {
-      for( Object provider : customProviders ) {
-        if( provider.getClass().isAnnotationPresent( Provider.class ) ) {
-          clientBuilder.register( provider );
-        } else {
-          throw new IllegalArgumentException( provider.getClass().getName() + " is not annotated with @Provider" );
-        }
-      }
-    }
+    this.baseUrl = baseUrl;
   }
 
   @Override
