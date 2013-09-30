@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <feature
-      id="com.eclipsesource.jaxrs.moxy.feature"
-      label="OSGi - JAX-RS MOXy Provider"
+      id="com.eclipsesource.jaxrs.provider.moxy.feature"
+      label="JAX-RS MOXy Provider"
       version="1.0.0.qualifier"
       provider-name="EclipseSource">
 
@@ -16,6 +16,10 @@
    <license url="%licenseURL">
       %license
    </license>
+
+   <includes
+         id="com.eclipsesource.jaxrs.jersey.runtime.feature"
+         version="0.0.0"/>
 
    <requires>
       <import plugin="org.eclipse.osgi"/>
@@ -67,6 +71,13 @@
 
    <plugin
          id="com.eclipsesource.jaxrs.provider.moxy"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="com.eclipsesource.jaxrs.provider.moxy.source"
          download-size="0"
          install-size="0"
          version="0.0.0"

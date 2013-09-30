@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <feature
-      id="com.eclipsesource.jaxrs.connector.feature"
-      label="OSGi - JAX-RS Connector"
-      version="3.1.0.qualifier"
+      id="com.eclipsesource.jaxrs.provider.gson.feature"
+      label="Gson Provider"
+      version="1.0.0.qualifier"
       provider-name="EclipseSource">
 
    <description>
@@ -22,28 +22,28 @@
          version="0.0.0"/>
 
    <plugin
-         id="com.eclipsesource.jaxrs.publisher"
+         id="com.eclipsesource.jaxrs.provider.gson"
          download-size="0"
          install-size="0"
          version="0.0.0"
          unpack="false"/>
 
    <plugin
-         id="com.eclipsesource.jaxrs.publisher.source"
+         id="com.eclipsesource.jaxrs.provider.gson.source"
          download-size="0"
          install-size="0"
          version="0.0.0"
          unpack="false"/>
 
    <plugin
-         id="com.eclipsesource.jaxrs.consumer"
+         id="com.google.gson"
          download-size="0"
          install-size="0"
          version="0.0.0"
          unpack="false"/>
 
    <plugin
-         id="com.eclipsesource.jaxrs.consumer.source"
+         id="com.google.gson.source"
          download-size="0"
          install-size="0"
          version="0.0.0"
