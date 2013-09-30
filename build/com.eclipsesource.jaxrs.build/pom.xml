@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
+	xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<modelVersion>4.0.0</modelVersion>
+
+	<prerequisites>
+		<maven>3.0</maven>
+	</prerequisites>
+
+	<groupId>com.eclipsesource</groupId>
+	<artifactId>osgi-jaxrs-connector</artifactId>
+	<version>1.0.0-SNAPSHOT</version>
+	<packaging>pom</packaging>
+
+	<name>OSGi - JAX-RS Connector</name>
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<kar-packager-version>0.6.0</kar-packager-version>
+		<tycho-version>0.18.1</tycho-version>
+		<tycho-extras-version>0.18.1</tycho-extras-version>
+		<tycho-groupid>org.eclipse.tycho</tycho-groupid>
+		<surefire-version>2.16</surefire-version>
+		<findbugs-version>2.5.2</findbugs-version>
+		<junit-version>4.11</junit-version>
+    <mockito-version>1.9.5</mockito-version>
+		<jacocoagent>${basedir}/../../build/com.eclipsesource.jaxrs.build/lib/jacocoagent.jar</jacocoagent>
+		<test-arguments>-Xms512m -Xmx512m
+			-javaagent:${jacocoagent}=destfile=${basedir}/../../build/com.eclipsesource.jaxrs.build/target/jacoco.exec,append=true</test-arguments>
+	</properties>
+
+	<modules>
+		<module>../com.eclipsesource.rest.client.driver</module>
+		<!-- Bundles -->
+		<module>../../bundles/com.eclipsesource.jaxrs.publisher</module>
+		<module>../../bundles/com.eclipsesource.jaxrs.consumer</module>
+		<module>../../bundles/com.eclipsesource.jaxrs.provider.moxy</module>
+		<module>../../bundles/com.eclipsesource.jaxrs.provider.gson</module>
+		<!-- Tests -->
+		<module>../../tests/com.eclipsesource.jaxrs.publisher.test</module>
+		<module>../../tests/com.eclipsesource.jaxrs.consumer.test</module>
+		<module>../../tests/com.eclipsesource.jaxrs.provider.gson.test</module>
+		<!-- Features -->
+		<module>../com.eclipsesource.jaxrs.jersey.runtime.feature</module>
+		<module>../com.eclipsesource.jaxrs.connector.feature</module>
+		<module>../com.eclipsesource.jaxrs.provider.moxy.feature</module>
+		<module>../com.eclipsesource.jaxrs.provider.gson.feature</module>
+		<!-- Repository -->
+		<module>../com.eclipsesource.jaxrs.repository</module>
+	</modules>
+	
+  <repositories>
+    <repository>
+      <id>connector-dependencies</id>
+      <layout>p2</layout>
+      <url>file://${basedir}/../../build/com.eclipsesource.jaxrs.connector.target/p2</url>
+    </repository>
+  </repositories>	
+  
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>${tycho-groupid}</groupId>
+				<artifactId>tycho-maven-plugin</artifactId>
+				<version>${tycho-version}</version>
+				<extensions>true</extensions>
+			</plugin>
+
+			<plugin>
+				<groupId>${tycho-groupid}</groupId>
+				<artifactId>tycho-compiler-plugin</artifactId>
+				<version>${tycho-version}</version>
+				<configuration>
+					<encoding>${project.build.sourceEncoding}</encoding>
+				</configuration>
+			</plugin>
+
+			<plugin>
+				<groupId>${tycho-groupid}</groupId>
+				<artifactId>tycho-source-plugin</artifactId>
+				<version>${tycho-version}</version>
+				<executions>
+					<execution>
+						<id>plugin-source</id>
+						<goals>
+							<goal>plugin-source</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+
+			<plugin>
+				<groupId>${tycho-groupid}</groupId>
+				<artifactId>target-platform-configuration</artifactId>
+				<version>${tycho-version}</version>
+				<configuration>
+					<resolver>p2</resolver>
+					<pomDependencies>consider</pomDependencies>
+					<target>
+						<artifact>
+							<groupId>${project.groupId}</groupId>
+							<artifactId>${project.artifactId}</artifactId>
+							<version>${project.version}</version>
+							<classifier>${project.parent.relativePath}/../com.eclipsesource.jaxrs.connector.target/Equinox-3.8-jersey2.3.1</classifier>
+						</artifact>
+					</target>
+					<environments>
+						<environment>
+							<os>linux</os>
+							<ws>gtk</ws>
+							<arch>x86</arch>
+						</environment>
+					</environments>
+				</configuration>
+			</plugin>
+
+		</plugins>
+	</build>
+	
+</project>
