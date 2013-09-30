@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<?pde version="3.8"?><target name="Equinox 3.8" sequenceNumber="17">
+<?pde version="3.8"?><target name="Equinox 3.8" sequenceNumber="19">
 <locations>
 <location path="/Applications/eclipse/eclipse3-juno" type="Profile"/>
 <location includeAllPlatforms="false" includeConfigurePhase="false" includeMode="slicer" includeSource="true" type="InstallableUnit">
@@ -14,5 +14,7 @@
 </location>
 <location path="${project_loc:com.eclipsesource.jaxrs.connector.target}/jersey2.3.1/bundles" type="Directory"/>
 <location path="${project_loc:com.eclipsesource.jaxrs.connector.target}/jersey2.3.1/source-bundles" type="Directory"/>
+<location path="${project_loc:com.eclipsesource.jaxrs.connector.target}/eclipselink/bundles" type="Directory"/>
+<location path="${project_loc:com.eclipsesource.jaxrs.connector.target}/eclipselink/source-bundles" type="Directory"/>
 </locations>
 </target>
