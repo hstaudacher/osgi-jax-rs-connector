@@ -1,2 +1,4 @@
 language: java
+jdk:
+  - openjdk6
 script: "mvn -f build/com.eclipsesource.jaxrs.build/pom.xml clean verify"
