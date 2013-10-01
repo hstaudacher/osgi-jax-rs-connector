@@ -1,4 +1,5 @@
 # OSGi - JAX-RS Connector 3.1.0 [![Build Status](https://travis-ci.org/hstaudacher/osgi-jax-rs-connector.png)](https://travis-ci.org/hstaudacher/osgi-jax-rs-connector)
+![](http://download.eclipsesource.com/~hstaudacher/connector.png)  
 [JAX-RS (JSR 311)](http://jsr311.java.net/) is the community-driven Standard for 
 building RESTful web services with Java. The reference implementation for JAX-RS is 
 [Jersey](http://jersey.java.net/) and ships as OSGi bundles. 
