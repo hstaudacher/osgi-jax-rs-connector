@@ -1,0 +1,10 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: JAX-RS Security API
+Bundle-SymbolicName: com.eclipsesource.jaxrs.security
+Bundle-Version: 1.0.0.qualifier
+Bundle-Vendor: ECLIPSESOURCE
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Import-Package: javax.ws.rs.container;version="2.0.0",
+ javax.ws.rs.core;version="2.0.0"
+Export-Package: com.eclipsesource.jaxrs.security
