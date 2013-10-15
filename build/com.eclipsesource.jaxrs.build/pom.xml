@@ -35,8 +35,10 @@
 		<!-- Bundles -->
 		<module>../../bundles/com.eclipsesource.jaxrs.publisher</module>
 		<module>../../bundles/com.eclipsesource.jaxrs.consumer</module>
+		<module>../../bundles/com.eclipsesource.jaxrs.security</module>
 		<module>../../bundles/com.eclipsesource.jaxrs.provider.moxy</module>
 		<module>../../bundles/com.eclipsesource.jaxrs.provider.gson</module>
+		<module>../../bundles/com.eclipsesource.jaxrs.provider.security</module>
 		<!-- Tests -->
 		<module>../../tests/com.eclipsesource.jaxrs.publisher.test</module>
 		<module>../../tests/com.eclipsesource.jaxrs.consumer.test</module>

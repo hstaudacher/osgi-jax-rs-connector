@@ -9,6 +9,9 @@
    <feature url="features/com.eclipsesource.jaxrs.provider.moxy.feature_1.0.0.qualifier.jar" id="com.eclipsesource.jaxrs.provider.moxy.feature" version="1.0.0.qualifier">
       <category name="com.eclipsesource.jaxrs.connector.providers"/>
    </feature>
+   <feature url="features/com.eclipsesource.jaxrs.provider.security.feature_1.0.0.qualifier.jar" id="com.eclipsesource.jaxrs.provider.security.feature" version="1.0.0.qualifier">
+      <category name="com.eclipsesource.jaxrs.connector.providers"/>
+   </feature>
    <category-def name="com.eclipsesource.jaxrs.connector" label="OSGi - JAX-RS Connector"/>
    <category-def name="com.eclipsesource.jaxrs.connector.providers" label="OSGi - JAX-RS Providers"/>
 </site>
