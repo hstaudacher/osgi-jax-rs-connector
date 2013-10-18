@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.1.0" name="com.eclipsesource.jaxrs.provider.security.securityContextProviderComponent">
-   <implementation class="com.eclipsesource.jaxrs.provider.security.SecurityContextProviderComponent"/>
-   <service>
-      <provide interface="com.eclipsesource.jaxrs.security.SecurityContextProvider"/>
-   </service>
-   <reference bind="bindAuthenticationService" cardinality="1..1" interface="com.eclipsesource.jaxrs.security.AuthenticationService" name="AuthenticationService" policy="static"/>
-   <reference bind="bindAuthorizationService" cardinality="1..1" interface="com.eclipsesource.jaxrs.security.AuthorizationService" name="AuthorizationService" policy="static"/>
-</scr:component>

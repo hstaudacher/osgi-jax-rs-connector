@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.1.0" immediate="true" name="com.eclipsesource.jaxrs.provider.security.containerRequestFilterProvider">
-   <implementation class="com.eclipsesource.jaxrs.provider.security.ContainerRequestFilterProvider"/>
-   <service>
-      <provide interface="com.eclipsesource.jaxrs.provider.security.ContainerRequestFilterProvider"/>
-   </service>
-   <reference bind="bindSecurityContextProvider" cardinality="1..1" interface="com.eclipsesource.jaxrs.security.SecurityContextProvider" name="SecurityContextProvider" policy="static"/>
-</scr:component>
