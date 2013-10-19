@@ -13,8 +13,29 @@ import java.security.Principal;
 
 import javax.ws.rs.container.ContainerRequestContext;
 
+/**
+ * This is an OSGi service interface for authenticating users requesting access
+ * to a RESTful service.
+ * 
+ * @author bhunt
+ */
 public interface AuthenticationService {
+	
+	/**
+	 * Authenticates the user initiating the RESTful request.  Implementations
+	 * must return null if the user could not be authenticated.
+	 * 
+	 * @param requestContext the request context supplied by Jersey
+	 * @return a principal representing the authenticated user initiating the RESTful request;
+	 *         null if the user could not be authenticated
+	 */
 	Principal authenticate(ContainerRequestContext requestContext);
 
+	/**
+	 * 
+	 * @return the authentication scheme.  Must be one of SecurityContext.BASIC_AUTH,
+	 *         SecurityContext.CLIENT_CERT_AUTH, SecurityContext.DIGEST_AUTH, or
+	 *         SecurityContext.FORM_AUTH
+	 */
 	String getAuthenticationScheme();
 }

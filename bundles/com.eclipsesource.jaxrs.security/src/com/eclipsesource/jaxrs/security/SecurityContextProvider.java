@@ -12,6 +12,17 @@ package com.eclipsesource.jaxrs.security;
 import javax.ws.rs.container.ContainerRequestContext;
 import javax.ws.rs.core.SecurityContext;
 
+/**
+ * This is an OSGi service interface for providing a security context for
+ * accesses to a RESTful service.
+ * 
+ * @author bhunt
+ */
 public interface SecurityContextProvider {
+	
+	/**
+	 * @param requestContext the request context provided by Jerset for the incoming RESTful request
+	 * @return the security context used to protect the resource.
+	 */
 	SecurityContext getSecurityContext(ContainerRequestContext requestContext);
 }
