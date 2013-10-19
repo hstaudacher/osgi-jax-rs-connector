@@ -6,12 +6,15 @@ import org.osgi.framework.ServiceRegistration;
 import org.osgi.util.tracker.ServiceTracker;
 
 import com.eclipsesource.jaxrs.provider.security.RolesAllowedDynamicFeatureProvider;
+import com.eclipsesource.jaxrs.provider.security.SecurityContextProviderComponent;
 import com.eclipsesource.jaxrs.security.AuthenticationService;
 import com.eclipsesource.jaxrs.security.AuthorizationService;
+import com.eclipsesource.jaxrs.security.SecurityContextProvider;
 
 public class Activator implements BundleActivator {
 
 	private static Activator instance;
+	private ServiceRegistration<SecurityContextProvider> securityContextProviderServiceRegistration;
 	private ServiceRegistration<RolesAllowedDynamicFeatureProvider> rolesAllowedDynamicFeatureProviderServiceRegistration;
 	private ServiceTracker<AuthenticationService, AuthenticationService> authenticationServiceTracker;
 	private ServiceTracker<AuthorizationService, AuthorizationService> authorizationServiceTracker;
@@ -33,6 +36,7 @@ public class Activator implements BundleActivator {
 	
 	@Override
 	public void start(BundleContext context) throws Exception {
+		securityContextProviderServiceRegistration = context.registerService(SecurityContextProvider.class, new SecurityContextProviderComponent(), null);
 		rolesAllowedDynamicFeatureProviderServiceRegistration = context.registerService(RolesAllowedDynamicFeatureProvider.class, new RolesAllowedDynamicFeatureProvider(), null);
 		
 		authenticationServiceTracker = new ServiceTracker<AuthenticationService, AuthenticationService>(context, AuthenticationService.class, null);
@@ -47,6 +51,9 @@ public class Activator implements BundleActivator {
 	@Override
 	public void stop(BundleContext context) throws Exception {
 		instance = null;
+		
+		if(securityContextProviderServiceRegistration != null)
+			securityContextProviderServiceRegistration.unregister();
 		
 		if(rolesAllowedDynamicFeatureProviderServiceRegistration != null)
 			rolesAllowedDynamicFeatureProviderServiceRegistration.unregister();
