@@ -15,5 +15,6 @@ import org.glassfish.jersey.server.filter.RolesAllowedDynamicFeature;
 
 @Provider
 public class RolesAllowedDynamicFeatureProvider extends RolesAllowedDynamicFeature {
-	// no content
+	// We have to extend the Jersey RolesAllowedDynamicFeature so that the
+	// @Provider annotation can be used and registered as an OSGi service.
 }
