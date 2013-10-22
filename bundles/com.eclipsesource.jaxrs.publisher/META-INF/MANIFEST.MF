@@ -7,7 +7,6 @@ Bundle-Vendor: %Bundle-Name
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Bundle-Localization: plugin
 Bundle-Activator: com.eclipsesource.jaxrs.publisher.internal.Activator
-Bundle-ActivationPolicy: lazy
 Import-Package: javax.servlet;version="[2.3.0,4.0.0)",
  javax.servlet.http;version="[2.3.0,4.0.0)",
  javax.ws.rs;version="[2.0.0,3.0.0)",
