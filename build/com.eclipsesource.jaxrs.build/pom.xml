@@ -43,7 +43,9 @@
 		<module>../../tests/com.eclipsesource.jaxrs.provider.gson.test</module>
 		<!-- Features -->
 		<module>../com.eclipsesource.jaxrs.jersey.runtime.feature</module>
+		<module>../com.eclipsesource.jaxrs.jersey.runtime.source.feature</module>
 		<module>../com.eclipsesource.jaxrs.connector.feature</module>
+		<module>../com.eclipsesource.jaxrs.connector.source.feature</module>
 		<module>../com.eclipsesource.jaxrs.provider.moxy.feature</module>
 		<module>../com.eclipsesource.jaxrs.provider.gson.feature</module>
 		<!-- Repository -->
