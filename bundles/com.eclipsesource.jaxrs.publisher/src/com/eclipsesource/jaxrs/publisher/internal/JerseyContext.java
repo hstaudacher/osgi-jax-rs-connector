@@ -18,6 +18,7 @@ import javax.ws.rs.core.Application;
 import javax.ws.rs.core.Request;
 
 import org.glassfish.jersey.server.ResourceConfig;
+import org.glassfish.jersey.server.ServerProperties;
 import org.glassfish.jersey.servlet.ServletContainer;
 import org.osgi.service.http.HttpService;
 import org.osgi.service.http.NamespaceException;
@@ -33,8 +34,14 @@ public class JerseyContext {
 
   public JerseyContext( HttpService httpService, String rootPath ) {
     this.httpService = httpService;
-    this.rootPath = rootPath == null ? "/services" : rootPath;
+    this.rootPath = rootPath == null ? "/api" : rootPath;
     this.application = new RootApplication();
+
+    // don't look for implementations described by META-INF/services/*
+    this.application.getProperties().put(ServerProperties.METAINF_SERVICES_LOOKUP_DISABLE, true);
+    // disable auto discovery on server, as it's handled via OSGI
+    this.application.getProperties().put(ServerProperties.FEATURE_AUTO_DISCOVERY_DISABLE, true);
+
     this.servletContainer = new ServletContainer( ResourceConfig.forApplication( application ) );
   }
 
