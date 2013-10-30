@@ -14,11 +14,14 @@ import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.ws.rs.core.Application;
 
 
 public class RootApplication extends Application {
+  private transient Map<String, Object> cachedProperties = new HashMap<String, Object>();
   
   private final List<Object> resources;
 
@@ -44,5 +47,14 @@ public class RootApplication extends Application {
     singletons.addAll( resources );
     return singletons;
   }
+
+    @Override
+    public Map<String, Object> getProperties() {
+        return cachedProperties;
+    }
+
+    public void addProperties( Map<String, Object> properties ) {
+        cachedProperties.putAll(properties);
+    }
   
 }

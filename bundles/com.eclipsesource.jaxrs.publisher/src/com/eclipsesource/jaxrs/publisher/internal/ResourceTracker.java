@@ -84,7 +84,10 @@ public class ResourceTracker extends ServiceTracker<Object, Object> {
   }
 
   private boolean isRegisterableAnnotationPresent( Class<?> type ) {
-    return type.isAnnotationPresent( Path.class ) || type.isAnnotationPresent( Provider.class );
+      if ( type !=  null ) {
+        return type.isAnnotationPresent( Path.class ) || type.isAnnotationPresent( Provider.class );
+      }
+      return false;
   }
   
 }
