@@ -1,0 +1,16 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: JAX-RS Security Provider
+Bundle-SymbolicName: com.eclipsesource.jaxrs.provider.security
+Bundle-Version: 1.0.0.qualifier
+Bundle-Vendor: ECLIPSESOURCE
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Import-Package: com.eclipsesource.jaxrs.security,
+ javax.ws.rs.container;version="2.0.0",
+ javax.ws.rs.core;version="2.0.0",
+ javax.ws.rs.ext;version="2.0.0",
+ org.glassfish.jersey.server.filter;version="2.3.1",
+ org.osgi.framework;version="1.3.0",
+ org.osgi.util.tracker;version="1.5.1"
+Bundle-ActivationPolicy: lazy
+Bundle-Activator: com.eclipsesource.jaxrs.provider.security.bundle.Activator
