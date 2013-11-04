@@ -1,12 +1,13 @@
 /*******************************************************************************
- * Copyright (c) 2013 Bryan Hunt. All rights reserved. This program and the 
- * accompanying materials are made available under the terms of the Eclipse Public 
- * License v1.0 which accompanies this distribution, and is available at 
- * http://www.eclipse.org/legal/epl-v10.html 
- * 
- * Contributors: Bryan Hunt - initial API and implementation
- *******************************************************************************/
-
+ * Copyright (c) 2013 Bryan Hunt and others.
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *    Bryan Hunt - initial API and implementation
+ ******************************************************************************/
 package com.eclipsesource.jaxrs.provider.security;
 
 import java.security.Principal;
@@ -23,20 +24,31 @@ import com.eclipsesource.jaxrs.security.SecurityContextProvider;
 
 public class SecurityContextProviderComponent implements SecurityContextProvider {
 
-    @Override
-    public SecurityContext getSecurityContext(ContainerRequestContext requestContext)
-    {
-        AuthenticationService authenticationService = Activator.getInstance().getAuthenticationService();
-        AuthorizationService authorizationService = Activator.getInstance().getAuthorizationService();
-
-        if(authenticationService == null || authorizationService == null)
-        	return null;
-        
-        Principal principal = authenticationService.authenticate(requestContext);
-
-    	if (principal == null)
-    		requestContext.abortWith(Response.status(Status.UNAUTHORIZED).build());
-
-    	return new AuthSecurityContext(authenticationService.getAuthenticationScheme(), principal, requestContext.getUriInfo().getRequestUri().getScheme().equals("https"), authorizationService);
+  @Override
+  public SecurityContext getSecurityContext( ContainerRequestContext requestContext ) {
+    SecurityContext result = null;
+    AuthenticationService authenticationService = Activator.getInstance().getAuthenticationService();
+    AuthorizationService authorizationService = Activator.getInstance().getAuthorizationService();
+    if( authenticationService != null && authorizationService != null ) {
+      result = createSecurityContext( requestContext, authenticationService, authorizationService );
     }
+    return result;
+  }
+
+  private SecurityContext createSecurityContext( ContainerRequestContext requestContext,
+                                                 AuthenticationService authenticationService,
+                                                 AuthorizationService authorizationService )
+  {
+    Principal principal = authenticationService.authenticate( requestContext );
+    if( principal == null ) {
+      requestContext.abortWith( Response.status( Status.UNAUTHORIZED ).build() );
+    }
+    return new AuthSecurityContext( authenticationService.getAuthenticationScheme(),
+                                    principal,
+                                    requestContext.getUriInfo()
+                                    .getRequestUri()
+                                    .getScheme()
+                                    .equals( "https" ),
+                                    authorizationService );
+  }
 }

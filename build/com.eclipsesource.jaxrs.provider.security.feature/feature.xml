@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <feature
       id="com.eclipsesource.jaxrs.provider.security.feature"
-      label="JAX-RS Security"
+      label="OSGi - JAX-RS Security"
       version="1.0.0.qualifier"
-      provider-name="ECLIPSESOURCE">
+      provider-name="EclipseSource">
 
    <description>
       %description
@@ -55,4 +55,5 @@
          install-size="0"
          version="0.0.0"
          unpack="false"/>
+
 </feature>

@@ -1,3 +1,13 @@
+/*******************************************************************************
+ * Copyright (c) 2013 Bryan Hunt and others.
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *    Bryan Hunt - initial API and implementation
+ ******************************************************************************/
 package com.eclipsesource.jaxrs.provider.security.fixture;
 
 import java.security.Principal;
@@ -11,19 +21,19 @@ import com.eclipsesource.jaxrs.security.AuthorizationService;
 
 public class AuthService implements AuthenticationService, AuthorizationService {
 
-	@Override
-	public boolean isUserInRole(Principal user, String role) {
-		return user.getName().equals("junit") && role.equals("secure");
-	}
+  @Override
+  public boolean isUserInRole( Principal user, String role ) {
+    return user.getName().equals( "junit" ) && role.equals( "secure" );
+  }
 
-	@Override
-	public Principal authenticate(ContainerRequestContext requestContext) {
-		Cookie userCookie = requestContext.getCookies().get("user");
-		return userCookie != null ? new User(userCookie.getValue()) : null;
-	}
+  @Override
+  public Principal authenticate( ContainerRequestContext requestContext ) {
+    Cookie userCookie = requestContext.getCookies().get( "user" );
+    return userCookie != null ? new User( userCookie.getValue() ) : null;
+  }
 
-	@Override
-	public String getAuthenticationScheme() {
-		return SecurityContext.FORM_AUTH;
-	}
+  @Override
+  public String getAuthenticationScheme() {
+    return SecurityContext.FORM_AUTH;
+  }
 }
