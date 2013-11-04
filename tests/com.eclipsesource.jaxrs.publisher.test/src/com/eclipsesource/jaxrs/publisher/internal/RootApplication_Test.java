@@ -16,13 +16,12 @@ import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.spy;
 
+import java.util.Map;
 import java.util.Set;
 
 import org.junit.Before;
 import org.junit.Test;
 import org.osgi.framework.InvalidSyntaxException;
-
-import com.eclipsesource.jaxrs.publisher.internal.RootApplication;
 
 
 public class RootApplication_Test {
@@ -101,6 +100,23 @@ public class RootApplication_Test {
     Set<Object> classes = application.getSingletons();
     
     assertEquals( 0, classes.size() );
+  }
+  
+  @Test
+  public void testInitialPropertiesAreEmpty() {
+    Map<String, Object> properties = application.getProperties();
+    
+    assertEquals( 0, properties.size() );
+  }
+  
+  @Test
+  public void testPutsProperties() {
+    application.addProperty( "foo", "bar" );
+    
+    Map<String, Object> properties = application.getProperties();
+    
+    assertEquals( 1, properties.size() );
+    assertEquals( "bar", properties.get( "foo" ) );
   }
   
 }

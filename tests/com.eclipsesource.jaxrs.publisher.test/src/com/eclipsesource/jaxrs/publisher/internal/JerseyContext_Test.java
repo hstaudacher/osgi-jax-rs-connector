@@ -23,11 +23,13 @@ import static org.mockito.Mockito.when;
 import java.util.Dictionary;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import javax.servlet.Servlet;
 import javax.servlet.ServletException;
 
+import org.glassfish.jersey.server.ServerProperties;
 import org.glassfish.jersey.servlet.ServletContainer;
 import org.junit.Before;
 import org.junit.Test;
@@ -37,9 +39,6 @@ import org.mockito.runners.MockitoJUnitRunner;
 import org.osgi.service.http.HttpContext;
 import org.osgi.service.http.HttpService;
 import org.osgi.service.http.NamespaceException;
-
-import com.eclipsesource.jaxrs.publisher.internal.JerseyContext;
-import com.eclipsesource.jaxrs.publisher.internal.RootApplication;
 
 
 @RunWith( MockitoJUnitRunner.class )
@@ -140,6 +139,24 @@ public class JerseyContext_Test {
                                             any( HttpContext.class ) );
     
     jerseyContext.addResource( new Object() );
+  }
+  
+  @Test
+  public void testRegsters_METAINF_SERVICES_LOOKUP_DISABLE() {
+    JerseyContext context = new JerseyContext( httpService, "/test" ); 
+    
+    Map<String, Object> properties = context.getRootApplication().getProperties();
+    
+    assertEquals( true, properties.get( ServerProperties.METAINF_SERVICES_LOOKUP_DISABLE ) );
+  }
+  
+  @Test
+  public void testRegsters_FEATURE_AUTO_DISCOVERY_DISABLE() {
+    JerseyContext context = new JerseyContext( httpService, "/test" );
+    
+    Map<String, Object> properties = context.getRootApplication().getProperties();
+    
+    assertEquals( true, properties.get( ServerProperties.FEATURE_AUTO_DISCOVERY_DISABLE ) );
   }
   
 }

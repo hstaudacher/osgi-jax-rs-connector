@@ -7,26 +7,28 @@
  *
  * Contributors:
  *    Holger Staudacher - initial API and implementation
+ *    Dragos Dascalita  - added properties
  ******************************************************************************/
 package com.eclipsesource.jaxrs.publisher.internal;
 
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Set;
-import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 
 import javax.ws.rs.core.Application;
 
 
 public class RootApplication extends Application {
-  private transient Map<String, Object> cachedProperties = new HashMap<String, Object>();
   
+  private final Map<String, Object> properties;
   private final List<Object> resources;
 
   public RootApplication() {
     resources = new LinkedList<Object>();
+    properties = new HashMap<String, Object>();
   }
   
   void addResource( Object resource ) {
@@ -48,13 +50,13 @@ public class RootApplication extends Application {
     return singletons;
   }
 
-    @Override
-    public Map<String, Object> getProperties() {
-        return cachedProperties;
-    }
+  @Override
+  public Map<String, Object> getProperties() {
+    return properties;
+  }
 
-    public void addProperties( Map<String, Object> properties ) {
-        cachedProperties.putAll(properties);
-    }
+  public void addProperty( String key, Object value ) {
+    properties.put( key, value );
+  }
   
 }
