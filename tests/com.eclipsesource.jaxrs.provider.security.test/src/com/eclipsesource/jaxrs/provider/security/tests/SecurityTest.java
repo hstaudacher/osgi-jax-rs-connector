@@ -22,7 +22,7 @@ public class SecurityTest {
 	
 	@Test
 	public void testPublic() {
-		String result = target.path("/test/public").request(MediaType.TEXT_PLAIN).cookie("user", "none").get(String.class);
+		String result = target.path("/test/public").request(MediaType.TEXT_PLAIN).get(String.class);
 		assertEquals(result, "public");
 	}
 	

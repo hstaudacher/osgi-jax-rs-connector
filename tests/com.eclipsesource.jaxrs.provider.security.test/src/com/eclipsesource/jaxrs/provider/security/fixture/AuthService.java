@@ -19,7 +19,7 @@ public class AuthService implements AuthenticationService, AuthorizationService 
 	@Override
 	public Principal authenticate(ContainerRequestContext requestContext) {
 		Cookie userCookie = requestContext.getCookies().get("user");
-		return userCookie != null ? new User(userCookie.getValue()) : null;
+		return new User(userCookie != null ? userCookie.getValue() : "");
 	}
 
 	@Override

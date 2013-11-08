@@ -27,7 +27,7 @@ public class SecurityService implements AuthenticationService, AuthorizationServ
 		Cookie authCookie = requestContext.getCookies().get("auth");
 		
 		if(userCookie == null || authCookie == null || !userCookie.getValue().equals(authCookie.getValue()))
-			return null;
+			return new User("");
 		
 		return new User(userCookie.getValue()); 
 	}
