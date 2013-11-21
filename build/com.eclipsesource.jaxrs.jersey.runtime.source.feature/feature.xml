@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <feature
       id="com.eclipsesource.jaxrs.jersey.runtime.source.feature"
-      label="Jersey Runtime"
+      label="Jersey Runtime sources"
       version="1.0.0.qualifier"
       provider-name="EclipseSource">
 
