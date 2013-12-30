@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <feature
-      id="com.eclipsesource.jaxrs.connector.feature"
-      label="OSGi - JAX-RS Connector"
+      id="com.eclipsesource.jaxrs.connector.source.feature"
+      label="OSGi - JAX-RS Connector sources"
       version="3.1.0.qualifier"
       provider-name="EclipseSource">
 
@@ -18,18 +18,18 @@
    </license>
 
    <includes
-         id="com.eclipsesource.jaxrs.jersey.runtime.feature"
+         id="com.eclipsesource.jaxrs.jersey.runtime.source.feature"
          version="0.0.0"/>
 
    <plugin
-         id="com.eclipsesource.jaxrs.publisher"
+         id="com.eclipsesource.jaxrs.publisher.source"
          download-size="0"
          install-size="0"
          version="0.0.0"
          unpack="false"/>
 
    <plugin
-         id="com.eclipsesource.jaxrs.consumer"
+         id="com.eclipsesource.jaxrs.consumer.source"
          download-size="0"
          install-size="0"
          version="0.0.0"

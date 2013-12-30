@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <feature
-      id="com.eclipsesource.jaxrs.jersey.runtime.feature"
-      label="Jersey Runtime"
+      id="com.eclipsesource.jaxrs.jersey.runtime.source.feature"
+      label="Jersey Runtime sources"
       version="1.0.0.qualifier"
       provider-name="EclipseSource">
 
@@ -17,120 +17,121 @@
       [Enter License Description here.]
    </license>
 
+
    <plugin
-         id="org.glassfish.hk2.api"
+         id="org.glassfish.jersey.containers.jersey-container-servlet-core.source"
          download-size="0"
          install-size="0"
          version="0.0.0"
          unpack="false"/>
 
    <plugin
-         id="org.glassfish.hk2.external.asm-all-repackaged"
+         id="org.glassfish.jersey.containers.jersey-container-servlet.source"
          download-size="0"
          install-size="0"
          version="0.0.0"
          unpack="false"/>
 
    <plugin
-         id="org.glassfish.hk2.external.cglib"
+         id="org.glassfish.jersey.core.jersey-client.source"
          download-size="0"
          install-size="0"
          version="0.0.0"
          unpack="false"/>
 
    <plugin
-         id="org.glassfish.hk2.external.javax.inject"
+         id="org.glassfish.jersey.core.jersey-common.source"
          download-size="0"
          install-size="0"
          version="0.0.0"
          unpack="false"/>
 
    <plugin
-         id="org.glassfish.hk2.locator"
+         id="org.glassfish.jersey.core.jersey-server.source"
          download-size="0"
          install-size="0"
          version="0.0.0"
          unpack="false"/>
 
    <plugin
-         id="org.glassfish.hk2.osgi-resource-locator"
+         id="com.google.guava.source"
          download-size="0"
          install-size="0"
          version="0.0.0"
          unpack="false"/>
 
    <plugin
-         id="org.glassfish.hk2.utils"
+         id="javax.ws.rs-api.source"
          download-size="0"
          install-size="0"
          version="0.0.0"
          unpack="false"/>
 
    <plugin
-         id="com.google.guava"
+         id="javax.annotation-api.source"
          download-size="0"
          install-size="0"
          version="0.0.0"
          unpack="false"/>
 
    <plugin
-         id="org.glassfish.jersey.containers.jersey-container-servlet"
+         id="javax.servlet-api.source"
          download-size="0"
          install-size="0"
          version="0.0.0"
          unpack="false"/>
 
    <plugin
-         id="org.glassfish.jersey.containers.jersey-container-servlet-core"
+         id="javax.validation.api.source"
          download-size="0"
          install-size="0"
          version="0.0.0"
          unpack="false"/>
 
    <plugin
-         id="org.glassfish.jersey.core.jersey-client"
+         id="org.glassfish.hk2.api.source"
          download-size="0"
          install-size="0"
          version="0.0.0"
          unpack="false"/>
 
    <plugin
-         id="org.glassfish.jersey.core.jersey-common"
+         id="org.glassfish.hk2.external.asm-all-repackaged.source"
          download-size="0"
          install-size="0"
          version="0.0.0"
          unpack="false"/>
 
    <plugin
-         id="org.glassfish.jersey.core.jersey-server"
+         id="org.glassfish.hk2.external.cglib.source"
          download-size="0"
          install-size="0"
          version="0.0.0"
          unpack="false"/>
 
    <plugin
-         id="javax.servlet-api"
+         id="org.glassfish.hk2.external.javax.inject.source"
          download-size="0"
          install-size="0"
          version="0.0.0"
          unpack="false"/>
 
    <plugin
-         id="javax.validation.api"
+         id="org.glassfish.hk2.locator.source"
          download-size="0"
          install-size="0"
          version="0.0.0"
          unpack="false"/>
 
    <plugin
-         id="javax.annotation-api"
+         id="org.glassfish.hk2.osgi-resource-locator.source"
          download-size="0"
          install-size="0"
          version="0.0.0"
          unpack="false"/>
 
    <plugin
-         id="javax.ws.rs-api"
+         id="org.glassfish.hk2.utils.source"
          download-size="0"
          install-size="0"
          version="0.0.0"

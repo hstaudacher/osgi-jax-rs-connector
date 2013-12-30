@@ -3,6 +3,9 @@
    <feature url="features/com.eclipsesource.jaxrs.connector.feature_3.1.0.qualifier.jar" id="com.eclipsesource.jaxrs.connector.feature" version="3.1.0.qualifier">
       <category name="com.eclipsesource.jaxrs.connector"/>
    </feature>
+   <feature url="features/com.eclipsesource.jaxrs.connector.source.feature_3.1.0.qualifier.jar" id="com.eclipsesource.jaxrs.connector.source.feature" version="3.1.0.qualifier">
+      <category name="com.eclipsesource.jaxrs.connector"/>
+   </feature>
    <feature url="features/com.eclipsesource.jaxrs.provider.gson.feature_1.0.0.qualifier.jar" id="com.eclipsesource.jaxrs.provider.gson.feature" version="1.0.0.qualifier">
       <category name="com.eclipsesource.jaxrs.connector.providers"/>
    </feature>
