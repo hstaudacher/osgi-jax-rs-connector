@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feature
+      id="com.eclipsesource.jaxrs.provider.security.feature"
+      label="OSGi - JAX-RS Security"
+      version="1.0.0.qualifier"
+      provider-name="EclipseSource">
+
+   <description>
+      %description
+   </description>
+
+   <copyright>
+      %copyright
+   </copyright>
+
+   <license url="%licenseURL">
+      %license
+   </license>
+
+   <includes
+         id="com.eclipsesource.jaxrs.jersey.runtime.feature"
+         version="0.0.0"/>
+
+   <requires>
+      <import plugin="javax.annotation-api"/>
+      <import plugin="javax.ws.rs-api"/>
+      <import plugin="org.glassfish.jersey.core.jersey-server"/>
+      <import plugin="org.eclipse.osgi"/>
+   </requires>
+
+   <plugin
+         id="com.eclipsesource.jaxrs.provider.security"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="com.eclipsesource.jaxrs.provider.security.source"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+</feature>
