@@ -35,6 +35,7 @@ The custom `@Provider` implementations are located in their own feature. The fol
 * `com.eclipsesource.jaxrs.provider.moxy` - Allows the de/serialization using [EclipseLink MOXy](http://www.eclipse.org/eclipselink/moxy.php).  
 * `com.eclipsesource.jaxrs.provider.gson` - Allows the de/serialization using [Gson](https://code.google.com/p/google-gson/).  
 * `com.eclipsesource.jaxrs.provider.security` - Provides an OSGi friendly integration of Jersey's/JAX-RS security features. [Reade the wiki for more information](https://github.com/hstaudacher/osgi-jax-rs-connector/wiki/security).
+* `com.eclipsesource.jaxrs.provider.sse` - Provides an integration of Jersey's [SSE feature](https://jersey.java.net/documentation/latest/sse.html).
 
 ## Installation
 To ease the installation we provide a p2 repository and we publish the connector to maven central.
