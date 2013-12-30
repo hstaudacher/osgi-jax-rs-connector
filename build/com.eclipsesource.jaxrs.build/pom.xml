@@ -18,13 +18,13 @@
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<kar-packager-version>0.6.0</kar-packager-version>
-		<tycho-version>0.18.1</tycho-version>
-		<tycho-extras-version>0.18.1</tycho-extras-version>
+		<tycho-version>0.19.0</tycho-version>
+		<tycho-extras-version>0.19.0</tycho-extras-version>
 		<tycho-groupid>org.eclipse.tycho</tycho-groupid>
 		<surefire-version>2.16</surefire-version>
 		<findbugs-version>2.5.2</findbugs-version>
 		<junit-version>4.11</junit-version>
-    <mockito-version>1.9.5</mockito-version>
+		<mockito-version>1.9.5</mockito-version>
 		<jacocoagent>${basedir}/../../build/com.eclipsesource.jaxrs.build/lib/jacocoagent.jar</jacocoagent>
 		<test-arguments>-Xms512m -Xmx512m
 			-javaagent:${jacocoagent}=destfile=${basedir}/../../build/com.eclipsesource.jaxrs.build/target/jacoco.exec,append=true</test-arguments>
@@ -42,27 +42,25 @@
 		<module>../../tests/com.eclipsesource.jaxrs.publisher.test</module>
 		<module>../../tests/com.eclipsesource.jaxrs.consumer.test</module>
 		<module>../../tests/com.eclipsesource.jaxrs.provider.gson.test</module>
-	  <module>../../tests/com.eclipsesource.jaxrs.provider.security.test</module>
+		<module>../../tests/com.eclipsesource.jaxrs.provider.security.test</module>
 		<!-- Features -->
 		<module>../com.eclipsesource.jaxrs.jersey.runtime.feature</module>
-		<module>../com.eclipsesource.jaxrs.jersey.runtime.source.feature</module>
 		<module>../com.eclipsesource.jaxrs.connector.feature</module>
-		<module>../com.eclipsesource.jaxrs.connector.source.feature</module>
 		<module>../com.eclipsesource.jaxrs.provider.moxy.feature</module>
 		<module>../com.eclipsesource.jaxrs.provider.gson.feature</module>
 		<module>../com.eclipsesource.jaxrs.provider.security.feature</module>
 		<!-- Repository -->
 		<module>../com.eclipsesource.jaxrs.repository</module>
 	</modules>
-	
-  <repositories>
-    <repository>
-      <id>connector-dependencies</id>
-      <layout>p2</layout>
-      <url>file:///${basedir}/../../build/com.eclipsesource.jaxrs.connector.target/p2</url>
-    </repository>
-  </repositories>	
-  
+
+	<repositories>
+		<repository>
+			<id>connector-dependencies</id>
+			<layout>p2</layout>
+			<url>file:///${basedir}/../../build/com.eclipsesource.jaxrs.connector.target/p2</url>
+		</repository>
+	</repositories>
+
 	<build>
 		<plugins>
 			<plugin>
@@ -120,7 +118,37 @@
 				</configuration>
 			</plugin>
 
+			<plugin>
+				<groupId>org.eclipse.tycho.extras</groupId>
+				<artifactId>tycho-source-feature-plugin</artifactId>
+				<version>${tycho-extras-version}</version>
+				<executions>
+					<execution>
+						<id>source-feature</id>
+						<phase>package</phase>
+						<goals>
+							<goal>source-feature</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			
+			<plugin>
+				<groupId>org.eclipse.tycho</groupId>
+				<artifactId>tycho-p2-plugin</artifactId>
+				<version>${tycho-version}</version>
+				<executions>
+					<execution>
+						<id>attach-p2-metadata</id>
+						<phase>package</phase>
+						<goals>
+							<goal>p2-metadata</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+
 		</plugins>
 	</build>
-	
+
 </project>
