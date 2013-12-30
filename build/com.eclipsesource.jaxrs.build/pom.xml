@@ -38,17 +38,20 @@
 		<module>../../bundles/com.eclipsesource.jaxrs.provider.moxy</module>
 		<module>../../bundles/com.eclipsesource.jaxrs.provider.gson</module>
 		<module>../../bundles/com.eclipsesource.jaxrs.provider.security</module>
+		<module>../../bundles/com.eclipsesource.jaxrs.provider.sse</module>
 		<!-- Tests -->
 		<module>../../tests/com.eclipsesource.jaxrs.publisher.test</module>
 		<module>../../tests/com.eclipsesource.jaxrs.consumer.test</module>
 		<module>../../tests/com.eclipsesource.jaxrs.provider.gson.test</module>
 		<module>../../tests/com.eclipsesource.jaxrs.provider.security.test</module>
+		<module>../../tests/com.eclipsesource.jaxrs.provider.sse.test</module>
 		<!-- Features -->
 		<module>../com.eclipsesource.jaxrs.jersey.runtime.feature</module>
 		<module>../com.eclipsesource.jaxrs.connector.feature</module>
 		<module>../com.eclipsesource.jaxrs.provider.moxy.feature</module>
 		<module>../com.eclipsesource.jaxrs.provider.gson.feature</module>
 		<module>../com.eclipsesource.jaxrs.provider.security.feature</module>
+		<module>../com.eclipsesource.jaxrs.provider.sse.feature</module>
 		<!-- Repository -->
 		<module>../com.eclipsesource.jaxrs.repository</module>
 	</modules>
@@ -105,7 +108,7 @@
 							<groupId>${project.groupId}</groupId>
 							<artifactId>${project.artifactId}</artifactId>
 							<version>${project.version}</version>
-							<classifier>${project.parent.relativePath}/../com.eclipsesource.jaxrs.connector.target/Equinox-3.8-jersey2.3.1</classifier>
+							<classifier>${project.parent.relativePath}/../com.eclipsesource.jaxrs.connector.target/Equinox-4.4-jersey2.3.1</classifier>
 						</artifact>
 					</target>
 					<environments>

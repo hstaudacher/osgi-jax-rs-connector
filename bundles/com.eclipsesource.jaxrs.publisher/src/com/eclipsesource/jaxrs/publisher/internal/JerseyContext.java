@@ -43,9 +43,9 @@ public class JerseyContext {
 
   private void disableAutoDiscovery() {
     // don't look for implementations described by META-INF/services/*
-    this.application.addProperty(ServerProperties.METAINF_SERVICES_LOOKUP_DISABLE, true);
+    this.application.addProperty(ServerProperties.METAINF_SERVICES_LOOKUP_DISABLE, false );
     // disable auto discovery on server, as it's handled via OSGI
-    this.application.addProperty(ServerProperties.FEATURE_AUTO_DISCOVERY_DISABLE, true);
+    this.application.addProperty(ServerProperties.FEATURE_AUTO_DISCOVERY_DISABLE, true );
   }
 
   public void addResource( Object resource ) {

@@ -142,12 +142,12 @@ public class JerseyContext_Test {
   }
   
   @Test
-  public void testRegsters_METAINF_SERVICES_LOOKUP_DISABLE() {
+  public void testDoesNotRegster_METAINF_SERVICES_LOOKUP_DISABLE() {
     JerseyContext context = new JerseyContext( httpService, "/test" ); 
     
     Map<String, Object> properties = context.getRootApplication().getProperties();
     
-    assertEquals( true, properties.get( ServerProperties.METAINF_SERVICES_LOOKUP_DISABLE ) );
+    assertEquals( false, properties.get( ServerProperties.METAINF_SERVICES_LOOKUP_DISABLE ) );
   }
   
   @Test

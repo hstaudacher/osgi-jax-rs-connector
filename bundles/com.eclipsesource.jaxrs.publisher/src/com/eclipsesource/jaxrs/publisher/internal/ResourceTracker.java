@@ -15,6 +15,7 @@ package com.eclipsesource.jaxrs.publisher.internal;
 import static com.eclipsesource.jaxrs.publisher.ServiceProperties.PUBLISH;
 
 import javax.ws.rs.Path;
+import javax.ws.rs.core.Feature;
 import javax.ws.rs.ext.Provider;
 
 import org.osgi.framework.BundleContext;
@@ -69,7 +70,7 @@ public class ResourceTracker extends ServiceTracker<Object, Object> {
   }
 
   private boolean isResource( Object service ) {
-    return service != null && hasRegisterableAnnotation( service );
+    return service != null && ( hasRegisterableAnnotation( service ) || service instanceof Feature );
   }
 
   private boolean hasRegisterableAnnotation( Object service ) {

@@ -7,5 +7,6 @@
 	<classpathentry combineaccessrules="false" kind="src" path="/com.eclipsesource.jaxrs.provider.gson.test"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/com.eclipsesource.jaxrs.publisher.test"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/com.eclipsesource.jaxrs.provider.security.test"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/com.eclipsesource.jaxrs.provider.sse.test"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
