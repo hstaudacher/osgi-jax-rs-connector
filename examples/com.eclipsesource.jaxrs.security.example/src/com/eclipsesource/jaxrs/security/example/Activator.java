@@ -14,21 +14,21 @@ import org.osgi.framework.BundleActivator;
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.ServiceRegistration;
 
-import com.eclipsesource.jaxrs.security.AuthenticationService;
-import com.eclipsesource.jaxrs.security.AuthorizationService;
+import com.eclipsesource.jaxrs.provider.security.AuthenticationHandler;
+import com.eclipsesource.jaxrs.provider.security.AuthorizationHandler;
 
 public class Activator implements BundleActivator {
 
-  private ServiceRegistration<TestResource> resourceRegistration;
-  private ServiceRegistration<AuthenticationService> authenticationRegistration;
-  private ServiceRegistration<AuthorizationService> authorizationRegistration;
+  private ServiceRegistration<SecureResource> resourceRegistration;
+  private ServiceRegistration<AuthenticationHandler> authenticationRegistration;
+  private ServiceRegistration<AuthorizationHandler> authorizationRegistration;
 
   @Override
   public void start( BundleContext bundleContext ) throws Exception {
-    resourceRegistration = bundleContext.registerService( TestResource.class, new TestResource(), null );
-    SecurityService securityService = new SecurityService();
-    authenticationRegistration = bundleContext.registerService( AuthenticationService.class, securityService, null );
-    authorizationRegistration = bundleContext.registerService( AuthorizationService.class, securityService, null );
+    resourceRegistration = bundleContext.registerService( SecureResource.class, new SecureResource(), null );
+    SecurityHandler securityService = new SecurityHandler();
+    authenticationRegistration = bundleContext.registerService( AuthenticationHandler.class, securityService, null );
+    authorizationRegistration = bundleContext.registerService( AuthorizationHandler.class, securityService, null );
   }
 
   @Override

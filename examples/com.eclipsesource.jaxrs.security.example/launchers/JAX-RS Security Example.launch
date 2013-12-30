@@ -26,5 +26,5 @@
 <booleanAttribute key="tracing" value="false"/>
 <booleanAttribute key="useCustomFeatures" value="false"/>
 <booleanAttribute key="useDefaultConfigArea" value="true"/>
-<stringAttribute key="workspace_bundles" value="com.eclipsesource.jaxrs.connector.example@default:default,com.eclipsesource.jaxrs.provider.security@default:default,com.eclipsesource.jaxrs.publisher@default:default,com.eclipsesource.jaxrs.security.example@default:default,com.eclipsesource.jaxrs.security@default:default"/>
+<stringAttribute key="workspace_bundles" value="com.eclipsesource.jaxrs.provider.security@default:default,com.eclipsesource.jaxrs.publisher@default:default,com.eclipsesource.jaxrs.security.example@default:default"/>
 </launchConfiguration>

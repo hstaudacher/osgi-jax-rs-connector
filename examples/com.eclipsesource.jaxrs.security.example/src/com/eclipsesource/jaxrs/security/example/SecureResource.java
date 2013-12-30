@@ -7,6 +7,7 @@
  *
  * Contributors:
  *    Bryan Hunt - initial API and implementation
+ *    Holger Staudacher - API finalization
  ******************************************************************************/
 package com.eclipsesource.jaxrs.security.example;
 
@@ -14,19 +15,19 @@ import javax.annotation.security.RolesAllowed;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 
-@Path( "/test" )
-public class TestResource {
+@Path( "/security" )
+public class SecureResource {
 
   @GET
-  @Path( "/public" )
-  public String getPublic() {
-    return "public";
+  @Path( "/unsecure" )
+  public String getUnsecure() {
+    return "This is the result of a request to the unsecured method";
   }
 
   @GET
   @Path( "/secure" )
   @RolesAllowed( "secure" )
   public String getSecure() {
-    return "secure";
+    return "This is the result of a request to the secured method";
   }
 }

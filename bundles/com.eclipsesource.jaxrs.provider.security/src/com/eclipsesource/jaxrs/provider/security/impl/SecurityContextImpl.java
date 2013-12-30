@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2013 Bryan Hunt and others.
+ * Copyright (c) 2013 EclipseSource and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -7,31 +7,32 @@
  *
  * Contributors:
  *    Bryan Hunt - initial API and implementation
+ *    Holger Staudacher - API finalization
  ******************************************************************************/
-package com.eclipsesource.jaxrs.provider.security;
+package com.eclipsesource.jaxrs.provider.security.impl;
 
 import java.security.Principal;
 
 import javax.ws.rs.core.SecurityContext;
 
-import com.eclipsesource.jaxrs.security.AuthorizationService;
+import com.eclipsesource.jaxrs.provider.security.AuthorizationHandler;
 
-public class AuthSecurityContext implements SecurityContext {
+public class SecurityContextImpl implements SecurityContext {
 
   private final boolean secure;
   private final String authenticationScheme;
   private final Principal principal;
-  private final AuthorizationService authorizationService;
+  private final AuthorizationHandler authorizationHandler;
 
-  public AuthSecurityContext( String authenticationScheme,
+  public SecurityContextImpl( String authenticationScheme,
                               Principal principal,
                               boolean secure,
-                              AuthorizationService authorizationService )
+                              AuthorizationHandler authorizationHandler )
   {
     this.authenticationScheme = authenticationScheme;
     this.principal = principal;
     this.secure = secure;
-    this.authorizationService = authorizationService;
+    this.authorizationHandler = authorizationHandler;
   }
 
   @Override
@@ -51,6 +52,9 @@ public class AuthSecurityContext implements SecurityContext {
 
   @Override
   public boolean isUserInRole( String role ) {
-    return authorizationService.isUserInRole( principal, role );
+    if( authorizationHandler != null ) {
+      return authorizationHandler.isUserInRole( principal, role );
+    } 
+    return true;
   }
 }

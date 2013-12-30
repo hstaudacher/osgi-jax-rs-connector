@@ -1,18 +1,10 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
-Bundle-Name: JAX-RS Security Test
+Bundle-Name: Scurity Provider Tests
 Bundle-SymbolicName: com.eclipsesource.jaxrs.provider.security.test
 Bundle-Version: 1.0.0.qualifier
-Bundle-Vendor: ECLIPSESOURCE
+Bundle-Vendor: EclipseSource
+Fragment-Host: com.eclipsesource.jaxrs.provider.security;bundle-version="1.0.0"
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
-Import-Package: com.eclipsesource.jaxrs.security,
- javax.annotation.security;version="1.2.0.b04",
- javax.ws.rs;version="2.0.0",
- javax.ws.rs.client;version="2.0.0",
- javax.ws.rs.container;version="2.0.0",
- javax.ws.rs.core;version="2.0.0",
- org.glassfish.jersey.client;version="2.3.1",
- org.junit;version="4.10.0",
- org.osgi.framework;version="1.7.0"
-Bundle-ActivationPolicy: lazy
-Bundle-Activator: com.eclipsesource.jaxrs.provider.security.fixture.Activator
+Require-Bundle: org.mockito.mockito-all;bundle-version="1.9.5",
+ org.junit;bundle-version="4.10.0"

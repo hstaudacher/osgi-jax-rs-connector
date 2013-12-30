@@ -43,7 +43,7 @@
 		<module>../../tests/com.eclipsesource.jaxrs.publisher.test</module>
 		<module>../../tests/com.eclipsesource.jaxrs.consumer.test</module>
 		<module>../../tests/com.eclipsesource.jaxrs.provider.gson.test</module>
-<!-- 		<module>../../tests/com.eclipsesource.jaxrs.provider.security.test</module> -->
+	  <module>../../tests/com.eclipsesource.jaxrs.provider.security.test</module>
 		<!-- Features -->
 		<module>../com.eclipsesource.jaxrs.jersey.runtime.feature</module>
 		<module>../com.eclipsesource.jaxrs.connector.feature</module>

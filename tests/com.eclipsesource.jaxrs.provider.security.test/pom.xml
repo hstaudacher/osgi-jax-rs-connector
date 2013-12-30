@@ -12,7 +12,7 @@
   <groupId>com.eclipsesource</groupId>
   <artifactId>com.eclipsesource.jaxrs.provider.security.test</artifactId>
   <version>1.0.0-SNAPSHOT</version>
-  <packaging>eclipse-test-plugin</packaging>
+  <packaging>eclipse-plugin</packaging>
   
   <build>
     <plugins>
@@ -20,10 +20,36 @@
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-surefire-plugin</artifactId>
         <version>${surefire-version}</version>
-	    <configuration>
-	      <testClass>com.eclipsesource.jaxrs.provider.security.tests.SecurityTest</testClass>
-		</configuration>        
+        <executions>
+          <execution>
+            <id>test</id>
+            <phase>test</phase>
+            <configuration>
+              <testClassesDirectory>${project.build.outputDirectory}</testClassesDirectory>
+              <argLine>${test-arguments}</argLine> 
+            </configuration>
+            <goals>
+              <goal>test</goal>
+            </goals>
+          </execution>
+        </executions>
       </plugin>
     </plugins>
   </build>
+  
+  <dependencies>
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>${junit-version}</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.mockito</groupId>
+      <artifactId>mockito-core</artifactId>
+      <version>${mockito-version}</version>
+      <scope>test</scope>
+    </dependency>
+  </dependencies>
+  
 </project>
