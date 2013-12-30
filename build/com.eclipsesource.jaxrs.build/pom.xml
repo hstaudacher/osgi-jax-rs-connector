@@ -58,7 +58,7 @@
     <repository>
       <id>connector-dependencies</id>
       <layout>p2</layout>
-      <url>file://${basedir}/../../build/com.eclipsesource.jaxrs.connector.target/p2</url>
+      <url>file:///${basedir}/../../build/com.eclipsesource.jaxrs.connector.target/p2</url>
     </repository>
   </repositories>	
   
