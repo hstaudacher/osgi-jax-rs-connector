@@ -53,7 +53,7 @@ public class SecurityContextImplTest {
   }
   
   @Test
-  public void testIsInRoleIsTrueWithoutAuthorizationHandler() {
+  public void testIsInRoleIsFalseWithoutAuthorizationHandler() {
     SecurityContextImpl context = new SecurityContextImpl( SecurityContext.BASIC_AUTH, mock( Principal.class ), false, null );
     
     boolean isUserInRole = context.isUserInRole( "foo" );
