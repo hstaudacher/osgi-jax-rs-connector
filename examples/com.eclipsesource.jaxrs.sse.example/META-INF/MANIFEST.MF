@@ -1,0 +1,12 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Sse Example
+Bundle-SymbolicName: com.eclipsesource.jaxrs.sse.example
+Bundle-Version: 1.0.0.qualifier
+Bundle-Activator: com.eclipsesource.jaxrs.sse.example.Activator
+Bundle-Vendor: Eclipseource
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Import-Package: javax.ws.rs;version="[2.0.0,3.0.0)",
+ org.glassfish.jersey.media.sse;version="[2.0.0,3.0.0)",
+ org.glassfish.jersey.server;version="[2.0.0,3.0.0)",
+ org.osgi.framework;version="[1.2.0,2.0.0)"

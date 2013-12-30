@@ -8,4 +8,5 @@ Bundle-Vendor: EclipseSource
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Import-Package: javax.ws.rs.core;version="[2.0.0,3.0.0)",
  org.glassfish.jersey.media.sse;version="[2.0.0,3.0.0)",
+ org.glassfish.jersey.servlet.async;version="[2.0.0,3.0.0)",
  org.osgi.framework;version="[1.2.0,2.0.0)"
