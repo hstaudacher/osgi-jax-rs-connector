@@ -58,7 +58,7 @@ public class SecurityContextImplTest {
     
     boolean isUserInRole = context.isUserInRole( "foo" );
     
-    assertTrue( isUserInRole );
+    assertFalse( isUserInRole );
   }
   
   @Test
