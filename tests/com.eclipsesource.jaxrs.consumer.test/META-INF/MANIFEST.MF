@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: JAX-RS Consumer Test
 Bundle-SymbolicName: com.eclipsesource.jaxrs.consumer.test
-Bundle-Version: 2.1.0.qualifier
+Bundle-Version: 2.2.0.qualifier
 Bundle-Vendor: EclipseSource
 Fragment-Host: com.eclipsesource.jaxrs.consumer;bundle-version="2.1.0"
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6

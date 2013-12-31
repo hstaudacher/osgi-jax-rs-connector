@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <site>
-   <feature url="features/com.eclipsesource.jaxrs.connector.feature_3.1.0.qualifier.jar" id="com.eclipsesource.jaxrs.connector.feature" version="3.1.0.qualifier">
+   <feature url="features/com.eclipsesource.jaxrs.connector.feature_3.2.0.qualifier.jar" id="com.eclipsesource.jaxrs.connector.feature" version="3.2.0.qualifier">
       <category name="com.eclipsesource.jaxrs.connector"/>
    </feature>
-   <feature url="features/com.eclipsesource.jaxrs.connector.feature.source_3.1.0.qualifier.jar" id="com.eclipsesource.jaxrs.connector.feature.source" version="3.1.0.qualifier">
+   <feature url="features/com.eclipsesource.jaxrs.connector.feature.source_3.2.0.qualifier.jar" id="com.eclipsesource.jaxrs.connector.feature.source" version="3.2.0.qualifier">
       <category name="com.eclipsesource.jaxrs.connector.sources"/>
    </feature>
    <feature url="features/com.eclipsesource.jaxrs.provider.gson.feature_1.0.0.qualifier.jar" id="com.eclipsesource.jaxrs.provider.gson.feature" version="1.0.0.qualifier">
@@ -12,10 +12,10 @@
    <feature url="features/com.eclipsesource.jaxrs.provider.gson.feature.source_1.0.0.qualifier.jar" id="com.eclipsesource.jaxrs.provider.gson.feature.source" version="1.0.0.qualifier">
       <category name="com.eclipsesource.jaxrs.connector.sources"/>
    </feature>
-   <feature url="features/com.eclipsesource.jaxrs.provider.moxy.feature_1.0.0.qualifier.jar" id="com.eclipsesource.jaxrs.provider.moxy.feature" version="1.0.0.qualifier">
+   <feature url="features/com.eclipsesource.jaxrs.provider.moxy.feature_1.1.0.qualifier.jar" id="com.eclipsesource.jaxrs.provider.moxy.feature" version="1.1.0.qualifier">
       <category name="com.eclipsesource.jaxrs.connector.providers"/>
    </feature>
-   <feature url="features/com.eclipsesource.jaxrs.provider.moxy.feature.source_1.0.0.qualifier.jar" id="com.eclipsesource.jaxrs.provider.moxy.feature.source" version="1.0.0.qualifier">
+   <feature url="features/com.eclipsesource.jaxrs.provider.moxy.feature.source_1.1.0.qualifier.jar" id="com.eclipsesource.jaxrs.provider.moxy.feature.source" version="1.1.0.qualifier">
       <category name="com.eclipsesource.jaxrs.connector.sources"/>
    </feature>
    <feature url="features/com.eclipsesource.jaxrs.provider.security.feature_1.0.0.qualifier.jar" id="com.eclipsesource.jaxrs.provider.security.feature" version="1.0.0.qualifier">
