@@ -1,0 +1,11 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<?compositeMetadataRepository version='1.0.0'?>
+<repository name='OSGi - JAX-RS Connector Repository' type='org.eclipse.equinox.internal.p2.metadata.repository.CompositeMetadataRepository' version='1.0.0'>
+  <properties size='1'>
+    <property name='p2.timestamp' value='1388477538644'/>
+  </properties>
+  <children size='2'>
+    <child location='unsorted/'/>
+    <child location='3.2.0/'/>
+  </children>
+</repository>
