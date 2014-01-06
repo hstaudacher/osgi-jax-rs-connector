@@ -51,7 +51,6 @@ Install from this software repository into your target: `http://hstaudacher.gith
 <dependency>
     <groupId>com.eclipsesource</groupId>
     <artifactId>osgi-jaxrs-connector</artifactId>
-    <version>3.2.1</version>
 </dependency>
 ```
 
@@ -60,7 +59,6 @@ Install from this software repository into your target: `http://hstaudacher.gith
 <dependency>
     <groupId>com.eclipsesource</groupId>
     <artifactId>jaxrs-consumer</artifactId>
-    <version>2.2.1</version>
 </dependency>
 ```
 
