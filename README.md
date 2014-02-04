@@ -66,6 +66,8 @@ Install from this software repository into your target: `http://hstaudacher.gith
 
 
 ## Usage
+> A detailed step-by-step can be found [here](http://eclipsesource.com/blogs/2014/02/04/step-by-step-how-to-bring-jax-rs-and-osgi-together/).
+
 Basically all you need to to is add the publisher and/or the consumer to your OSGi container and start them. For people new to OSGi the steps to get started with the connector and Eclipse are described below.
 
 1. Add the com.eclipsesource.jaxrs.connector.feature (OSGi JAX-RS Connector) to your target using the url mentioned in the Installation/p2 section.
