@@ -35,6 +35,12 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status.Family;
 
+import org.glassfish.jersey.media.multipart.BodyPart;
+import org.glassfish.jersey.media.multipart.ContentDisposition;
+import org.glassfish.jersey.media.multipart.FormDataBodyPart;
+import org.glassfish.jersey.media.multipart.FormDataMultiPart;
+import org.glassfish.jersey.media.multipart.FormDataParam;
+import org.glassfish.jersey.media.multipart.MultiPart;
 import org.glassfish.jersey.message.internal.MediaTypes;
 
 
@@ -123,8 +129,8 @@ public class ResourceInvocationHandler implements InvocationHandler {
   }
 
   private void checkHasNoFormParameter( Method method ) {
-    if( hasFormParameter( method ) ) {
-      throw new IllegalStateException( "@GET methods can not have @FormParam parameters." );
+    if( hasFormParameter( method ) || hasMultiPartFormParameter( method ) ) {
+      throw new IllegalStateException( "@GET methods can not have @FormParam or @FormDataParam parameters." );
     }
   }
 
@@ -143,18 +149,54 @@ public class ResourceInvocationHandler implements InvocationHandler {
     if( hasFormParameter( method ) ) {
       Form form = computeForm( method, parameter );
       result = Entity.form( form );
+    } else if( hasMultiPartFormParameter( method ) ) {
+      MultiPart mp = computeMultiPart( method, parameter );
+      result = Entity.entity( mp, mp.getMediaType() );
     } else {
       result = determineBodyParameter( method, parameter );
     }
     return result;
   }
 
+  private boolean hasMultiPartFormParameter( Method method ) {
+    return hasParamAnnotation( method, FormDataParam.class );
+  }
+
+  private MultiPart computeMultiPart( Method method, Object[] parameter ) {
+    @SuppressWarnings( "resource" )
+    FormDataMultiPart result = new FormDataMultiPart();
+    Annotation[][] parameterAnnotations = method.getParameterAnnotations();
+    for( int i = 0; i < parameterAnnotations.length; i++ ) {
+      Annotation[] annotations = parameterAnnotations[ i ];
+      FormDataParam fdp = extractAnnotation( annotations, FormDataParam.class );
+      if( fdp != null ) {
+        // TODO: how to get the media type? we could use something like @FormData
+        result.field( fdp.value(), parameter[ i ], determinePartContentType(parameter[ i ]) );
+      }
+    }
+    return result.getFields().isEmpty() ? null : result;
+  }
+
+  private MediaType determinePartContentType(Object parameter) {
+    if(parameter instanceof BodyPart) {
+      return (( BodyPart )parameter).getMediaType();
+    }
+    if(parameter instanceof ContentDisposition) {
+      return MediaType.valueOf( (( ContentDisposition )parameter).getType() );
+    }
+    return MediaType.TEXT_PLAIN_TYPE;
+  }
+
   private boolean hasFormParameter( Method method ) {
+    return hasParamAnnotation( method, FormParam.class );
+  }
+
+  public static boolean hasParamAnnotation( Method method, Class<? extends Annotation> type ) {
     Annotation[][] parameterAnnotations = method.getParameterAnnotations();
     for( int i = 0; i < parameterAnnotations.length; i++ ) {
       Annotation[] annotations = parameterAnnotations[ i ];
       for( Annotation annotation : annotations ) {
-        if( annotation.annotationType() == FormParam.class ) {
+        if( annotation.annotationType() == type ) {
           return true;
         }
       }
@@ -167,18 +209,19 @@ public class ResourceInvocationHandler implements InvocationHandler {
     Annotation[][] parameterAnnotations = method.getParameterAnnotations();
     for( int i = 0; i < parameterAnnotations.length; i++ ) {
       Annotation[] annotations = parameterAnnotations[ i ];
-      String paramName = extractFormParam( annotations );
-      if( paramName != null ) {
-        result.param( paramName, parameter[ i ].toString() );
+      FormParam fp = extractAnnotation( annotations, FormParam.class );
+      if( fp != null ) {
+        result.param( fp.value(), parameter[ i ].toString() );
       }
     }
     return result.asMap().isEmpty() ? null : result;
   }
 
-  private String extractFormParam( Annotation[] annotations ) {
+  private <T extends Annotation> T extractAnnotation( Annotation[] annotations, Class<T> type )
+  {
     for( Annotation annotation : annotations ) {
-      if( annotation.annotationType() == FormParam.class ) {
-        return ( ( FormParam )annotation ).value();
+      if( annotation.annotationType() == type ) {
+        return type.cast( annotation );
       }
     }
     return null;

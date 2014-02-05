@@ -10,6 +10,7 @@
  ******************************************************************************/
 package com.eclipsesource.jaxrs.consumer;
 
+import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -21,6 +22,8 @@ import javax.ws.rs.core.Configuration;
 import javax.ws.rs.ext.Provider;
 
 import org.glassfish.jersey.client.ClientConfig;
+import org.glassfish.jersey.media.multipart.FormDataParam;
+import org.glassfish.jersey.media.multipart.MultiPartFeature;
 
 import com.eclipsesource.jaxrs.consumer.internal.ResourceInvocationHandler;
 
@@ -105,11 +108,22 @@ public class ConsumerFactory {
   {
     validateArguments( baseUrl, type, configuration );
     Path path = type.getAnnotation( Path.class );
+    if(hasFormDataParam(type)) {
+       ( (ClientConfig)configuration ).register( MultiPartFeature.class );
+    }
     return ( T )Proxy.newProxyInstance( type.getClassLoader(), 
                                         new Class<?>[] { type }, 
                                         createHandler( baseUrl, configuration, path ) );
   }
 
+  private static boolean hasFormDataParam(Class<?> type) {
+    for(Method m: type.getMethods()) {
+      if(ResourceInvocationHandler.hasParamAnnotation( m, FormDataParam.class )) {
+        return true;
+      }
+    }
+    return false;
+  }
   private static ResourceInvocationHandler createHandler( String baseUrl,
                                                           Configuration configuration,
                                                           Path path )
