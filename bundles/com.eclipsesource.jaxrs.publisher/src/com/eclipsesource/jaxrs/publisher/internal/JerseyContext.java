@@ -1,13 +1,9 @@
 /*******************************************************************************
- * Copyright (c) 2012 EclipseSource and others.
- * All rights reserved. This program and the accompanying materials
- * are made available under the terms of the Eclipse Public License v1.0
+ * Copyright (c) 2012 EclipseSource and others. All rights reserved. This program and the
+ * accompanying materials are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
- * http://www.eclipse.org/legal/epl-v10.html
- *
- * Contributors:
- *    Holger Staudacher - initial API and implementation
- *    Dragos Dascalita  - disbaled autodiscovery
+ * http://www.eclipse.org/legal/epl-v10.html Contributors: Holger Staudacher - initial API and
+ * implementation Dragos Dascalita - disbaled autodiscovery
  ******************************************************************************/
 package com.eclipsesource.jaxrs.publisher.internal;
 
@@ -18,12 +14,12 @@ import javax.servlet.ServletException;
 import javax.ws.rs.core.Application;
 import javax.ws.rs.core.Request;
 
+import org.glassfish.jersey.media.multipart.MultiPartFeature;
 import org.glassfish.jersey.server.ResourceConfig;
 import org.glassfish.jersey.server.ServerProperties;
 import org.glassfish.jersey.servlet.ServletContainer;
 import org.osgi.service.http.HttpService;
 import org.osgi.service.http.NamespaceException;
-
 
 public class JerseyContext {
 
@@ -35,7 +31,9 @@ public class JerseyContext {
 
   public JerseyContext( HttpService httpService, String rootPath ) {
     this.httpService = httpService;
-    this.rootPath = rootPath == null ? "/services" : rootPath;
+    this.rootPath = rootPath == null
+                                    ? "/services"
+                                    : rootPath;
     this.application = new RootApplication();
     disableAutoDiscovery();
     this.servletContainer = new ServletContainer( ResourceConfig.forApplication( application ) );
@@ -43,9 +41,9 @@ public class JerseyContext {
 
   private void disableAutoDiscovery() {
     // don't look for implementations described by META-INF/services/*
-    this.application.addProperty(ServerProperties.METAINF_SERVICES_LOOKUP_DISABLE, false );
+    this.application.addProperty( ServerProperties.METAINF_SERVICES_LOOKUP_DISABLE, false );
     // disable auto discovery on server, as it's handled via OSGI
-    this.application.addProperty(ServerProperties.FEATURE_AUTO_DISCOVERY_DISABLE, true );
+    this.application.addProperty( ServerProperties.FEATURE_AUTO_DISCOVERY_DISABLE, true );
   }
 
   public void addResource( Object resource ) {
@@ -55,7 +53,8 @@ public class JerseyContext {
       ClassLoader original = getContextClassloader();
       try {
         Thread.currentThread().setContextClassLoader( Request.class.getClassLoader() );
-        getServletContainer().reload( ResourceConfig.forApplication( application ) );
+        getServletContainer().reload( ResourceConfig.forApplication( application )
+          .register( MultiPartFeature.class ) );
       } finally {
         resetContextClassloader( original );
       }
@@ -95,10 +94,7 @@ public class JerseyContext {
     ClassLoader original = getContextClassloader();
     try {
       Thread.currentThread().setContextClassLoader( Application.class.getClassLoader() );
-      httpService.registerServlet( rootPath, 
-                                   getServletContainer(), 
-                                   null, 
-                                   null );
+      httpService.registerServlet( rootPath, getServletContainer(), null, null );
     } finally {
       resetContextClassloader( original );
     }
@@ -107,7 +103,7 @@ public class JerseyContext {
   private void resetContextClassloader( ClassLoader loader ) {
     Thread.currentThread().setContextClassLoader( loader );
   }
-  
+
   public void removeResource( Object resource ) {
     getRootApplication().removeResource( resource );
     if( isApplicationRegistered ) {
@@ -138,10 +134,9 @@ public class JerseyContext {
   ServletContainer getServletContainer() {
     return servletContainer;
   }
-  
+
   // For testing purpose
   RootApplication getRootApplication() {
     return application;
   }
-
 }
