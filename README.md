@@ -36,6 +36,7 @@ The custom `@Provider` and `Feature` implementations are located in their own fe
 * `com.eclipsesource.jaxrs.provider.gson` - Allows the de/serialization using [Gson](https://code.google.com/p/google-gson/).  
 * `com.eclipsesource.jaxrs.provider.security` - Provides an OSGi friendly integration of Jersey's/JAX-RS security features. [Read the wiki for more information](https://github.com/hstaudacher/osgi-jax-rs-connector/wiki/security).
 * `com.eclipsesource.jaxrs.provider.sse` - Provides an integration of Jersey's [SSE feature](https://jersey.java.net/documentation/latest/sse.html).
+* `com.eclipsesource.jaxrs.provider.multipart` - Provides an integration of Jersey's [Multipar feature](https://jersey.java.net/documentation/latest/media.html#multipart).
 
 ## Installation
 To ease the installation we provide a p2 repository and we publish the connector to maven central.
