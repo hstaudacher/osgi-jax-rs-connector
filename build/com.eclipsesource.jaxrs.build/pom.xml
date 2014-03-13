@@ -111,7 +111,7 @@
 							<groupId>${project.groupId}</groupId>
 							<artifactId>${project.artifactId}</artifactId>
 							<version>${project.version}</version>
-							<classifier>${project.parent.relativePath}/../com.eclipsesource.jaxrs.connector.target/Equinox-4.4-jersey2.5.0</classifier>
+							<classifier>${project.parent.relativePath}/../com.eclipsesource.jaxrs.connector.target/Equinox-4.4-jersey2.6.0</classifier>
 						</artifact>
 					</target>
 					<environments>

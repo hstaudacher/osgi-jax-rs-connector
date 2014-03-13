@@ -64,13 +64,6 @@
          unpack="false"/>
 
    <plugin
-         id="com.google.guava.source"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
          id="javax.annotation-api.source"
          download-size="0"
          install-size="0"
@@ -107,13 +100,6 @@
 
    <plugin
          id="org.glassfish.hk2.external.asm-all-repackaged.source"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
-         id="org.glassfish.hk2.external.cglib.source"
          download-size="0"
          install-size="0"
          version="0.0.0"
@@ -212,6 +198,20 @@
 
    <plugin
          id="org.glassfish.hk2.external.aopalliance-repackaged.source"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="jaxb-api.source"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.glassfish.jersey.bundles.repackaged.jersey-guava.source"
          download-size="0"
          install-size="0"
          version="0.0.0"
