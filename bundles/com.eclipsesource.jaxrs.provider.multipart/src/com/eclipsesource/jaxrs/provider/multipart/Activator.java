@@ -8,20 +8,20 @@
  * Contributors:
  *    Holger Staudacher - initial API and implementation
  ******************************************************************************/
-package com.eclipsesource.jaxrs.provider.sse;
+package com.eclipsesource.jaxrs.provider.multipart;
 
-import org.glassfish.jersey.media.sse.SseFeature;
+import org.glassfish.jersey.media.multipart.MultiPartFeature;
 import org.osgi.framework.BundleActivator;
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.ServiceRegistration;
 
 public class Activator implements BundleActivator {
 
-  private ServiceRegistration<SseFeature> registration;
+  private ServiceRegistration<MultiPartFeature> registration;
 
   @Override
   public void start( BundleContext bundleContext ) throws Exception {
-    registration = bundleContext.registerService( SseFeature.class, new SseFeature(), null );
+    registration = bundleContext.registerService( MultiPartFeature.class, new MultiPartFeature(), null );
   }
 
   @Override
