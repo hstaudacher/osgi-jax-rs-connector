@@ -10,6 +10,10 @@ Require-Bundle: org.mockito.mockito-all;bundle-version="1.9.5",
  org.junit;bundle-version="4.10.0",
  com.eclipsesource.rest.client.driver;bundle-version="1.0.0"
 Import-Package: com.google.common.io;version="13.0.0",
+ javassist.util.proxy;version="3.18.1.GA",
  javax.servlet;version="[3.0.0,4.0.0)",
- javax.servlet.http;version="[3.0.0,4.0.0)"
+ javax.servlet.http;version="[3.0.0,4.0.0)",
+ org.glassfish.jersey.media.multipart;version="2.5.0",
+ org.glassfish.jersey.server.internal.inject;version="2.5.0",
+ org.jvnet.mimepull;version="1.9.4"
 Bundle-ClassPath: .
