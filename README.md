@@ -9,7 +9,7 @@ RESTful web services by simply registering them as OSGi services and also consum
 *To see how to get started with JAX-RS 2.0 and Jersey please read the [Jersey getting started guide](https://jersey.java.net/documentation/latest/getting-started.html).*
 
 ## Features
-The OSGi-JAX-RS Connector provides **two bundles**. A **publisher** and a **consumer**. Both can be used completely separately or together, it's up to you. Additional the connector provides custom `@Provider` and `Feature` implementations that can be used optionally.
+The OSGi-JAX-RS Connector provides **two main bundles**. A **publisher** and a **consumer**. Both can be used completely separately or together, it's up to you. Additional the connector provides custom `@Provider` and `Feature` implementations that can be used optionally.
 
 ### Publisher
 
@@ -47,24 +47,7 @@ Install from this software repository into your target: `http://hstaudacher.gith
 **Please note:** If dependencies can't be satisfied please disable "include required software" within the target editor.
 
 ### Maven
-**Publisher:**  
-```
-<dependency>
-    <groupId>com.eclipsesource</groupId>
-    <artifactId>osgi-jaxrs-connector</artifactId>
-</dependency>
-```
-
-**Consumer:**  
-```
-<dependency>
-    <groupId>com.eclipsesource</groupId>
-    <artifactId>jaxrs-consumer</artifactId>
-</dependency>
-```
-
-***Please note:*** Due to a renaming in version 3.0 the publisher is still called `connector` within maven central. 
-
+All artifacts of this projects are available in Maven Central with the group id [`com.eclipsesource.jaxrs`](http://search.maven.org/#search%7Cga%7C1%7Cg%3A%22com.eclipsesource.jaxrs%22).
 
 ## Usage
 > A detailed step-by-step can be found [here](http://eclipsesource.com/blogs/2014/02/04/step-by-step-how-to-bring-jax-rs-and-osgi-together/).
