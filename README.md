@@ -1,4 +1,4 @@
-# OSGi - JAX-RS Connector 3.2.0 [![Build Status](https://travis-ci.org/hstaudacher/osgi-jax-rs-connector.png)](https://travis-ci.org/hstaudacher/osgi-jax-rs-connector)
+# OSGi - JAX-RS Connector 3.3.0 [![Build Status](https://travis-ci.org/hstaudacher/osgi-jax-rs-connector.png)](https://travis-ci.org/hstaudacher/osgi-jax-rs-connector)
 ![](http://download.eclipsesource.com/~hstaudacher/connector.png)  
 [JAX-RS (JSR 311)](http://jsr311.java.net/) is the community-driven standard for 
 building RESTful web services with Java. The reference implementation for JAX-RS is 
@@ -101,7 +101,7 @@ The example for the consumer is splitted into two bundles called `com.eclipsesou
 * OSGi Remote Services (e.g. [Apache CXF](http://cxf.apache.org/distributed-osgi-reference.html#DistributedOSGiReference-ServiceProviderpropertiesForConfiguringRESTfulJAXRSbasedendpointsandconsumers))
 
 ## Jersey version
-Jersey 2.5.0 + dependencies are included in the p2 software repository.  
+Jersey 2.6.0 + dependencies are included in the p2 software repository.  
 
 ## Changelog
 Checkout the [github releases](https://github.com/hstaudacher/osgi-jax-rs-connector/releases).
@@ -109,4 +109,4 @@ Checkout the [github releases](https://github.com/hstaudacher/osgi-jax-rs-connec
 ## License
 The code is published under the terms of the [Eclipse Public License, version 1.0](http://www.eclipse.org/legal/epl-v10.html).
 
-Included binaries from [Jersey](http://jersey.java.net/), version 2.5.0, which are published under two licenses, the [CDDL 1.1 and GPL 2 with CPE](http://glassfish.java.net/public/CDDL+GPL_1_1.html)
+Included binaries from [Jersey](http://jersey.java.net/), version 2.6.0, which are published under two licenses, the [CDDL 1.1 and GPL 2 with CPE](http://glassfish.java.net/public/CDDL+GPL_1_1.html)
