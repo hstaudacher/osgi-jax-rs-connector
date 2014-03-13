@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2012,2013 EclipseSource and others.
+ * Copyright (c) 2012,2014 EclipseSource and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -37,7 +37,6 @@ import javax.ws.rs.core.Response.Status.Family;
 
 import org.glassfish.jersey.media.multipart.BodyPart;
 import org.glassfish.jersey.media.multipart.ContentDisposition;
-import org.glassfish.jersey.media.multipart.FormDataBodyPart;
 import org.glassfish.jersey.media.multipart.FormDataMultiPart;
 import org.glassfish.jersey.media.multipart.FormDataParam;
 import org.glassfish.jersey.media.multipart.MultiPart;
@@ -158,50 +157,8 @@ public class ResourceInvocationHandler implements InvocationHandler {
     return result;
   }
 
-  private boolean hasMultiPartFormParameter( Method method ) {
-    return hasParamAnnotation( method, FormDataParam.class );
-  }
-
-  private MultiPart computeMultiPart( Method method, Object[] parameter ) {
-    @SuppressWarnings( "resource" )
-    FormDataMultiPart result = new FormDataMultiPart();
-    Annotation[][] parameterAnnotations = method.getParameterAnnotations();
-    for( int i = 0; i < parameterAnnotations.length; i++ ) {
-      Annotation[] annotations = parameterAnnotations[ i ];
-      FormDataParam fdp = extractAnnotation( annotations, FormDataParam.class );
-      if( fdp != null ) {
-        // TODO: how to get the media type? we could use something like @FormData
-        result.field( fdp.value(), parameter[ i ], determinePartContentType(parameter[ i ]) );
-      }
-    }
-    return result.getFields().isEmpty() ? null : result;
-  }
-
-  private MediaType determinePartContentType(Object parameter) {
-    if(parameter instanceof BodyPart) {
-      return (( BodyPart )parameter).getMediaType();
-    }
-    if(parameter instanceof ContentDisposition) {
-      return MediaType.valueOf( (( ContentDisposition )parameter).getType() );
-    }
-    return MediaType.TEXT_PLAIN_TYPE;
-  }
-
   private boolean hasFormParameter( Method method ) {
-    return hasParamAnnotation( method, FormParam.class );
-  }
-
-  public static boolean hasParamAnnotation( Method method, Class<? extends Annotation> type ) {
-    Annotation[][] parameterAnnotations = method.getParameterAnnotations();
-    for( int i = 0; i < parameterAnnotations.length; i++ ) {
-      Annotation[] annotations = parameterAnnotations[ i ];
-      for( Annotation annotation : annotations ) {
-        if( annotation.annotationType() == type ) {
-          return true;
-        }
-      }
-    }
-    return false;
+    return ClientHelper.hasFormAnnotation( method, FormParam.class );
   }
 
   private Form computeForm( Method method, Object[] parameter ) {
@@ -209,16 +166,44 @@ public class ResourceInvocationHandler implements InvocationHandler {
     Annotation[][] parameterAnnotations = method.getParameterAnnotations();
     for( int i = 0; i < parameterAnnotations.length; i++ ) {
       Annotation[] annotations = parameterAnnotations[ i ];
-      FormParam fp = extractAnnotation( annotations, FormParam.class );
-      if( fp != null ) {
-        result.param( fp.value(), parameter[ i ].toString() );
+      FormParam formParam = extractAnnotation( annotations, FormParam.class );
+      if( formParam != null ) {
+        result.param( formParam.value(), parameter[ i ].toString() );
       }
     }
     return result.asMap().isEmpty() ? null : result;
   }
 
-  private <T extends Annotation> T extractAnnotation( Annotation[] annotations, Class<T> type )
-  {
+  private boolean hasMultiPartFormParameter( Method method ) {
+    return ClientHelper.hasFormAnnotation( method, FormDataParam.class );
+  }
+
+  @SuppressWarnings( "resource" )
+  private MultiPart computeMultiPart( Method method, Object[] parameter ) {
+    FormDataMultiPart result = new FormDataMultiPart();
+    Annotation[][] parameterAnnotations = method.getParameterAnnotations();
+    for( int i = 0; i < parameterAnnotations.length; i++ ) {
+      Annotation[] annotations = parameterAnnotations[ i ];
+      FormDataParam param = extractAnnotation( annotations, FormDataParam.class );
+      if( param != null ) {
+        result.field( param.value(), parameter[ i ], determinePartContentType( parameter[ i ] ) );
+      }
+    }
+    return result.getFields().isEmpty() ? null : result;
+  }
+
+  private MediaType determinePartContentType( Object parameter ) {
+    // TODO: how to get the media type? we could use something like @FormData
+    if( parameter instanceof BodyPart ) {
+      return ( ( BodyPart )parameter ).getMediaType();
+    }
+    if( parameter instanceof ContentDisposition ) {
+      return MediaType.valueOf( ( ( ContentDisposition )parameter ).getType() );
+    }
+    return MediaType.TEXT_PLAIN_TYPE;
+  }
+
+  private <T extends Annotation> T extractAnnotation( Annotation[] annotations, Class<T> type ) {
     for( Annotation annotation : annotations ) {
       if( annotation.annotationType() == type ) {
         return type.cast( annotation );

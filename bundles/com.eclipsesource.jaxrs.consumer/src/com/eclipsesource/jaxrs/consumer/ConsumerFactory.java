@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2012 EclipseSource and others.
+ * Copyright (c) 2012,2014 EclipseSource and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -25,6 +25,7 @@ import org.glassfish.jersey.client.ClientConfig;
 import org.glassfish.jersey.media.multipart.FormDataParam;
 import org.glassfish.jersey.media.multipart.MultiPartFeature;
 
+import com.eclipsesource.jaxrs.consumer.internal.ClientHelper;
 import com.eclipsesource.jaxrs.consumer.internal.ResourceInvocationHandler;
 
 
@@ -102,28 +103,30 @@ public class ConsumerFactory {
    * @return a proxy object for the passed in type.
    */
   @SuppressWarnings( "unchecked" )
-  public static <T> T createConsumer( String baseUrl,
-                                      Configuration configuration,
-                                      Class<T> type )
-  {
+  public static <T> T createConsumer( String baseUrl, Configuration configuration, Class<T> type ) {
     validateArguments( baseUrl, type, configuration );
     Path path = type.getAnnotation( Path.class );
-    if(hasFormDataParam(type)) {
-       ( (ClientConfig)configuration ).register( MultiPartFeature.class );
-    }
+    ensureMultiPartFeature( configuration, type );
     return ( T )Proxy.newProxyInstance( type.getClassLoader(), 
                                         new Class<?>[] { type }, 
                                         createHandler( baseUrl, configuration, path ) );
   }
 
-  private static boolean hasFormDataParam(Class<?> type) {
-    for(Method m: type.getMethods()) {
-      if(ResourceInvocationHandler.hasParamAnnotation( m, FormDataParam.class )) {
+  private static <T> void ensureMultiPartFeature( Configuration configuration, Class<T> type ) {
+    if( hasFormDataParam( type ) ) {
+       ( ( ClientConfig )configuration ).register( MultiPartFeature.class );
+    }
+  }
+
+  private static boolean hasFormDataParam( Class<?> type ) {
+    for( Method method : type.getMethods() ) {
+      if( ClientHelper.hasFormAnnotation( method, FormDataParam.class ) ) {
         return true;
       }
     }
     return false;
   }
+  
   private static ResourceInvocationHandler createHandler( String baseUrl,
                                                           Configuration configuration,
                                                           Path path )

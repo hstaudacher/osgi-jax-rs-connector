@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2012 EclipseSource and others.
+ * Copyright (c) 2014 EclipseSource and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -17,8 +17,6 @@ import static com.github.restdriver.clientdriver.RestClientDriver.onRequestTo;
 import static javax.ws.rs.core.MediaType.TEXT_PLAIN;
 import static org.junit.Assert.assertEquals;
 
-import java.util.regex.Pattern;
-
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 
@@ -27,7 +25,6 @@ import org.junit.Rule;
 import org.junit.Test;
 
 import com.github.restdriver.clientdriver.ClientDriverRule;
-import com.github.restdriver.clientdriver.capture.StringBodyCapture;
 
 
 public class FormDataParamTest {

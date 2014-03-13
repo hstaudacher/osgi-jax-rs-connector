@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2012,2013 EclipseSource and others.
+ * Copyright (c) 2012,2014 EclipseSource and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -10,6 +10,8 @@
  ******************************************************************************/
 package com.eclipsesource.jaxrs.consumer.internal;
 
+import java.lang.annotation.Annotation;
+import java.lang.reflect.Method;
 import java.security.SecureRandom;
 import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
@@ -66,6 +68,19 @@ public class ClientHelper {
       }
     };
     return verifier;
+  }
+  
+  public static boolean hasFormAnnotation( Method method, Class<? extends Annotation> type ) {
+    Annotation[][] parameterAnnotations = method.getParameterAnnotations();
+    for( int i = 0; i < parameterAnnotations.length; i++ ) {
+      Annotation[] annotations = parameterAnnotations[ i ];
+      for( Annotation annotation : annotations ) {
+        if( annotation.annotationType() == type ) {
+          return true;
+        }
+      }
+    }
+    return false;
   }
   
   private ClientHelper() {
