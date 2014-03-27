@@ -94,3 +94,7 @@ Checkout the [github releases](https://github.com/hstaudacher/osgi-jax-rs-connec
 The code is published under the terms of the [Eclipse Public License, version 1.0](http://www.eclipse.org/legal/epl-v10.html).
 
 Included binaries from [Jersey](http://jersey.java.net/), version 2.6.0, which are published under two licenses, the [CDDL 1.1 and GPL 2 with CPE](http://glassfish.java.net/public/CDDL+GPL_1_1.html)
+
+
+[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/hstaudacher/osgi-jax-rs-connector/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
+
