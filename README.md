@@ -76,6 +76,9 @@ Besides these basic example two example exist that are shwoing how the [security
 ### Consumer Examples
 The example for the consumer is splitted into two bundles called `com.eclipsesource.jaxrs.consumer.example` and `com.eclipsesource.jaxrs.consumer.example.caller`. The example bundle contains the data model and the resource interface while the caller just calls the service. The example fetches data from github and is pretty simple. 
 
+## Starter Kit
+If you are working with [Bndtools](http://bndtools.org), a [Starter Kit](https://github.com/BryanHunt/bndtools-equinox-app-kit) is available to help you get going.  You will most likely want either the [rest](https://github.com/BryanHunt/bndtools-equinox-app-kit/tree/rest) or [mongo-rest](https://github.com/BryanHunt/bndtools-equinox-app-kit/tree/mongo-rest) branch.
+
 ## Requirements
 * OSGi Core Specification 4.2 and an OSGi HttpService implementation (e.g. Equinox, Felix).
 * JRE 1.6 (same as Jersey)
