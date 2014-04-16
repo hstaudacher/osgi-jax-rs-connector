@@ -7,6 +7,7 @@
  *
  * Contributors:
  *    Holger Staudacher - initial API and implementation
+ *    ProSyst Software GmbH. - compatibility with OSGi specification 4.2 APIs
  ******************************************************************************/
 package com.eclipsesource.jaxrs.publisher.internal;
 
@@ -59,13 +60,13 @@ public class JAXRSConnector {
     }
   }
   
-  HttpService addHttpService( ServiceReference<HttpService> reference ) {
+  HttpService addHttpService( ServiceReference reference ) {
     synchronized( lock ) {
       return doAddHttpService( reference );
     }
   }
 
-  HttpService doAddHttpService( ServiceReference<HttpService> reference ) {
+  HttpService doAddHttpService( ServiceReference reference ) {
     ServiceHolder<HttpService> serviceHolder = httpServices.add( reference );
     HttpService service = serviceHolder.getService();
     contextMap.put( service, createJerseyContext( service, rootPath ) );
@@ -102,13 +103,13 @@ public class JAXRSConnector {
     }
   }
 
-  Object addResource( ServiceReference<Object> reference ) {
+  Object addResource( ServiceReference reference ) {
     synchronized( lock ) {
       return doAddResource( reference );
     }
   }
 
-  private Object doAddResource( ServiceReference<Object> reference ) {
+  private Object doAddResource( ServiceReference reference ) {
     ServiceHolder<Object> serviceHolder = resources.add( reference );
     registerResource( serviceHolder );
     return serviceHolder.getService();

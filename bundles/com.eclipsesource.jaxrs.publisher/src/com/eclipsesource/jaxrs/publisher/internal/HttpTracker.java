@@ -8,6 +8,7 @@
  * Contributors:
  *    Frank Appel - initial API and implementation
  *    Holger Staudacher - ongoing development
+ *    ProSyst Software GmbH. - compatibility with OSGi specification 4.2 APIs
  ******************************************************************************/
 package com.eclipsesource.jaxrs.publisher.internal;
 
@@ -17,7 +18,7 @@ import org.osgi.service.http.HttpService;
 import org.osgi.util.tracker.ServiceTracker;
 
 
-public class HttpTracker extends ServiceTracker<HttpService, HttpService> {
+public class HttpTracker extends ServiceTracker {
 
   private final JAXRSConnector connector;
 
@@ -27,12 +28,11 @@ public class HttpTracker extends ServiceTracker<HttpService, HttpService> {
   }
 
   @Override
-  public HttpService addingService( ServiceReference<HttpService> reference ) {
+  public HttpService addingService( ServiceReference reference ) {
     return connector.addHttpService( reference );
   }
 
-  @Override
-  public void removedService( ServiceReference<HttpService> reference, HttpService service ) {
+  public void removedService( ServiceReference reference, HttpService service ) {
     connector.removeHttpService( service );
   }
 }

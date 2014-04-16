@@ -7,6 +7,7 @@
  *
  * Contributors:
  *    Holger Staudacher - initial API and implementation
+ *    ProSyst Software GmbH. - compatibility with OSGi specification 4.2 APIs
  ******************************************************************************/
 package com.eclipsesource.jaxrs.provider.multipart;
 
@@ -34,7 +35,7 @@ public class ActivatorTest {
     
     activator.start( context );
     
-    verify( context ).registerService( eq( MultiPartFeature.class ), any( MultiPartFeature.class ), any( Dictionary.class ) );
+    verify( context ).registerService( eq( MultiPartFeature.class.getName() ), any( MultiPartFeature.class ), any( Dictionary.class ) );
   }
   
   @Test
@@ -42,8 +43,8 @@ public class ActivatorTest {
   public void testUnregistersMultipartProviderOnStop() throws Exception {
     Activator activator = new Activator();
     BundleContext context = mock( BundleContext.class );
-    ServiceRegistration<?> registration = mock( ServiceRegistration.class );
-    when( context.registerService( any( Class.class ), any( Object.class ), any( Dictionary.class ) ) ).thenReturn( registration );
+    ServiceRegistration registration = mock( ServiceRegistration.class );
+    when( context.registerService( any( String.class ), any( Object.class ), any( Dictionary.class ) ) ).thenReturn( registration );
     activator.start( context );
     
     activator.stop( context );

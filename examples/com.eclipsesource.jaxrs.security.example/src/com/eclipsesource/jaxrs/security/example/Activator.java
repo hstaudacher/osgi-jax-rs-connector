@@ -7,6 +7,7 @@
  *
  * Contributors:
  *    Bryan Hunt - initial API and implementation
+ *    ProSyst Software GmbH. - compatibility with OSGi specification 4.2 APIs
  ******************************************************************************/
 package com.eclipsesource.jaxrs.security.example;
 
@@ -19,16 +20,16 @@ import com.eclipsesource.jaxrs.provider.security.AuthorizationHandler;
 
 public class Activator implements BundleActivator {
 
-  private ServiceRegistration<SecureResource> resourceRegistration;
-  private ServiceRegistration<AuthenticationHandler> authenticationRegistration;
-  private ServiceRegistration<AuthorizationHandler> authorizationRegistration;
+  private ServiceRegistration resourceRegistration;
+  private ServiceRegistration authenticationRegistration;
+  private ServiceRegistration authorizationRegistration;
 
   @Override
   public void start( BundleContext bundleContext ) throws Exception {
-    resourceRegistration = bundleContext.registerService( SecureResource.class, new SecureResource(), null );
+    resourceRegistration = bundleContext.registerService( SecureResource.class.getName(), new SecureResource(), null );
     SecurityHandler securityService = new SecurityHandler();
-    authenticationRegistration = bundleContext.registerService( AuthenticationHandler.class, securityService, null );
-    authorizationRegistration = bundleContext.registerService( AuthorizationHandler.class, securityService, null );
+    authenticationRegistration = bundleContext.registerService( AuthenticationHandler.class.getName(), securityService, null );
+    authorizationRegistration = bundleContext.registerService( AuthorizationHandler.class.getName(), securityService, null );
   }
 
   @Override

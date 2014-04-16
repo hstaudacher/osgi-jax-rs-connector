@@ -8,6 +8,7 @@
  * Contributors:
  *    Bryan Hunt - initial API and implementation
  *    Holger Staudacher - API finalization
+ *    ProSyst Software GmbH. - compatibility with OSGi specification 4.2 APIs
  ******************************************************************************/
 package com.eclipsesource.jaxrs.provider.security.impl;
 
@@ -23,21 +24,21 @@ public class Activator implements BundleActivator {
 
   private static Activator instance;
   
-  private ServiceTracker<AuthenticationHandler, AuthenticationHandler> authenticationHandlerTracker;
-  private ServiceTracker<AuthorizationHandler, AuthorizationHandler> authorizationHandlerTracker;
-  private ServiceRegistration<RolesAllowedDynamicFeatureImpl> rolesAllowedDynamicFeatureRegistration;
-  private ServiceRegistration<ContainerRequestFilterImpl> containerRequestFilterRegistration;
+  private ServiceTracker authenticationHandlerTracker;
+  private ServiceTracker authorizationHandlerTracker;
+  private ServiceRegistration rolesAllowedDynamicFeatureRegistration;
+  private ServiceRegistration containerRequestFilterRegistration;
 
   public static Activator getInstance() {
     return instance;
   }
   
   public AuthenticationHandler getAuthenticationHandler() {
-    return authenticationHandlerTracker.getService();
+    return (AuthenticationHandler)authenticationHandlerTracker.getService();
   }
 
   public AuthorizationHandler getAuthorizationHandler() {
-    return authorizationHandlerTracker.getService();
+    return (AuthorizationHandler)authorizationHandlerTracker.getService();
   }
   
   @Override
@@ -48,22 +49,18 @@ public class Activator implements BundleActivator {
   }
 
   private void registerProviderServices( BundleContext context ) {
-    rolesAllowedDynamicFeatureRegistration = context.registerService( RolesAllowedDynamicFeatureImpl.class,
+    rolesAllowedDynamicFeatureRegistration = context.registerService( RolesAllowedDynamicFeatureImpl.class.getName(),
                                                                       new RolesAllowedDynamicFeatureImpl(),
                                                                       null );
-    containerRequestFilterRegistration = context.registerService( ContainerRequestFilterImpl.class,
+    containerRequestFilterRegistration = context.registerService( ContainerRequestFilterImpl.class.getName(),
                                                                   new ContainerRequestFilterImpl( new SecurityAdmin() ),
                                                                   null );
   }
 
   private void createHandlerTrackers( BundleContext context ) {
-    authenticationHandlerTracker = new ServiceTracker<AuthenticationHandler, AuthenticationHandler>( context,
-                                                                                                     AuthenticationHandler.class,
-                                                                                                     null );
+    authenticationHandlerTracker = new ServiceTracker( context, AuthenticationHandler.class.getName(), null );
     authenticationHandlerTracker.open();
-    authorizationHandlerTracker = new ServiceTracker<AuthorizationHandler, AuthorizationHandler>( context,
-                                                                                                  AuthorizationHandler.class,
-                                                                                                  null );
+    authorizationHandlerTracker = new ServiceTracker( context, AuthorizationHandler.class.getName(), null );
     authorizationHandlerTracker.open();
   }
 

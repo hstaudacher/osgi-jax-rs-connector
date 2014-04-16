@@ -7,6 +7,7 @@
  *
  * Contributors:
  *    Holger Staudacher - initial API and implementation
+ *    ProSyst Software GmbH. - compatibility with OSGi specification 4.2 APIs
  ******************************************************************************/
 package com.eclipsesource.jaxrs.provider.multipart;
 
@@ -17,11 +18,11 @@ import org.osgi.framework.ServiceRegistration;
 
 public class Activator implements BundleActivator {
 
-  private ServiceRegistration<MultiPartFeature> registration;
+  private ServiceRegistration registration;
 
   @Override
   public void start( BundleContext bundleContext ) throws Exception {
-    registration = bundleContext.registerService( MultiPartFeature.class, new MultiPartFeature(), null );
+    registration = bundleContext.registerService( MultiPartFeature.class.getName(), new MultiPartFeature(), null );
   }
 
   @Override

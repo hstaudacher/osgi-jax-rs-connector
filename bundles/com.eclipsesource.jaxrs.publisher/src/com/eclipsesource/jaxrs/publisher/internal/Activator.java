@@ -7,6 +7,7 @@
  *
  * Contributors:
  *    Holger Staudacher - initial API and implementation
+ *    ProSyst Software GmbH. - compatibility with OSGi specification 4.2 APIs
  ******************************************************************************/
 package com.eclipsesource.jaxrs.publisher.internal;
 
@@ -29,11 +30,11 @@ import org.osgi.service.cm.ManagedService;
 
 public class Activator implements BundleActivator {
 
-  private ServiceRegistration<?> connectorRegistration;
+  private ServiceRegistration connectorRegistration;
   private JAXRSConnector jaxRsConnector;
   private HttpTracker httpTracker;
   private ResourceTracker allTracker;
-  private ServiceRegistration<?> configRegistration;
+  private ServiceRegistration configRegistration;
 
   @Override
   public void start( BundleContext context ) throws Exception {

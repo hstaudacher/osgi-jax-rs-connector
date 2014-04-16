@@ -8,6 +8,7 @@
  * Contributors:
  *    Frank Appel - initial API and implementation
  *    Holger Staudacher - ongoing development
+ *    ProSyst Software GmbH. - compatibility with OSGi specification 4.2 APIs
  ******************************************************************************/
 package com.eclipsesource.jaxrs.publisher.internal;
 
@@ -31,8 +32,8 @@ public class ServiceContainer<S> {
     return add( service, null );
   }
 
-  ServiceHolder<S> add( ServiceReference<S> reference ) {
-    return add( bundleContext.getService( reference ), reference );
+  ServiceHolder<S> add( ServiceReference reference ) {
+    return add( (S)bundleContext.getService( reference ), reference );
   }
 
   void remove( S service ) {
@@ -62,7 +63,7 @@ public class ServiceContainer<S> {
     return services.size();
   }
 
-  private ServiceHolder<S> add( S service, ServiceReference<S> reference ) {
+  private ServiceHolder<S> add( S service, ServiceReference reference ) {
     ServiceHolder<S> result = find( service );
     if( notFound( result ) ) {
       result = new ServiceHolder<S>( service, reference );
@@ -77,16 +78,16 @@ public class ServiceContainer<S> {
     return result == null;
   }
 
-  private boolean referenceIsMissing( ServiceReference<S> reference, ServiceHolder<S> result ) {
+  private boolean referenceIsMissing( ServiceReference reference, ServiceHolder<S> result ) {
     return reference != null && result.getReference() == null;
   }
 
   static class ServiceHolder<S> {
   
-    private ServiceReference<S> serviceReference;
+    private ServiceReference serviceReference;
     private final S service;
   
-     ServiceHolder( S service, ServiceReference<S> serviceReference ) {
+     ServiceHolder( S service, ServiceReference serviceReference ) {
       this.service = service;
       this.serviceReference = serviceReference;
     }
@@ -95,11 +96,11 @@ public class ServiceContainer<S> {
       return service;
     }
   
-    ServiceReference<S> getReference() {
+    ServiceReference getReference() {
       return serviceReference;
     }
   
-    void setServiceReference( ServiceReference<S> serviceReference ) {
+    void setServiceReference( ServiceReference serviceReference ) {
       this.serviceReference = serviceReference;
     }
   }

@@ -7,6 +7,7 @@
  *
  * Contributors:
  *    Holger Staudacher - initial API and implementation
+ *    ProSyst Software GmbH. - compatibility with OSGi specification 4.2 APIs
  ******************************************************************************/
 package com.eclipsesource.jaxrs.connector.example;
 
@@ -17,7 +18,7 @@ import org.osgi.framework.ServiceRegistration;
 
 public class Activator implements BundleActivator {
 
-  private ServiceRegistration<?> registration;
+  private ServiceRegistration registration;
 
   @Override
   public void start( BundleContext context ) throws Exception {

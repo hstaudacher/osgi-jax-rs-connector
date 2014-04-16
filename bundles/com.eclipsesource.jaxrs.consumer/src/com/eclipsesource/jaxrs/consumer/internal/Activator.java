@@ -7,6 +7,7 @@
  *
  * Contributors:
  *    Holger Staudacher - initial API and implementation
+ *    ProSyst Software GmbH. - compatibility with OSGi specification 4.2 APIs
  ******************************************************************************/
 package com.eclipsesource.jaxrs.consumer.internal;
 
@@ -19,7 +20,7 @@ import com.eclipsesource.jaxrs.consumer.ConsumerPublisher;
 
 public class Activator implements BundleActivator {
 
-  private ServiceRegistration<?> registration;
+  private ServiceRegistration registration;
   private ConsumerPublisherImpl publisher;
 
   @Override
