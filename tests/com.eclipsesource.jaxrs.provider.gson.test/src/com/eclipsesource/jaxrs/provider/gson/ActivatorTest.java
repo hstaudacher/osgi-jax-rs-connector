@@ -1,3 +1,4 @@
+/* ProSyst Software GmbH. - compatibility with OSGi specification 4.2 APIs */
 package com.eclipsesource.jaxrs.provider.gson;
 
 import static org.mockito.Matchers.any;
@@ -24,7 +25,7 @@ public class ActivatorTest {
     
     activator.start( context );
     
-    verify( context ).registerService( eq( GsonProvider.class ), any( GsonProvider.class ), any( Dictionary.class ) );
+    verify( context ).registerService( eq( GsonProvider.class.getName() ), any( GsonProvider.class ), any( Dictionary.class ) );
   }
   
   @Test
@@ -33,7 +34,7 @@ public class ActivatorTest {
     Activator activator = new Activator();
     BundleContext context = mock( BundleContext.class );
     ServiceRegistration registration = mock( ServiceRegistration.class );
-    when( context.registerService( any( Class.class ), anyObject(), any( Dictionary.class ) ) )
+    when( context.registerService( any( String.class ), anyObject(), any( Dictionary.class ) ) )
       .thenReturn( registration );
     
     activator.start( context );

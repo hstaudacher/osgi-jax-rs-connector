@@ -24,7 +24,7 @@ import org.osgi.framework.ServiceReference;
 import org.osgi.util.tracker.ServiceTracker;
 
 
-public class ResourceTracker extends ServiceTracker<Object, Object> {
+public class ResourceTracker extends ServiceTracker {
   
   static final String ANY_SERVICE_FILTER = "(&(objectClass=*)(!(" + PUBLISH + "=false)))";
   
@@ -38,12 +38,12 @@ public class ResourceTracker extends ServiceTracker<Object, Object> {
   }
   
   @Override
-  public Object addingService( ServiceReference<Object> reference ) {
+  public Object addingService( ServiceReference reference ) {
     Object service = context.getService( reference );
     return delegateAddService( reference, service );
   }
 
-  private Object delegateAddService( ServiceReference<Object> reference, Object service ) {
+  private Object delegateAddService( ServiceReference reference, Object service ) {
     Object result;
     if( isResource( service ) ) {
       result = connector.addResource( reference );
@@ -54,7 +54,7 @@ public class ResourceTracker extends ServiceTracker<Object, Object> {
   }
 
   @Override
-  public void removedService( ServiceReference<Object> reference, Object service ) {
+  public void removedService( ServiceReference reference, Object service ) {
     if( isResource( service ) ) {
       connector.removeResource( service );
     }
@@ -62,7 +62,7 @@ public class ResourceTracker extends ServiceTracker<Object, Object> {
   }
   
   @Override
-  public void modifiedService( ServiceReference<Object> reference, Object service ) {
+  public void modifiedService( ServiceReference reference, Object service ) {
     if( isResource( service ) ) {
       connector.removeResource( service );
       delegateAddService( reference, service );

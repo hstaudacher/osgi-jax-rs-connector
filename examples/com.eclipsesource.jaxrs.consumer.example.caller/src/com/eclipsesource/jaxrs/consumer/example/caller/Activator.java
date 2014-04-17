@@ -7,6 +7,7 @@
  *
  * Contributors:
  *    Holger Staudacher - initial API and implementation
+ *    ProSyst Software GmbH. - compatibility with OSGi specification 4.2 APIs
  ******************************************************************************/
 package com.eclipsesource.jaxrs.consumer.example.caller;
 
@@ -19,12 +20,12 @@ import com.eclipsesource.jaxrs.consumer.example.GitHubUsers;
 
 public class Activator implements BundleActivator {
 
-  private ServiceReference<GitHubUsers> reference;
+  private ServiceReference reference;
 
   @Override
   public void start( BundleContext bundleContext ) throws Exception {
-    reference = bundleContext.getServiceReference( GitHubUsers.class );
-    GitHubUsers gitHubUsers = bundleContext.getService( reference );
+    reference = bundleContext.getServiceReference( GitHubUsers.class.getName() );
+    GitHubUsers gitHubUsers = (GitHubUsers)bundleContext.getService( reference );
     GitHubUser user = gitHubUsers.getUser( "hstaudacher" );
     System.out.println( user );
   }

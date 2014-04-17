@@ -1,3 +1,4 @@
+/* ProSyst Software GmbH. - compatibility with OSGi specification 4.2 APIs */
 package com.eclipsesource.jaxrs.publisher.internal;
 
 import java.util.Dictionary;
@@ -18,7 +19,7 @@ public class Configuration implements ManagedService {
   }
 
   @Override
-  public void updated( Dictionary<String, ?> properties ) throws ConfigurationException {
+  public void updated( Dictionary properties ) throws ConfigurationException {
     if( properties != null ) {
       Object root = properties.get( ROOT_PROPERTY );
       ensureRootIsPresent( root );

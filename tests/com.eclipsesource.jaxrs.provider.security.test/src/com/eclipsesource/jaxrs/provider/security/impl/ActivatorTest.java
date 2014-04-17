@@ -7,6 +7,7 @@
  *
  * Contributors:
  *    Holger Staudacher - initial API and implementation
+ *    ProSyst Software GmbH. - compatibility with OSGi specification 4.2 APIs
  ******************************************************************************/
 package com.eclipsesource.jaxrs.provider.security.impl;
 
@@ -42,7 +43,7 @@ public class ActivatorTest {
     
     activator.start( context );
     
-    verify( context ).registerService( eq( RolesAllowedDynamicFeatureImpl.class ), 
+    verify( context ).registerService( eq( RolesAllowedDynamicFeatureImpl.class.getName() ), 
                                        any( RolesAllowedDynamicFeatureImpl.class ), 
                                        any( Dictionary.class ) );
   }
@@ -55,7 +56,7 @@ public class ActivatorTest {
     
     activator.start( context );
     
-    verify( context ).registerService( eq( ContainerRequestFilterImpl.class ), 
+    verify( context ).registerService( eq( ContainerRequestFilterImpl.class.getName() ), 
                                        any( ContainerRequestFilterImpl.class ), 
                                        any( Dictionary.class ) );
   }
