@@ -22,9 +22,6 @@ import org.osgi.framework.BundleContext;
 import org.osgi.framework.ServiceReference;
 import org.osgi.service.http.HttpService;
 
-import com.eclipsesource.jaxrs.publisher.internal.HttpTracker;
-import com.eclipsesource.jaxrs.publisher.internal.JAXRSConnector;
-
 
 @RunWith( MockitoJUnitRunner.class )
 public class HttpTracker_Test {
@@ -33,7 +30,7 @@ public class HttpTracker_Test {
   @Mock
   private JAXRSConnector connector;
   @Mock
-  private ServiceReference<HttpService> reference;
+  private ServiceReference reference;
 
   @Before
   public void setUp() {

@@ -28,7 +28,6 @@ import org.osgi.framework.ServiceRegistration;
 public class ActivatorTest {
 
   @Test
-  @SuppressWarnings( "unchecked" )
   public void testRegistersMultipartProviderOnStart() throws Exception {
     Activator activator = new Activator();
     BundleContext context = mock( BundleContext.class );
@@ -39,7 +38,6 @@ public class ActivatorTest {
   }
   
   @Test
-  @SuppressWarnings( "unchecked" )
   public void testUnregistersMultipartProviderOnStop() throws Exception {
     Activator activator = new Activator();
     BundleContext context = mock( BundleContext.class );

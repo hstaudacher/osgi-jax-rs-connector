@@ -31,9 +31,6 @@ import org.osgi.framework.ServiceRegistration;
 import com.eclipsesource.jaxrs.consumer.ConsumerPublisher;
 
 
-@SuppressWarnings( {
-  "unchecked", "rawtypes"
-} )
 public class ActivatorTest {
   
   @Path( "/test")

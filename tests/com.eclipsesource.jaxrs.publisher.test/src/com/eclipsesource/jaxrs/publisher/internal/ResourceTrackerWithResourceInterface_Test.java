@@ -28,12 +28,8 @@ import org.osgi.framework.BundleContext;
 import org.osgi.framework.Filter;
 import org.osgi.framework.ServiceReference;
 
-import com.eclipsesource.jaxrs.publisher.internal.JAXRSConnector;
-import com.eclipsesource.jaxrs.publisher.internal.ResourceTracker;
-
 
 @RunWith( MockitoJUnitRunner.class )
-@SuppressWarnings( { "rawtypes", "unchecked" } )
 public class ResourceTrackerWithResourceInterface_Test {
   
   private ResourceTracker resourceTracker;

@@ -178,7 +178,6 @@ public class ResourceInvocationHandler implements InvocationHandler {
     return ClientHelper.hasFormAnnotation( method, FormDataParam.class );
   }
 
-  @SuppressWarnings( "resource" )
   private MultiPart computeMultiPart( Method method, Object[] parameter ) {
     FormDataMultiPart result = new FormDataMultiPart();
     Annotation[][] parameterAnnotations = method.getParameterAnnotations();

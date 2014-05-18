@@ -35,17 +35,14 @@ import org.osgi.framework.BundleContext;
 import org.osgi.framework.ServiceReference;
 import org.osgi.service.http.HttpService;
 
-import com.eclipsesource.jaxrs.publisher.internal.JAXRSConnector;
-import com.eclipsesource.jaxrs.publisher.internal.JerseyContext;
-
 
 @RunWith( MockitoJUnitRunner.class )
 public class JAXRSConnector_Test {
   
   @Mock
-  private ServiceReference<HttpService> httpServiceReference;
+  private ServiceReference httpServiceReference;
   @Mock
-  private ServiceReference<Object> resourceServiceReference;
+  private ServiceReference resourceServiceReference;
   @Mock
   private BundleContext bundleContext;
   @Mock
@@ -111,7 +108,6 @@ public class JAXRSConnector_Test {
     verify( jerseyContext ).addResource( resource );
   }
   
-  @SuppressWarnings( "unchecked" )
   @Test
   public void testUpdatePath() {
     mockHttpService();

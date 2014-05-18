@@ -35,13 +35,8 @@ import org.osgi.framework.InvalidSyntaxException;
 import org.osgi.framework.ServiceRegistration;
 import org.osgi.service.cm.ManagedService;
 
-import com.eclipsesource.jaxrs.publisher.internal.Activator;
-import com.eclipsesource.jaxrs.publisher.internal.Configuration;
-import com.eclipsesource.jaxrs.publisher.internal.JAXRSConnector;
-
 
 @RunWith( MockitoJUnitRunner.class )
-@SuppressWarnings( { "unchecked", "rawtypes" } )
 public class Activator_Test {
   
   private Activator activator;

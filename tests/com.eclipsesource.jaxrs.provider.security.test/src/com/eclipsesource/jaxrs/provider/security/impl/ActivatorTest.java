@@ -36,7 +36,6 @@ public class ActivatorTest {
   }
   
   @Test
-  @SuppressWarnings( "unchecked" )
   public void testRegistersRolesAllowedDynamicFeature() throws Exception {
     Activator activator = new Activator();
     BundleContext context = mock( BundleContext.class );
@@ -49,7 +48,6 @@ public class ActivatorTest {
   }
   
   @Test
-  @SuppressWarnings( "unchecked" )
   public void testRegistersContainerRequestFilter() throws Exception {
     Activator activator = new Activator();
     BundleContext context = mock( BundleContext.class );

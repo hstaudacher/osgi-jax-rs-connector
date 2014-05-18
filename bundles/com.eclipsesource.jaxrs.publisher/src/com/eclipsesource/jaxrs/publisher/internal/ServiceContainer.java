@@ -12,46 +12,47 @@
  ******************************************************************************/
 package com.eclipsesource.jaxrs.publisher.internal;
 
-import java.util.*;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.Set;
 
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.ServiceReference;
 
 
-public class ServiceContainer<S> {
+public class ServiceContainer {
 
-  private final Set<ServiceHolder<S>> services;
+  private final Set<ServiceHolder> services;
   private final BundleContext bundleContext;
 
   ServiceContainer( BundleContext bundleContext ) {
     this.bundleContext = bundleContext;
-    this.services = new HashSet<ServiceHolder<S>>();
+    this.services = new HashSet<ServiceHolder>();
   }
 
-  ServiceHolder<S> add( S service ) {
+  ServiceHolder add( Object service ) {
     return add( service, null );
   }
 
-  ServiceHolder<S> add( ServiceReference reference ) {
-    return add( (S)bundleContext.getService( reference ), reference );
+  ServiceHolder addReference( ServiceReference reference ) {
+    return add( bundleContext.getService( reference ), reference );
   }
 
-  void remove( S service ) {
+  void remove( Object service ) {
     services.remove( find( service ) );
   }
 
-  @SuppressWarnings( "unchecked" )
-  ServiceHolder<S>[] getServices() {
-    Set<ServiceHolder<S>> result = new HashSet<ServiceHolder<S>>();
-    Iterator<ServiceHolder<S>> iterator = services.iterator();
+  ServiceHolder[] getServices() {
+    Set<ServiceHolder> result = new HashSet<ServiceHolder>();
+    Iterator<ServiceHolder> iterator = services.iterator();
     while( iterator.hasNext() ) {
       result.add( iterator.next() );
     }
     return result.toArray( new ServiceHolder[ result.size() ]);
   }
 
-  ServiceHolder<S> find( S service ) {
-    Finder<S> finder = new Finder<S>();
+  ServiceHolder find( Object service ) {
+    Finder finder = new Finder();
     return finder.findServiceHolder( service, services );
   }
 
@@ -63,10 +64,10 @@ public class ServiceContainer<S> {
     return services.size();
   }
 
-  private ServiceHolder<S> add( S service, ServiceReference reference ) {
-    ServiceHolder<S> result = find( service );
+  private ServiceHolder add( Object service, ServiceReference reference ) {
+    ServiceHolder result = find( service );
     if( notFound( result ) ) {
-      result = new ServiceHolder<S>( service, reference );
+      result = new ServiceHolder( service, reference );
       services.add( result );
     } else if( referenceIsMissing( reference, result ) ) {
       result.setServiceReference( reference );
@@ -74,25 +75,25 @@ public class ServiceContainer<S> {
     return result;
   }
 
-  private boolean notFound( ServiceHolder<S> result ) {
+  private boolean notFound( ServiceHolder result ) {
     return result == null;
   }
 
-  private boolean referenceIsMissing( ServiceReference reference, ServiceHolder<S> result ) {
+  private boolean referenceIsMissing( ServiceReference reference, ServiceHolder result ) {
     return reference != null && result.getReference() == null;
   }
 
-  static class ServiceHolder<S> {
+  static class ServiceHolder {
   
     private ServiceReference serviceReference;
-    private final S service;
+    private final Object service;
   
-     ServiceHolder( S service, ServiceReference serviceReference ) {
+     ServiceHolder( Object service, ServiceReference serviceReference ) {
       this.service = service;
       this.serviceReference = serviceReference;
     }
   
-    S getService() {
+    Object getService() {
       return service;
     }
   
@@ -105,14 +106,14 @@ public class ServiceContainer<S> {
     }
   }
 
-  static class Finder<S> {
+  static class Finder {
   
-    ServiceHolder<S> findServiceHolder( S service, Set<ServiceHolder<S>> collection ) {
-      Iterator<ServiceHolder<S>> iterator = collection.iterator();
-      ServiceHolder<S> result = null;
+    ServiceHolder findServiceHolder( Object service, Set<ServiceHolder> collection ) {
+      Iterator<ServiceHolder> iterator = collection.iterator();
+      ServiceHolder result = null;
       while( iterator.hasNext() ) {
-        ServiceHolder<S> serviceHolder = iterator.next();
-        S found = serviceHolder.getService();
+        ServiceHolder serviceHolder = iterator.next();
+        Object found = serviceHolder.getService();
         if( service.equals( found ) ) {
           result = serviceHolder;
         }

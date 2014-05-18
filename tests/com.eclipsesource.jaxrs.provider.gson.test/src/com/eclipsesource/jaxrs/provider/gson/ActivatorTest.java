@@ -18,7 +18,6 @@ import org.osgi.framework.ServiceRegistration;
 public class ActivatorTest {
   
   @Test
-  @SuppressWarnings( "unchecked" )
   public void testStartRegistersProvider() throws Exception {
     Activator activator = new Activator();
     BundleContext context = mock( BundleContext.class );
@@ -29,7 +28,6 @@ public class ActivatorTest {
   }
   
   @Test
-  @SuppressWarnings( { "unchecked", "rawtypes" } )
   public void testStopUnregistersProvider() throws Exception {
     Activator activator = new Activator();
     BundleContext context = mock( BundleContext.class );

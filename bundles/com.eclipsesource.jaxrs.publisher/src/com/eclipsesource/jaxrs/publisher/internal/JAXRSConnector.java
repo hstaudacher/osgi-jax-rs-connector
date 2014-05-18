@@ -30,19 +30,19 @@ public class JAXRSConnector {
   private static final String DEFAULT_HTTP_PORT = "80";
   
   private final Object lock = new Object();
-  private final ServiceContainer<HttpService> httpServices;
-  private final ServiceContainer<Object> resources;
+  private final ServiceContainer httpServices;
+  private final ServiceContainer resources;
   private final Map<HttpService, JerseyContext> contextMap;
   private final BundleContext bundleContext;
-  private final List<ServiceHolder<?>> resourceCache;
+  private final List<ServiceHolder> resourceCache;
   private String rootPath;
 
   JAXRSConnector( BundleContext bundleContext ) {
     this.bundleContext = bundleContext;
-    this.httpServices = new ServiceContainer<HttpService>( bundleContext );
-    this.resources = new ServiceContainer<Object>( bundleContext );
+    this.httpServices = new ServiceContainer( bundleContext );
+    this.resources = new ServiceContainer( bundleContext );
     this.contextMap = new HashMap<HttpService, JerseyContext>();
-    this.resourceCache = new ArrayList<ServiceHolder<?>>();
+    this.resourceCache = new ArrayList<ServiceHolder>();
   }
   
   void updatePath( String rootPath ) {
@@ -53,9 +53,9 @@ public class JAXRSConnector {
 
   private void doUpdatePath( String rootPath ) {
     this.rootPath = rootPath;
-    ServiceHolder<HttpService>[] services = httpServices.getServices();
-    for( ServiceHolder<HttpService> serviceHolder : services ) {
-      doRemoveHttpService( serviceHolder.getService() );
+    ServiceHolder[] services = httpServices.getServices();
+    for( ServiceHolder serviceHolder : services ) {
+      doRemoveHttpService( ( HttpService )serviceHolder.getService() );
       doAddHttpService( serviceHolder.getReference() );
     }
   }
@@ -67,17 +67,17 @@ public class JAXRSConnector {
   }
 
   HttpService doAddHttpService( ServiceReference reference ) {
-    ServiceHolder<HttpService> serviceHolder = httpServices.add( reference );
-    HttpService service = serviceHolder.getService();
+    ServiceHolder serviceHolder = httpServices.addReference( reference );
+    HttpService service = ( HttpService )serviceHolder.getService();
     contextMap.put( service, createJerseyContext( service, rootPath ) );
     clearCache();
     return service;
   }
 
   private void clearCache() {
-    ArrayList<ServiceHolder<?>> cache = new ArrayList<ServiceHolder<?>>( resourceCache );
+    ArrayList<ServiceHolder> cache = new ArrayList<ServiceHolder>( resourceCache );
     resourceCache.clear();
-    for( ServiceHolder<?> serviceHolder : cache ) {
+    for( ServiceHolder serviceHolder : cache ) {
       registerResource( serviceHolder );
     }
   }
@@ -110,17 +110,17 @@ public class JAXRSConnector {
   }
 
   private Object doAddResource( ServiceReference reference ) {
-    ServiceHolder<Object> serviceHolder = resources.add( reference );
+    ServiceHolder serviceHolder = resources.addReference( reference );
     registerResource( serviceHolder );
     return serviceHolder.getService();
   }
 
-  private void registerResource( ServiceHolder<?> serviceHolder ) {
+  private void registerResource( ServiceHolder serviceHolder ) {
     Object port = getPort( serviceHolder );
     registerResource( serviceHolder, port );
   }
 
-  private Object getPort( ServiceHolder<?> serviceHolder ) {
+  private Object getPort( ServiceHolder serviceHolder ) {
     Object port = serviceHolder.getReference().getProperty( RESOURCE_HTTP_PORT_PROPERTY );
     if( port == null ) {
       port = bundleContext.getProperty( HTTP_SERVICE_PORT_PROPERTY );
@@ -131,7 +131,7 @@ public class JAXRSConnector {
     return port;
   }
 
-  private void registerResource( ServiceHolder<?> serviceHolder, Object port ) {
+  private void registerResource( ServiceHolder serviceHolder, Object port ) {
     HttpService service = findHttpServiceForPort( port );
     if( service != null ) {
       JerseyContext jerseyContext = contextMap.get( service );
@@ -141,17 +141,17 @@ public class JAXRSConnector {
     }
   }
 
-  private void cacheResource( ServiceHolder<?> serviceHolder ) {
+  private void cacheResource( ServiceHolder serviceHolder ) {
     resourceCache.add( serviceHolder );
   }
 
-  private HttpService findHttpServiceForPort(Object port) {
-    ServiceHolder<HttpService>[] serviceHolders = httpServices.getServices();
+  private HttpService findHttpServiceForPort( Object port ) {
+    ServiceHolder[] serviceHolders = httpServices.getServices();
     HttpService result = null;
-    for( ServiceHolder<HttpService> serviceHolder : serviceHolders ) {
+    for( ServiceHolder serviceHolder : serviceHolders ) {
       Object servicePort = getPort( serviceHolder );
       if( servicePort.equals( port ) ) {
-        result = serviceHolder.getService();
+        result = ( HttpService )serviceHolder.getService();
       }
     }
     return result;
@@ -164,7 +164,7 @@ public class JAXRSConnector {
   }
 
   private void doRemoveResource( Object resource ) {
-    ServiceHolder<Object> serviceHolder = resources.find( resource );
+    ServiceHolder serviceHolder = resources.find( resource );
     resourceCache.remove( serviceHolder );
     HttpService httpService = findHttpServiceForPort( getPort( serviceHolder ) );
     removeResourcesFromContext( resource, httpService );

@@ -46,7 +46,6 @@ public class ConsumerPublisherImplTest {
   }
   
   @Test
-  @SuppressWarnings( "unchecked" )
   public void testPublishesResourcesAsServices() {
     BundleContext context = mock( BundleContext.class );
     ConsumerPublisherImpl publisher = new ConsumerPublisherImpl( context );
@@ -58,9 +57,7 @@ public class ConsumerPublisherImplTest {
   }
   
   @Test
-  @SuppressWarnings( {
-    "unchecked", "rawtypes"
-  } )
+  @SuppressWarnings( "rawtypes" )
   public void testDoesExcludeResourcesFromConnectorPublishing() {
     BundleContext context = mock( BundleContext.class );
     ConsumerPublisherImpl publisher = new ConsumerPublisherImpl( context );
@@ -75,9 +72,6 @@ public class ConsumerPublisherImplTest {
   }
   
   @Test
-  @SuppressWarnings( {
-    "unchecked", "rawtypes"
-  } )
   public void testUnregisterServices() {
     BundleContext context = mock( BundleContext.class );
     ConsumerPublisherImpl publisher = new ConsumerPublisherImpl( context );
