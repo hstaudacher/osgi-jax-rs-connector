@@ -33,7 +33,6 @@
 	</properties>
 
 	<modules>
-		<module>../com.eclipsesource.rest.client.driver</module>
 		<!-- Bundles -->
 		<module>../../bundles/com.eclipsesource.jaxrs.publisher</module>
 		<module>../../bundles/com.eclipsesource.jaxrs.consumer</module>
