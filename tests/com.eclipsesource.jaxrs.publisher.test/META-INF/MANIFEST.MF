@@ -8,4 +8,3 @@ Fragment-Host: com.eclipsesource.jaxrs.publisher;bundle-version="3.3.0"
 Bundle-RequiredExecutionEnvironment: JavaSE-1.7
 Require-Bundle: org.junit;bundle-version="4.10.0",
  org.mockito.mockito-all;bundle-version="1.9.5"
-Import-Package: jersey.repackaged.com.google.common.collect;version="2.6.0"

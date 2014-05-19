@@ -12,16 +12,17 @@
 <intAttribute key="default_start_level" value="4"/>
 <booleanAttribute key="includeOptional" value="false"/>
 <listAttribute key="org.eclipse.debug.ui.favoriteGroups">
-<listEntry value="org.eclipse.debug.ui.launchGroup.run"/>
 <listEntry value="org.eclipse.debug.ui.launchGroup.debug"/>
+<listEntry value="org.eclipse.debug.ui.launchGroup.run"/>
 </listAttribute>
+<booleanAttribute key="org.eclipse.jdt.launching.ATTR_USE_START_ON_FIRST_THREAD" value="true"/>
 <stringAttribute key="org.eclipse.jdt.launching.JRE_CONTAINER" value="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.7"/>
 <stringAttribute key="org.eclipse.jdt.launching.PROGRAM_ARGUMENTS" value="-os ${target.os} -ws ${target.ws} -arch ${target.arch} -nl ${target.nl} -consoleLog -console"/>
 <stringAttribute key="org.eclipse.jdt.launching.SOURCE_PATH_PROVIDER" value="org.eclipse.pde.ui.workbenchClasspathProvider"/>
 <stringAttribute key="org.eclipse.jdt.launching.VM_ARGUMENTS" value="-Declipse.ignoreApp=true&#13;&#10;-Dosgi.noShutdown=true&#13;&#10;-Dorg.eclipse.rwt.clientLibraryVariant=DEBUG&#10;-Dorg.eclipse.equinox.http.jetty.log.stderr.threshold=info&#10;-Dorg.osgi.service.http.port=9090&#10;-Dorg.eclipse.equinox.http.jetty.autostart=true"/>
 <stringAttribute key="pde.version" value="3.3"/>
 <booleanAttribute key="show_selected_only" value="false"/>
-<stringAttribute key="target_bundles" value="javassist@default:default,javax.annotation-api@default:default,javax.servlet-api@default:default,javax.validation.api@default:default,javax.ws.rs-api@default:default,org.apache.felix.gogo.command@default:default,org.apache.felix.gogo.runtime@default:default,org.apache.felix.gogo.shell@default:default,org.eclipse.equinox.cm@default:default,org.eclipse.equinox.console@default:default,org.eclipse.equinox.ds@1:true,org.eclipse.equinox.http.jetty@default:default,org.eclipse.equinox.http.servlet@default:default,org.eclipse.equinox.util@default:default,org.eclipse.jetty.continuation@default:default,org.eclipse.jetty.http@default:default,org.eclipse.jetty.io@default:default,org.eclipse.jetty.security@default:default,org.eclipse.jetty.server@default:default,org.eclipse.jetty.servlet@default:default,org.eclipse.jetty.util@default:default,org.eclipse.osgi.services@default:default,org.eclipse.osgi@-1:true,org.glassfish.hk2.api@default:default,org.glassfish.hk2.external.aopalliance-repackaged@default:default,org.glassfish.hk2.external.asm-all-repackaged@default:default,org.glassfish.hk2.external.javax.inject@default:default,org.glassfish.hk2.locator@default:default,org.glassfish.hk2.osgi-resource-locator@default:default,org.glassfish.hk2.utils@default:default,org.glassfish.jersey.bundles.repackaged.jersey-guava@default:default,org.glassfish.jersey.containers.jersey-container-servlet-core@default:default,org.glassfish.jersey.containers.jersey-container-servlet@default:default,org.glassfish.jersey.core.jersey-client@default:default,org.glassfish.jersey.core.jersey-common@default:default,org.glassfish.jersey.core.jersey-server@default:default"/>
+<stringAttribute key="target_bundles" value="com.eclipsesource.jaxrs.jersey-all@default:default,javax.servlet@default:default,org.eclipse.equinox.cm@default:default,org.eclipse.equinox.ds@1:true,org.eclipse.equinox.http.jetty@default:default,org.eclipse.equinox.http.servlet@default:default,org.eclipse.equinox.util@default:default,org.eclipse.osgi.services@default:default,org.eclipse.osgi@-1:true,org.mortbay.jetty.server@default:default,org.mortbay.jetty.util@default:default"/>
 <booleanAttribute key="tracing" value="false"/>
 <booleanAttribute key="useCustomFeatures" value="false"/>
 <booleanAttribute key="useDefaultConfigArea" value="true"/>
