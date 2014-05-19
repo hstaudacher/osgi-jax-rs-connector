@@ -24,7 +24,6 @@
    <requires>
       <import plugin="org.eclipse.osgi"/>
       <import plugin="org.eclipse.persistence.core" version="2.5.0" match="greaterOrEqual"/>
-      <import plugin="javax.ws.rs-api"/>
    </requires>
 
    <plugin
