@@ -4,6 +4,6 @@ Bundle-Name: All Testsuite
 Bundle-SymbolicName: com.eclipsesource.jaxrs.all.test
 Bundle-Version: 1.0.0.qualifier
 Bundle-Vendor: EclipseSource
-Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Bundle-RequiredExecutionEnvironment: JavaSE-1.7
 Require-Bundle: org.junit;bundle-version="4.10.0",
  net.johanneslink.cpsuite;bundle-version="1.2.5"

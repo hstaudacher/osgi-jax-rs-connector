@@ -4,7 +4,7 @@ Bundle-Name: %Bundle-Name
 Bundle-SymbolicName: com.eclipsesource.jaxrs.publisher
 Bundle-Version: 3.3.0.qualifier
 Bundle-Vendor: %Bundle-Name
-Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Bundle-RequiredExecutionEnvironment: JavaSE-1.7
 Bundle-Localization: plugin
 Bundle-Activator: com.eclipsesource.jaxrs.publisher.internal.Activator
 Import-Package: javax.servlet;version="[2.3.0,4.0.0)",

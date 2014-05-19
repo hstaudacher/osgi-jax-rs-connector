@@ -4,7 +4,7 @@ Bundle-Name: JAX-RS Consumer Example
 Bundle-SymbolicName: com.eclipsesource.jaxrs.consumer.example
 Bundle-Version: 1.0.0.qualifier
 Bundle-Vendor: EclipseSource
-Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Bundle-RequiredExecutionEnvironment: JavaSE-1.7
 Import-Package: com.eclipsesource.jaxrs.consumer;version="1.0.0",
  javax.ws.rs;version="[2.0.0,2.1.0)",
  javax.ws.rs.core;version="[2.0.0,2.1.0)",

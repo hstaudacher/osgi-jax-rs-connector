@@ -4,7 +4,7 @@ Bundle-Name: OSGi - JAX-RS Security Provider
 Bundle-SymbolicName: com.eclipsesource.jaxrs.provider.security
 Bundle-Version: 1.0.0.qualifier
 Bundle-Vendor: EclipseSource
-Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Bundle-RequiredExecutionEnvironment: JavaSE-1.7
 Import-Package: javax.annotation;version="[1.2.0,2.0.0)",
  javax.ws.rs;version="[2.0.0,3.0.0)",
  javax.ws.rs.container;version="[2.0.0,3.0.0)",
