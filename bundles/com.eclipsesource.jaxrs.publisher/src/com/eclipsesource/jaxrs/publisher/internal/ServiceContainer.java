@@ -30,11 +30,7 @@ public class ServiceContainer {
     this.services = new HashSet<ServiceHolder>();
   }
 
-  ServiceHolder add( Object service ) {
-    return add( service, null );
-  }
-
-  ServiceHolder addReference( ServiceReference reference ) {
+  ServiceHolder add( ServiceReference reference ) {
     return add( bundleContext.getService( reference ), reference );
   }
 

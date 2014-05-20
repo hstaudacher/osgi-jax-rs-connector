@@ -67,7 +67,7 @@ public class JAXRSConnector {
   }
 
   HttpService doAddHttpService( ServiceReference reference ) {
-    ServiceHolder serviceHolder = httpServices.addReference( reference );
+    ServiceHolder serviceHolder = httpServices.add( reference );
     HttpService service = ( HttpService )serviceHolder.getService();
     contextMap.put( service, createJerseyContext( service, rootPath ) );
     clearCache();
@@ -110,7 +110,7 @@ public class JAXRSConnector {
   }
 
   private Object doAddResource( ServiceReference reference ) {
-    ServiceHolder serviceHolder = resources.addReference( reference );
+    ServiceHolder serviceHolder = resources.add( reference );
     registerResource( serviceHolder );
     return serviceHolder.getService();
   }

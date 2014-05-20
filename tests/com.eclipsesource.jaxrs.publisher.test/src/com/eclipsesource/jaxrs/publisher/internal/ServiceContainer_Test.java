@@ -11,7 +11,6 @@
 package com.eclipsesource.jaxrs.publisher.internal;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
@@ -42,29 +41,15 @@ public class ServiceContainer_Test {
   }
 
   @Test
-  public void testAddService() {
-    Object service = new Object();
-    
-    ServiceHolder holder1 = container.add( service );
-    ServiceHolder holder2 = container.add( service );
-    
-    assertEquals( 1, container.size() );
-    assertSame( holder1, holder2 );
-    assertSame( service, holder1.getService());
-  }
-  
-  @Test
   public void testAddServiceReference() {
     Object service = new Object();
     mockServiceReference( service );
     
-    ServiceHolder holder1 = container.addReference( serviceReference );
-    ServiceHolder holder2 = container.addReference( serviceReference );
-    ServiceHolder holder3 = container.add( service );
+    ServiceHolder holder1 = container.add( serviceReference );
+    ServiceHolder holder2 = container.add( serviceReference );
     
     assertEquals( 1, container.size() );
     assertSame( holder1, holder2 );
-    assertSame( holder1, holder3 );
     assertSame( serviceReference, holder1.getReference() );
     assertSame( service, holder1.getService());
   }
@@ -74,20 +59,20 @@ public class ServiceContainer_Test {
     Object service = new Object();
     mockServiceReference( service );
     
-    ServiceHolder holder1 = container.add( service );
+    ServiceHolder holder1 = container.add( serviceReference );
     ServiceReference reference = holder1.getReference();
-    ServiceHolder holder2 = container.addReference( serviceReference );
+    ServiceHolder holder2 = container.add( reference );
     
     assertEquals( 1, container.size() );
     assertSame( holder1, holder2 );
-    assertNull( reference );
     assertSame( serviceReference, holder2.getReference() );
   }
   
   @Test
   public void testFind() {
     Object service = new Object();
-    container.add( service );
+    mockServiceReference( service );
+    container.add( serviceReference );
 
     ServiceHolder holder = container.find( service );
     
@@ -97,7 +82,8 @@ public class ServiceContainer_Test {
   @Test
   public void testClear() {
     Object service = new Object();
-    container.add( service );
+    mockServiceReference( service );
+    container.add( serviceReference );
     
     container.clear();
     
@@ -107,7 +93,8 @@ public class ServiceContainer_Test {
   @Test
   public void testGetServices() {
     Object service = new Object();
-    ServiceHolder holder = container.add( service );
+    mockServiceReference( service );
+    ServiceHolder holder = container.add( serviceReference );
     
     ServiceHolder[] services = container.getServices();
     
@@ -118,7 +105,8 @@ public class ServiceContainer_Test {
   @Test
   public void testRemove() {
     Object service = new Object();
-    container.add( service );
+    mockServiceReference( service );
+    container.add( serviceReference );
     
     container.remove( service );
     
