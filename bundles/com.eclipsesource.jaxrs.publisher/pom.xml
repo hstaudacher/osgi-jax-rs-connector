@@ -34,7 +34,26 @@
 					</execution>
 				</executions>
 			</plugin>
-		</plugins>
-	</build>
+			
+      <plugin>
+        <groupId>${tycho-groupid}</groupId>
+        <artifactId>target-platform-configuration</artifactId>
+        <version>${tycho-version}</version>
+        <configuration>
+          <filters>
+            <filter>
+              <type>java-package</type>
+              <id>javax.servlet</id>
+              <restrictTo>
+                <type>osgi-bundle</type>
+                <id>javax.servlet-api</id>
+                <versionRange>[2.3.0,4.0.0)</versionRange>
+              </restrictTo>
+            </filter>
+          </filters>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
 
 </project>

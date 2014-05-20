@@ -18,8 +18,9 @@ public class Configuration implements ManagedService {
     this.connector = jaxRsConnector;
   }
 
+  @SuppressWarnings( "rawtypes" )
   @Override
-  public void updated( Dictionary<String, ?> properties ) throws ConfigurationException {
+  public void updated( Dictionary properties ) throws ConfigurationException {
     if( properties != null ) {
       Object root = properties.get( ROOT_PROPERTY );
       ensureRootIsPresent( root );
