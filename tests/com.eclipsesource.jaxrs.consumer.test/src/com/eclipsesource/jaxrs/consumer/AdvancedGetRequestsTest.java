@@ -89,4 +89,22 @@ public class AdvancedGetRequestsTest {
     assertEquals( "get", resource.getContent( "bar", "bar1", "bar2" ) );
   }
   
+  @Test( expected = RequestException.class )
+  public void testThrowsRequestExceptionWith4xx() {
+    driver.addExpectation( onRequestTo( "/test" ).withMethod( GET ), giveResponse( "get", TEXT_PLAIN ).withStatus( 404 ) );
+    
+    FakeResource resource = createResource( FakeResource.class, driver.getBaseUrl() );
+    
+    resource.getContent( "bar", "bar1", "bar2" );
+  }
+  
+  @Test( expected = RequestException.class )
+  public void testThrowsRequestExceptionWith5xx() {
+    driver.addExpectation( onRequestTo( "/test" ).withMethod( GET ), giveResponse( "get", TEXT_PLAIN ).withStatus( 500 ) );
+    
+    FakeResource resource = createResource( FakeResource.class, driver.getBaseUrl() );
+    
+    resource.getContent( "bar", "bar1", "bar2" );
+  }
+  
 }

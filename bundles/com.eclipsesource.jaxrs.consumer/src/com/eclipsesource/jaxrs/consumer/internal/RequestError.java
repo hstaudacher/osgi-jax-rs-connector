@@ -1,5 +1,6 @@
 package com.eclipsesource.jaxrs.consumer.internal;
 
+import javax.ws.rs.core.MultivaluedMap;
 import javax.ws.rs.core.Response;
 
 
@@ -15,6 +16,10 @@ public class RequestError {
     this.requestUrl = configurer.getRequestUrl();
   }
 
+  public int getStatus() {
+    return response.getStatus();
+  }
+
   public String getMessage() {
     StringBuilder stringBuilder = new StringBuilder();
     stringBuilder.append( "Failed to send " + method + " request to: " + requestUrl );
@@ -28,4 +33,24 @@ public class RequestError {
     stringBuilder.append( "\n" );
     return stringBuilder.toString();
   }
+  
+  public String getEntity() {
+    if( response.hasEntity() ) {
+      return response.readEntity( String.class );
+    }
+    return null;
+  }
+
+  public String getMethod() {
+    return method;
+  }
+  
+  public String getRequestUrl() {
+    return requestUrl;
+  }
+  
+  public MultivaluedMap<String, Object> getHeaders() {
+    return response.getHeaders();
+  }
+  
 }

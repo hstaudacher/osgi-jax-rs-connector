@@ -42,6 +42,8 @@ import org.glassfish.jersey.media.multipart.FormDataParam;
 import org.glassfish.jersey.media.multipart.MultiPart;
 import org.glassfish.jersey.message.internal.MediaTypes;
 
+import com.eclipsesource.jaxrs.consumer.RequestException;
+
 
 public class ResourceInvocationHandler implements InvocationHandler {
 
@@ -123,7 +125,7 @@ public class ResourceInvocationHandler implements InvocationHandler {
     Family family = response.getStatusInfo().getFamily();
     if( family == SERVER_ERROR || family == CLIENT_ERROR ) {
       RequestError requestError = new RequestError( configurer, response, method );
-      throw new IllegalStateException( requestError.getMessage() );
+      throw new RequestException( requestError );
     }
   }
 
