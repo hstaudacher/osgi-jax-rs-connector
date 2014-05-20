@@ -61,9 +61,19 @@ public class RequestConfigurer {
   private WebTarget computeTarget() {
     String serviceUrl = baseUrl;
     if( method.isAnnotationPresent( Path.class ) ) {
-      serviceUrl += method.getAnnotation( Path.class ).value();
+      String path = method.getAnnotation( Path.class ).value();
+      serviceUrl = computeUrl( serviceUrl, path );
     }
     return client.target( replacePathParams( serviceUrl, method, parameter ) );
+  }
+
+  private String computeUrl( String serviceUrl, String path ) {
+    if( serviceUrl.endsWith( "/" ) && path.startsWith( "/" ) ) {
+      return serviceUrl + path.substring( 1, path.length() );
+    } else if( !serviceUrl.endsWith( "/" ) && !path.startsWith( "/" ) ) {
+      return serviceUrl + "/" + path;
+    }
+    return serviceUrl + path;
   }
 
   private String replacePathParams( String serviceUrl, Method method, Object[] parameter ) {
