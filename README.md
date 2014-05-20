@@ -1,4 +1,4 @@
-# OSGi - JAX-RS Connector 3.3.0 [![Build Status](https://travis-ci.org/hstaudacher/osgi-jax-rs-connector.png)](https://travis-ci.org/hstaudacher/osgi-jax-rs-connector)
+# OSGi - JAX-RS Connector 4.0.0 [![Build Status](https://travis-ci.org/hstaudacher/osgi-jax-rs-connector.png)](https://travis-ci.org/hstaudacher/osgi-jax-rs-connector)
 ![](http://download.eclipsesource.com/~hstaudacher/connector.png)  
 [JAX-RS (JSR 311)](http://jsr311.java.net/) is the community-driven standard for 
 building RESTful web services with Java. The reference implementation for JAX-RS is 
@@ -65,6 +65,8 @@ The steps how the consumer will be handled are dscribed in this [post](http://ec
 ## Examples
 Examples for the publisher and consumer can be found within the [examples](https://github.com/hstaudacher/osgi-jax-rs-connector/tree/master/examples) folder. 
 
+> When using the example's Eclipse launch configuration please ensure that you have selected the connector bundles from your target.
+
 ### Publisher Examples
 Some examples exist for the publisher. They are located in the bundles `com.eclipsesource.jaxrs.connector.example` and `com.eclipsesource.jaxrs.connector.example.ds`. As the names say one uses Declarative services and the other don't.
 In both exampels a simple POJO is annotated with `@Path` and will be registered as an OSGIi service. Both bundles contain an Eclipse Launch Configuration to start them (please don't forget to add the publisher bundle to the launch config). After starting the launch configs the service will be available at `http://localhost:9090/services/osgi-jax-rs`.
@@ -80,15 +82,15 @@ The example for the consumer is splitted into two bundles called `com.eclipsesou
 If you are working with [Bndtools](http://bndtools.org), a [Starter Kit](https://github.com/BryanHunt/bndtools-equinox-app-kit) is available to help you get going.  You will most likely want either the [rest](https://github.com/BryanHunt/bndtools-equinox-app-kit/tree/rest) or [mongo-rest](https://github.com/BryanHunt/bndtools-equinox-app-kit/tree/mongo-rest) branch.
 
 ## Requirements
-* OSGi Core Specification 4.2 and an OSGi HttpService implementation (e.g. Equinox, Felix).
-* JRE 1.6 (same as Jersey)
+* OSGi Core Specification R4 and an OSGi HttpService implementation (e.g. Equinox, Felix).
+* JRE 1.7 (same as Jersey 2.6+)
+
+## Jersey version
+With Jersey 2.0 the library was splitted into several modules with a whole bunch of dependencies. To ease the OSGi application development Jersey was rebundled in this project and ships as a single bundle called `com.eclipsesource.jaxrs.jersey.all`. Currently it includes Jersey 2.8.0 and it's dependencies. Also the Eclipse Source Bundle will be shipped to make the Jersey API more discoverable when using Eclipse.
 
 ## Alternatives
 * [Neil Bartlett's jaxrs-osgi-extender](https://github.com/njbartlett/jaxrs-osgi-extender)
 * OSGi Remote Services (e.g. [Apache CXF](http://cxf.apache.org/distributed-osgi-reference.html#DistributedOSGiReference-ServiceProviderpropertiesForConfiguringRESTfulJAXRSbasedendpointsandconsumers))
-
-## Jersey version
-Jersey 2.6.0 + dependencies are included in the p2 software repository.  
 
 ## Changelog
 Checkout the [github releases](https://github.com/hstaudacher/osgi-jax-rs-connector/releases).
@@ -96,8 +98,5 @@ Checkout the [github releases](https://github.com/hstaudacher/osgi-jax-rs-connec
 ## License
 The code is published under the terms of the [Eclipse Public License, version 1.0](http://www.eclipse.org/legal/epl-v10.html).
 
-Included binaries from [Jersey](http://jersey.java.net/), version 2.6.0, which are published under two licenses, the [CDDL 1.1 and GPL 2 with CPE](http://glassfish.java.net/public/CDDL+GPL_1_1.html)
-
-
-[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/hstaudacher/osgi-jax-rs-connector/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
+Included binaries from [Jersey](http://jersey.java.net/) (rebundled), version 2.8.0, which are published under two licenses, the [CDDL 1.1 and GPL 2 with CPE](http://glassfish.java.net/public/CDDL+GPL_1_1.html)
 
