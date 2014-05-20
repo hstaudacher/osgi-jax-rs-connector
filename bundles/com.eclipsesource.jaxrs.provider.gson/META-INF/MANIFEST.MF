@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: JAX-RS Gson Provider
 Bundle-SymbolicName: com.eclipsesource.jaxrs.provider.gson
-Bundle-Version: 1.1.0.qualifier
+Bundle-Version: 2.0.0.qualifier
 Bundle-Activator: com.eclipsesource.jaxrs.provider.gson.internal.Activator
 Bundle-Vendor: EclipseSource
 Bundle-RequiredExecutionEnvironment: JavaSE-1.7

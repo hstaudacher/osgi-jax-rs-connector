@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Service Caller
 Bundle-SymbolicName: com.eclipsesource.jaxrs.consumer.example.caller
-Bundle-Version: 1.0.0.qualifier
+Bundle-Version: 2.0.0.qualifier
 Bundle-Activator: com.eclipsesource.jaxrs.consumer.example.caller.Activator
 Bundle-Vendor: EclipseSource
 Bundle-RequiredExecutionEnvironment: JavaSE-1.7

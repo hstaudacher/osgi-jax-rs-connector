@@ -2,7 +2,7 @@
 <feature
       id="com.eclipsesource.jaxrs.jersey.runtime.feature"
       label="Jersey Runtime"
-      version="1.0.0.qualifier"
+      version="2.0.0.qualifier"
       provider-name="EclipseSource">
 
    <description url="http://www.example.com/description">
