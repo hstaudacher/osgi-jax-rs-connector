@@ -14,6 +14,8 @@ import org.junit.Test;
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.ServiceRegistration;
 
+import com.eclipsesource.jaxrs.provider.gson.internal.Activator;
+
 
 public class ActivatorTest {
   

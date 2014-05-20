@@ -1,9 +1,11 @@
 /* ProSyst Software GmbH. - compatibility with OSGi specification 4.2 APIs */
-package com.eclipsesource.jaxrs.provider.gson;
+package com.eclipsesource.jaxrs.provider.gson.internal;
 
 import org.osgi.framework.BundleActivator;
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.ServiceRegistration;
+
+import com.eclipsesource.jaxrs.provider.gson.GsonProvider;
 
 public class Activator implements BundleActivator {
 

@@ -1,5 +1,7 @@
 package com.eclipsesource.jaxrs.provider.gson;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.spy;
@@ -21,6 +23,33 @@ import com.google.gson.Gson;
 
 
 public class GsonProviderTest {
+  
+  @Test
+  public void testHasGson() {
+    GsonProvider<TestObject> testObjectProvider = new GsonProvider<TestObject>();
+    
+    Gson gson = testObjectProvider.getGson();
+    
+    assertNotNull( gson );
+  }
+  
+  @Test
+  public void testCanSetGson() {
+    Gson gson = new Gson();
+    GsonProvider<TestObject> testObjectProvider = new GsonProvider<TestObject>();
+    
+    testObjectProvider.setGson( gson );
+    Gson actualGson = testObjectProvider.getGson();
+    
+    assertSame( gson, actualGson );
+  }
+  
+  @Test( expected = IllegalArgumentException.class )
+  public void testFailsToSetNullGson() {
+    GsonProvider<TestObject> testObjectProvider = new GsonProvider<TestObject>();
+    
+    testObjectProvider.setGson( null );
+  }
 
   @Test
   public void testGetSize() {
