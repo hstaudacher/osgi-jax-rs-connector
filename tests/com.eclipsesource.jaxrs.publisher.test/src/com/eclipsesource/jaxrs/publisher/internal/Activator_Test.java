@@ -35,6 +35,8 @@ import org.osgi.framework.InvalidSyntaxException;
 import org.osgi.framework.ServiceRegistration;
 import org.osgi.service.cm.ManagedService;
 
+import com.eclipsesource.jaxrs.publisher.ResourceFilter;
+
 
 @RunWith( MockitoJUnitRunner.class )
 public class Activator_Test {
@@ -74,6 +76,13 @@ public class Activator_Test {
     verify( context ).registerService( eq( ManagedService.class.getName() ), 
                                        any( Configuration.class ), 
                                        any( Dictionary.class ) );
+  }
+  
+  @Test
+  public void testLooksUpResourceFilter() throws Exception {
+    activator.start( context );
+    
+    verify( context ).getServiceReference( ResourceFilter.class.getName() );
   }
   
   @Test

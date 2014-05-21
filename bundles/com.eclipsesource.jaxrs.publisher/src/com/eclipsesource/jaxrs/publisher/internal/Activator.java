@@ -21,11 +21,13 @@ import org.osgi.framework.BundleActivator;
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.BundleException;
 import org.osgi.framework.Constants;
-import org.osgi.framework.Filter;
 import org.osgi.framework.FrameworkUtil;
 import org.osgi.framework.InvalidSyntaxException;
+import org.osgi.framework.ServiceReference;
 import org.osgi.framework.ServiceRegistration;
 import org.osgi.service.cm.ManagedService;
+
+import com.eclipsesource.jaxrs.publisher.ResourceFilter;
 
 
 public class Activator implements BundleActivator {
@@ -69,9 +71,17 @@ public class Activator implements BundleActivator {
   }
 
   private void openAllServiceTracker( BundleContext context ) throws InvalidSyntaxException {
-    Filter filter = context.createFilter( ResourceTracker.ANY_SERVICE_FILTER );
-    allTracker = new ResourceTracker( context, filter, jaxRsConnector );
+    ResourceFilter allResourceFilter = getResourceFilter( context );
+    allTracker = new ResourceTracker( context, allResourceFilter.getFilter(), jaxRsConnector );
     allTracker.open();
+  }
+
+  private ResourceFilter getResourceFilter( BundleContext context ) {
+    ServiceReference filterReference = context.getServiceReference( ResourceFilter.class.getName() );
+    if( filterReference != null ) {
+      return ( ResourceFilter )context.getService( filterReference );
+    }
+    return new AllResourceFilter( context );
   }
 
   @Override

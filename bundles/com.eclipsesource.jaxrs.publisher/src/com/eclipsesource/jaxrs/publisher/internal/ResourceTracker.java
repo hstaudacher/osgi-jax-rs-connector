@@ -12,8 +12,6 @@
  ******************************************************************************/
 package com.eclipsesource.jaxrs.publisher.internal;
 
-import static com.eclipsesource.jaxrs.publisher.ServiceProperties.PUBLISH;
-
 import javax.ws.rs.Path;
 import javax.ws.rs.core.Feature;
 import javax.ws.rs.ext.Provider;
@@ -25,8 +23,6 @@ import org.osgi.util.tracker.ServiceTracker;
 
 
 public class ResourceTracker extends ServiceTracker {
-  
-  static final String ANY_SERVICE_FILTER = "(&(objectClass=*)(!(" + PUBLISH + "=false)))";
   
   private final BundleContext context;
   private final JAXRSConnector connector;
