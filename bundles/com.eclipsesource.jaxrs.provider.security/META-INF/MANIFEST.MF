@@ -14,4 +14,4 @@ Import-Package: javax.annotation;version="[1.2.0,2.0.0)",
  org.osgi.framework;version="[1.3.0,2.0.0)",
  org.osgi.util.tracker;version="[1.2.0,2.0.0)"
 Bundle-Activator: com.eclipsesource.jaxrs.provider.security.impl.Activator
-Export-Package: com.eclipsesource.jaxrs.provider.security;version="1.0.0"
+Export-Package: com.eclipsesource.jaxrs.provider.security;version="2.0.0"
