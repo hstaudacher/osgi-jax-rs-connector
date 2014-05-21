@@ -19,5 +19,4 @@ Import-Package: javax.servlet;version="[2.3.0,4.0.0)",
  org.osgi.service.cm;version="[1.2.0,2.0.0)",
  org.osgi.service.http;version="[1.2.0,2.0.0)",
  org.osgi.util.tracker;version="[1.4.0,2.0.0)"
-Export-Package: com.eclipsesource.jaxrs.connector;version="3.2.0",
- com.eclipsesource.jaxrs.publisher;version="3.2.0"
+Export-Package: com.eclipsesource.jaxrs.publisher;version="4.0.0"
