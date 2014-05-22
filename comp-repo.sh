@@ -2,7 +2,7 @@
 #
 # Tool to maintain composite repositories
 
-RUNTIME_DIR=/Applications/eclipse/eclipse3-juno
+RUNTIME_DIR=/Applications/eclipse/eclipse-tabris
 
 mode=
 repoDir=
