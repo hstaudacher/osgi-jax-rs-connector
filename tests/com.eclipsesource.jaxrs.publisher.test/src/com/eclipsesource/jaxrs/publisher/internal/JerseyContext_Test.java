@@ -54,7 +54,7 @@ public class JerseyContext_Test {
 
   @Before
   public void setUp() {
-    JerseyContext original = new JerseyContext( httpService, "/test" );
+    JerseyContext original = new JerseyContext( httpService, "/test", false );
     jerseyContext = spy( original );
     doReturn( servletContainer ).when( jerseyContext ).getServletContainer();
     doReturn( rootApplication ).when( jerseyContext ).getRootApplication();
@@ -143,7 +143,7 @@ public class JerseyContext_Test {
   
   @Test
   public void testDoesNotRegster_METAINF_SERVICES_LOOKUP_DISABLE() {
-    JerseyContext context = new JerseyContext( httpService, "/test" ); 
+    JerseyContext context = new JerseyContext( httpService, "/test", false ); 
     
     Map<String, Object> properties = context.getRootApplication().getProperties();
     
@@ -152,11 +152,20 @@ public class JerseyContext_Test {
   
   @Test
   public void testRegsters_FEATURE_AUTO_DISCOVERY_DISABLE() {
-    JerseyContext context = new JerseyContext( httpService, "/test" );
+    JerseyContext context = new JerseyContext( httpService, "/test" , false);
     
     Map<String, Object> properties = context.getRootApplication().getProperties();
     
     assertEquals( true, properties.get( ServerProperties.FEATURE_AUTO_DISCOVERY_DISABLE ) );
+  }
+  
+  @Test
+  public void testRegsters_WADL_FEATURE_DISABLE() {
+    JerseyContext context = new JerseyContext( httpService, "/test" , true);
+    
+    Map<String, Object> properties = context.getRootApplication().getProperties();
+    
+    assertEquals( true, properties.get( ServerProperties.WADL_FEATURE_DISABLE ) );
   }
   
 }
