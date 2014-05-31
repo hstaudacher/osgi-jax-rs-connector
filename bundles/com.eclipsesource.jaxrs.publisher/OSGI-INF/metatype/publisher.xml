@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <MetaData xmlns="http://www.osgi.org/xmlns/metatype/v1.1.0">
 	<OCD name="OSGi REST Publisher" id="com.eclipsesource.jaxrs.connector" description="OSGi REST Publisher Configuration">
-		<AD name="Root" id="root" type="String" description="The root URI for publishing web services.  Defaults to /services"/>
+		<AD name="Root" id="root" type="String" description="The root URI for publishing web services.  Defaults to /services" default="/services" />
+        <AD name="Disable jersey wadl" id="disableWadl" type="Boolean" description="WADL generation through 'application.wadl' is enabled in Jersey by default. To disable this set this property to true" default="false" />
 	</OCD>
 	<Designate pid="com.eclipsesource.jaxrs.connector">
 		<Object ocdref="com.eclipsesource.jaxrs.connector"/>
