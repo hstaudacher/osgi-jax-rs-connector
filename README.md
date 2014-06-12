@@ -4,7 +4,7 @@
 building RESTful web services with Java. The reference implementation for JAX-RS is 
 [Jersey](http://jersey.java.net/) and ships as OSGi bundles. 
 This project connects Jersey and OSGi at the *service level*. This means that OSGi services can be published as 
-RESTful web services by simply registering them as OSGi services and also consumed as OSGi services ;).  
+RESTful web services by simply registering them as OSGi services. A neat side feature is that REST services can also be consumed as OSGi services ;).  
 
 *To see how to get started with JAX-RS 2.0 and Jersey please read the [Jersey getting started guide](https://jersey.java.net/documentation/latest/getting-started.html).*
 
