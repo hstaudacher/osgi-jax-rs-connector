@@ -54,7 +54,7 @@ public class JAXRSConnector_Test {
   public void setUp() {
     JAXRSConnector original = new JAXRSConnector( bundleContext );
     connector = spy( original );
-    doReturn( jerseyContext ).when( connector ).createJerseyContext( any( HttpService.class ), anyString() );
+    doReturn( jerseyContext ).when( connector ).createJerseyContext( any( HttpService.class ), anyString(), eq(false) );
   }
   
   @Test
@@ -116,13 +116,13 @@ public class JAXRSConnector_Test {
     
     connector.addResource( resourceServiceReference );
     connector.addHttpService( httpServiceReference );
-    connector.updatePath( "/test" );
+    connector.updateConfiguration( "/test", false );
     
     InOrder order = inOrder( connector );
-    order.verify( connector ).createJerseyContext( any( HttpService.class ), anyString() );
+    order.verify( connector ).createJerseyContext( any( HttpService.class ), anyString(), eq(false) );
     order.verify( connector ).doRemoveHttpService( any( HttpService.class ) );
     order.verify( connector ).doAddHttpService( any( ServiceReference.class ) );
-    order.verify( connector ).createJerseyContext( any( HttpService.class ), eq( "/test" ) );
+    order.verify( connector ).createJerseyContext( any( HttpService.class ), eq( "/test" ), eq(false) );
   }
   
   @Test

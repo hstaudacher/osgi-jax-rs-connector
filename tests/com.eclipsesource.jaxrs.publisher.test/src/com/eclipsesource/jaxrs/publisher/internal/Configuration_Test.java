@@ -4,6 +4,7 @@ import static org.mockito.Matchers.anyString;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.eq;
 
 import java.util.Dictionary;
 import java.util.Hashtable;
@@ -11,9 +12,6 @@ import java.util.Hashtable;
 import org.junit.Before;
 import org.junit.Test;
 import org.osgi.service.cm.ConfigurationException;
-
-import com.eclipsesource.jaxrs.publisher.internal.Configuration;
-import com.eclipsesource.jaxrs.publisher.internal.JAXRSConnector;
 
 
 public class Configuration_Test {
@@ -31,21 +29,28 @@ public class Configuration_Test {
   public void testUpdateWithNull() throws Exception {
     config.updated( null );
     
-    verify( connector, never() ).updatePath( anyString() );
+    verify( connector, never() ).updateConfiguration( anyString(), eq(false));
   }
   
   @Test
   public void testUpdateWithPath() throws Exception {
     config.updated( createProperties( "/test" ) );
     
-    verify( connector ).updatePath( "/test" );
+    verify( connector ).updateConfiguration( "/test" , false);
   }
   
   @Test
   public void testUpdateWithPath2() throws Exception {
     config.updated( createProperties( "/test2" ) );
     
-    verify( connector ).updatePath( "/test2" );
+    verify( connector ).updateConfiguration( "/test2" , false );
+  }
+  
+  @Test
+  public void testUpdateWithDisabledWadl() throws Exception {
+    config.updated( createProperties( "/test", true ) );
+    
+    verify( connector ).updateConfiguration( "/test" , true );
   }
   
   @Test( expected = ConfigurationException.class )
@@ -59,8 +64,14 @@ public class Configuration_Test {
   }
 
   private Dictionary<String, ?> createProperties( String path ) {
+    return createProperties( path, false);
+  }
+  
+  private Dictionary<String, ?> createProperties( String path, Boolean disableWadl) {
     Hashtable<String, Object> properties = new Hashtable<String, Object>();
     properties.put( Configuration.ROOT_PROPERTY, path );
+    properties.put( Configuration.WADL_DISABLE_PROPERTY, disableWadl );
     return properties;
   }
+
 }

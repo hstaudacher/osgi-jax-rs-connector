@@ -36,6 +36,7 @@ public class JAXRSConnector {
   private final BundleContext bundleContext;
   private final List<ServiceHolder> resourceCache;
   private String rootPath;
+  private boolean isWadlDisabled;
 
   JAXRSConnector( BundleContext bundleContext ) {
     this.bundleContext = bundleContext;
@@ -45,14 +46,15 @@ public class JAXRSConnector {
     this.resourceCache = new ArrayList<ServiceHolder>();
   }
   
-  void updatePath( String rootPath ) {
+  void updateConfiguration( String rootPath, boolean isWadlDisabled) {
     synchronized( lock ) {
-      doUpdatePath( rootPath );
+      doUpdateConfiguration( rootPath, isWadlDisabled );
     }
   }
 
-  private void doUpdatePath( String rootPath ) {
+  private void doUpdateConfiguration( String rootPath, boolean isWadlDisabled ) {
     this.rootPath = rootPath;
+    this.isWadlDisabled = isWadlDisabled;
     ServiceHolder[] services = httpServices.getServices();
     for( ServiceHolder serviceHolder : services ) {
       doRemoveHttpService( ( HttpService )serviceHolder.getService() );
@@ -69,7 +71,7 @@ public class JAXRSConnector {
   HttpService doAddHttpService( ServiceReference reference ) {
     ServiceHolder serviceHolder = httpServices.add( reference );
     HttpService service = ( HttpService )serviceHolder.getService();
-    contextMap.put( service, createJerseyContext( service, rootPath ) );
+    contextMap.put( service, createJerseyContext( service, rootPath, isWadlDisabled ) );
     clearCache();
     return service;
   }
@@ -179,8 +181,8 @@ public class JAXRSConnector {
   }
 
   // For testing purpose
-  JerseyContext createJerseyContext( HttpService service, String rootPath ) {
-    return new JerseyContext( service, rootPath );
+  JerseyContext createJerseyContext( HttpService service, String rootPath, boolean disableWadl ) {
+    return new JerseyContext( service, rootPath, disableWadl);
   }
   
 }

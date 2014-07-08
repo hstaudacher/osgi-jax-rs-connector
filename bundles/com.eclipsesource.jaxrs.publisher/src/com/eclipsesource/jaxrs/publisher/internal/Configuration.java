@@ -11,6 +11,8 @@ public class Configuration implements ManagedService {
 
   static final String CONFIG_SERVICE_PID = "com.eclipsesource.jaxrs.connector";
   static final String ROOT_PROPERTY = "root";
+  static final String WADL_DISABLE_PROPERTY = "disableWadl";
+  
   
   private final JAXRSConnector connector;
   
@@ -26,10 +28,19 @@ public class Configuration implements ManagedService {
       ensureRootIsPresent( root );
       String rootPath = ( String )root;
       ensureRootIsValid( rootPath );
-      connector.updatePath( rootPath );
+      connector.updateConfiguration( rootPath, isWadlDisabled( properties ) );
     }
   }
-
+  
+  @SuppressWarnings( "rawtypes" )
+  private boolean isWadlDisabled( Dictionary properties ){
+    Object wadl = properties.get( WADL_DISABLE_PROPERTY );
+    if( wadl == null ){
+      return false;
+    }
+    return (Boolean) wadl;
+  }
+  
   private void ensureRootIsValid( String rootPath ) throws ConfigurationException {
     if( !rootPath.startsWith( "/" ) ) {
       throw new ConfigurationException( ROOT_PROPERTY, "Root path does not start with a /" );

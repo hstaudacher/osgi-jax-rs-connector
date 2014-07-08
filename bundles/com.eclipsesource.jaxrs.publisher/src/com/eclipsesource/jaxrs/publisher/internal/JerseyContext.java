@@ -8,6 +8,7 @@
  * Contributors:
  *    Holger Staudacher - initial API and implementation
  *    Dragos Dascalita  - disbaled autodiscovery
+ *    Lars Pfannenschmidt  - made WADL generation configurable
  ******************************************************************************/
 package com.eclipsesource.jaxrs.publisher.internal;
 
@@ -33,12 +34,24 @@ public class JerseyContext {
   private final String rootPath;
   private boolean isApplicationRegistered;
 
-  public JerseyContext( HttpService httpService, String rootPath ) {
+  public JerseyContext( HttpService httpService, String rootPath, boolean isWadleDisabled) {
     this.httpService = httpService;
     this.rootPath = rootPath == null ? "/services" : rootPath;
     this.application = new RootApplication();
     disableAutoDiscovery();
+    disableWadl(isWadleDisabled);
     this.servletContainer = new ServletContainer( ResourceConfig.forApplication( application ) );
+  }
+
+  /**
+   * WADL generation is enabled in Jersey by default. This means that OPTIONS methods are added by
+   * default to each resource and an auto-generated /application.wadl resource is deployed too. In
+   * case you want to disable that you can set this property to true.
+   * 
+   * @param disableWadl <code>TRUE</code> to disable WADL feature 
+   */
+  private void disableWadl( boolean disableWadl ) {
+    this.application.addProperty(ServerProperties.WADL_FEATURE_DISABLE, disableWadl);
   }
 
   private void disableAutoDiscovery() {
