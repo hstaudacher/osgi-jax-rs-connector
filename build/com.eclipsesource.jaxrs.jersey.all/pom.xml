@@ -3,12 +3,12 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.eclipsesource.jaxrs</groupId>
 	<artifactId>jersey-all</artifactId>
-	<version>2.8</version>
+	<version>2.10.1</version>
 
 	<properties>
 		<maven.compiler.source>1.7</maven.compiler.source>
 		<maven.compiler.target>1.7</maven.compiler.target>
-		<jersey.version>2.8</jersey.version>
+		<jersey.version>2.10.1</jersey.version>
 		<jaxrs.version>2.0</jaxrs.version>
 	</properties>
 
@@ -51,6 +51,9 @@
 							!com.sun.jdi.*,
 							!sun.misc,
 							!javax.persistence,
+							!scala.*,
+							!org.jruby.*,
+							!com.twitter.util.*,
 							javax.servlet.*;version="[2.3.0,4.0.0)";resolution:=optional,
 							*
 						</Import-Package>
@@ -77,7 +80,7 @@
 				<artifactId>maven-shade-plugin</artifactId>
 				<version>2.2</version>
 				<configuration>
-					<finalName>sheded-DO-NOT-USE</finalName>
+					<finalName>shaded-DO-NOT-USE</finalName>
 					<createSourcesJar>true</createSourcesJar>
 					<transformers>
 						<transformer
@@ -147,6 +150,32 @@
 			<groupId>org.glassfish.jersey.media</groupId>
 			<artifactId>jersey-media-multipart</artifactId>
 			<version>${jersey.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.glassfish.jersey.ext</groupId>
+			<artifactId>jersey-mvc</artifactId>
+			<version>${jersey.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.glassfish.jersey.security</groupId>
+			<artifactId>oauth1-server</artifactId>
+			<version>${jersey.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.glassfish.jersey.security</groupId>
+			<artifactId>oauth1-client</artifactId>
+			<version>${jersey.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.glassfish.jersey.security</groupId>
+			<artifactId>oauth2-client</artifactId>
+			<version>${jersey.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>servlet-api</artifactId>
+			<version>2.5</version>
+			<scope>provided</scope>
 		</dependency>
 	</dependencies>
 

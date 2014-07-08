@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<?pde version="3.8"?><target name="Equinox 3.8" sequenceNumber="38">
+<locations>
+<location path="${project_loc:com.eclipsesource.jaxrs.connector.target}/eclipselink/bundles" type="Directory"/>
+<location path="${project_loc:com.eclipsesource.jaxrs.connector.target}/eclipselink/source-bundles" type="Directory"/>
+<location includeAllPlatforms="false" includeConfigurePhase="false" includeMode="slicer" includeSource="true" type="InstallableUnit">
+<unit id="com.eclipsesource.osgi.additionals.feature.group" version="1.24.0.201404161640"/>
+<repository location="http://hstaudacher.github.com/osgi-additionals"/>
+</location>
+<location includeAllPlatforms="false" includeConfigurePhase="false" includeMode="slicer" includeSource="true" type="InstallableUnit">
+<unit id="org.eclipse.platform.sdk" version="3.6.2.M20110210-1200"/>
+<unit id="org.eclipse.equinox.core.sdk.feature.group" version="3.6.1.r36x_v20110210-7sF99FsNFS-Ci4TSP4RDFHLIA5B3"/>
+<unit id="org.eclipse.equinox.compendium.sdk.feature.group" version="3.6.1.R36x_v20101014-7V7RFiwFLSgEt4Pctn77c7J"/>
+<unit id="org.eclipse.equinox.serverside.sdk.feature.group" version="3.6.1.R36x_v20101014-7u7NFVmFL9O33b1CgDPjCI2jWYYn"/>
+<repository location="http://download.eclipse.org/eclipse/updates/3.6"/>
+</location>
+<location path="${project_loc:com.eclipsesource.jaxrs.connector.target}/jersey2.10.1/" type="Directory"/>
+</locations>
+</target>

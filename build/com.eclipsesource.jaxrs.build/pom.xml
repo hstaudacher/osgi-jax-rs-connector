@@ -30,6 +30,7 @@
 		<jacocoagent>${basedir}/../../build/com.eclipsesource.jaxrs.build/lib/jacocoagent.jar</jacocoagent>
 		<test-arguments>-Xms512m -Xmx512m
 			-javaagent:${jacocoagent}=destfile=${basedir}/../../build/com.eclipsesource.jaxrs.build/target/jacoco.exec,append=true</test-arguments>
+	  <javadocExecutable>${java.home}/../bin/javadoc</javadocExecutable>
 	</properties>
 
 	<modules>
@@ -113,7 +114,7 @@
 							<groupId>${project.groupId}</groupId>
 							<artifactId>${project.artifactId}</artifactId>
 							<version>${project.version}</version>
-							<classifier>${project.parent.relativePath}/../com.eclipsesource.jaxrs.connector.target/Equinox-3.6-jersey2.8.0</classifier>
+							<classifier>${project.parent.relativePath}/../com.eclipsesource.jaxrs.connector.target/Equinox-3.6-jersey2.10.1</classifier>
 						</artifact>
 					</target>
 					<environments>
