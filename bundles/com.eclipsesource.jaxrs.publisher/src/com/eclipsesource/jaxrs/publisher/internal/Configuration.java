@@ -20,8 +20,8 @@ public class Configuration implements ManagedService {
     this.connector = jaxRsConnector;
   }
 
-  @SuppressWarnings( "rawtypes" )
   @Override
+  @SuppressWarnings( "rawtypes" )
   public void updated( Dictionary properties ) throws ConfigurationException {
     if( properties != null ) {
       Object root = properties.get( ROOT_PROPERTY );
@@ -30,15 +30,6 @@ public class Configuration implements ManagedService {
       ensureRootIsValid( rootPath );
       connector.updateConfiguration( rootPath, isWadlDisabled( properties ) );
     }
-  }
-  
-  @SuppressWarnings( "rawtypes" )
-  private boolean isWadlDisabled( Dictionary properties ){
-    Object wadl = properties.get( WADL_DISABLE_PROPERTY );
-    if( wadl == null ){
-      return false;
-    }
-    return (Boolean) wadl;
   }
   
   private void ensureRootIsValid( String rootPath ) throws ConfigurationException {
@@ -51,5 +42,14 @@ public class Configuration implements ManagedService {
     if( root == null || !( root instanceof String ) ) {
       throw new ConfigurationException( ROOT_PROPERTY, "Property is not set or invalid." );
     }
+  }
+
+  @SuppressWarnings( "rawtypes" )
+  private boolean isWadlDisabled( Dictionary properties ){
+    Object wadl = properties.get( WADL_DISABLE_PROPERTY );
+    if( wadl == null ){
+      return false;
+    }
+    return ( ( Boolean)wadl ).booleanValue();
   }
 }

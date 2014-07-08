@@ -46,7 +46,7 @@ public class JAXRSConnector {
     this.resourceCache = new ArrayList<ServiceHolder>();
   }
   
-  void updateConfiguration( String rootPath, boolean isWadlDisabled) {
+  void updateConfiguration( String rootPath, boolean isWadlDisabled ) {
     synchronized( lock ) {
       doUpdateConfiguration( rootPath, isWadlDisabled );
     }
@@ -182,7 +182,7 @@ public class JAXRSConnector {
 
   // For testing purpose
   JerseyContext createJerseyContext( HttpService service, String rootPath, boolean disableWadl ) {
-    return new JerseyContext( service, rootPath, disableWadl);
+    return new JerseyContext( service, rootPath, disableWadl );
   }
   
 }
