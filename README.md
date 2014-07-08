@@ -1,4 +1,4 @@
-# OSGi - JAX-RS Connector 4.0 [![Build Status](https://travis-ci.org/hstaudacher/osgi-jax-rs-connector.png)](https://travis-ci.org/hstaudacher/osgi-jax-rs-connector)
+# OSGi - JAX-RS Connector 4.1 [![Build Status](https://travis-ci.org/hstaudacher/osgi-jax-rs-connector.png)](https://travis-ci.org/hstaudacher/osgi-jax-rs-connector)
 ![](http://download.eclipsesource.com/~hstaudacher/connector.png)  
 [JAX-RS (JSR 311)](http://jsr311.java.net/) is the community-driven standard for 
 building RESTful web services with Java. The reference implementation for JAX-RS is 
@@ -86,7 +86,7 @@ If you are working with [Bndtools](http://bndtools.org), a [Starter Kit](https:/
 * JRE 1.7 (same as Jersey 2.6+)
 
 ## Jersey version
-With Jersey 2.0 the library was splitted into several modules with a whole bunch of dependencies. To ease the OSGi application development Jersey was rebundled in this project and ships as a single bundle called `com.eclipsesource.jaxrs.jersey.all`. Currently it includes Jersey 2.8.0 and it's dependencies. Also the Eclipse Source Bundle will be shipped to make the Jersey API more discoverable when using Eclipse.
+With Jersey 2.0 the library was splitted into several modules with a whole bunch of dependencies. To ease the OSGi application development Jersey was rebundled in this project and ships as a single bundle called `com.eclipsesource.jaxrs.jersey.all`. Currently it includes Jersey 2.10.1 and it's dependencies. Also the Eclipse Source Bundle will be shipped to make the Jersey API more discoverable when using Eclipse.
 
 ## Alternatives
 * [Neil Bartlett's jaxrs-osgi-extender](https://github.com/njbartlett/jaxrs-osgi-extender)
@@ -98,5 +98,5 @@ Checkout the [github releases](https://github.com/hstaudacher/osgi-jax-rs-connec
 ## License
 The code is published under the terms of the [Eclipse Public License, version 1.0](http://www.eclipse.org/legal/epl-v10.html).
 
-Included binaries from [Jersey](http://jersey.java.net/) (rebundled), version 2.8.0, which are published under two licenses, the [CDDL 1.1 and GPL 2 with CPE](http://glassfish.java.net/public/CDDL+GPL_1_1.html)
+Included binaries from [Jersey](http://jersey.java.net/) (rebundled), version 2.10.1, which are published under two licenses, the [CDDL 1.1 and GPL 2 with CPE](http://glassfish.java.net/public/CDDL+GPL_1_1.html)
 
