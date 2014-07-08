@@ -1,0 +1,22 @@
+{{<layout}} 
+{{$title}}Some Cool Title{{/title}}
+{{$body}}
+
+<h1>h1 from sub template</h1>  
+
+<img src="static/es-logo.png"/>
+  
+  <ul>
+  {{#items}}
+  <li>
+  Name: {{name}}
+  Price: {{price}}
+    {{#features}}
+    Feature: {{description}}
+    {{/features}}
+  </li>
+  {{/items}}
+  </ul>
+  
+{{/body}} 
+{{/layout}} 

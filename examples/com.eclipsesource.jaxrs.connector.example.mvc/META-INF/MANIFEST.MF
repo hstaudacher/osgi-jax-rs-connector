@@ -1,0 +1,22 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: MVC Example
+Bundle-SymbolicName: com.eclipsesource.jaxrs.connector.example.mvc
+Bundle-Version: 1.0.0.qualifier
+Bundle-Activator: com.eclipsesource.jaxrs.connector.example.mvc.Activator
+Bundle-Vendor: EclipseSource
+Bundle-RequiredExecutionEnvironment: JavaSE-1.7
+Import-Package: com.google.common.base;version="16.0.0",
+ com.google.common.cache;version="16.0.0",
+ com.google.common.io;version="16.0.0",
+ com.google.common.util.concurrent;version="16.0.0",
+ javax.ws.rs;version="[2.0.0,3.0.0)",
+ javax.ws.rs.core;version="[2.0.0,3.0.0)",
+ javax.ws.rs.ext;version="[2.0.0,3.0.0)",
+ org.glassfish.jersey.server.mvc;version="[2.7.0,3.0.0)",
+ org.glassfish.jersey.server.mvc.spi;version="[2.7.0,3.0.0)",
+ org.osgi.framework;version="[1.3.0,2.0.0)"
+Bundle-ClassPath: lib/compiler-0.8.15.jar,
+ templates/,
+ static/,
+ .
