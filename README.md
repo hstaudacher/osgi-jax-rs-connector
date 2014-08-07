@@ -86,7 +86,7 @@ If you are working with [Bndtools](http://bndtools.org), a [Starter Kit](https:/
 * JRE 1.7 (same as Jersey 2.6+)
 
 ## Jersey version
-With Jersey 2.0 the library was splitted into several modules with a whole bunch of dependencies. To ease the OSGi application development Jersey was rebundled in this project and ships as a single bundle called `com.eclipsesource.jaxrs.jersey.all`. Currently it includes Jersey 2.10.1 and it's dependencies. Also the Eclipse Source Bundle will be shipped to make the Jersey API more discoverable when using Eclipse.
+With Jersey 2.0 the library was splitted into several modules with a whole bunch of dependencies. To ease the OSGi application development Jersey was rebundled in this project and ships as a single bundle called `com.eclipsesource.jaxrs.jersey-all`. Currently it includes Jersey 2.10.1 and it's dependencies. Also the Eclipse Source Bundle will be shipped to make the Jersey API more discoverable when using Eclipse.
 
 ## Alternatives
 * [Neil Bartlett's jaxrs-osgi-extender](https://github.com/njbartlett/jaxrs-osgi-extender)
