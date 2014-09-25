@@ -1,5 +1,7 @@
-# OSGi - JAX-RS Connector 4.1 [![Build Status](https://travis-ci.org/hstaudacher/osgi-jax-rs-connector.png)](https://travis-ci.org/hstaudacher/osgi-jax-rs-connector)
-![](http://download.eclipsesource.com/~hstaudacher/connector.png)  
+# OSGi - JAX-RS Connector 4.1
+[![Build Status](https://travis-ci.org/hstaudacher/osgi-jax-rs-connector.png)](https://travis-ci.org/hstaudacher/osgi-jax-rs-connector) [![Maven Status](https://maven-badges.herokuapp.com/maven-central/com.eclipsesource.jaxrs/publisher/badge.png)](http://search.maven.org/#search%7Cga%7C1%7Cg%3A%22com.eclipsesource.jaxrs%22)    
+
+![](http://download.eclipsesource.com/~hstaudacher/connector.png)
 [JAX-RS (JSR 311)](http://jsr311.java.net/) is the community-driven standard for 
 building RESTful web services with Java. The reference implementation for JAX-RS is 
 [Jersey](http://jersey.java.net/) and ships as OSGi bundles. 
@@ -86,7 +88,7 @@ If you are working with [Bndtools](http://bndtools.org), a [Starter Kit](https:/
 * JRE 1.7 (same as Jersey 2.6+)
 
 ## Jersey version
-With Jersey 2.0 the library was splitted into several modules with a whole bunch of dependencies. To ease the OSGi application development Jersey was rebundled in this project and ships as a single bundle called `com.eclipsesource.jaxrs.jersey-all`. Currently it includes Jersey 2.10.1 and it's dependencies. Also the Eclipse Source Bundle will be shipped to make the Jersey API more discoverable when using Eclipse.
+With Jersey 2.0 the library was splitted into several modules with a whole bunch of dependencies. To ease the OSGi application development Jersey was rebundled in this project and ships as a single bundle called `com.eclipsesource.jaxrs.jersey.all`. Currently it includes Jersey 2.10.1 and it's dependencies. Also the Eclipse Source Bundle will be shipped to make the Jersey API more discoverable when using Eclipse.
 
 ## Alternatives
 * [Neil Bartlett's jaxrs-osgi-extender](https://github.com/njbartlett/jaxrs-osgi-extender)
