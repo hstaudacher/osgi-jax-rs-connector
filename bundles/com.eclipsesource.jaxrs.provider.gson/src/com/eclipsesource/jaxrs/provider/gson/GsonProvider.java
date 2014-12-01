@@ -5,7 +5,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
-import java.io.PrintWriter;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Type;
 
@@ -66,10 +65,9 @@ public class GsonProvider<T> implements MessageBodyReader<T>, MessageBodyWriter<
                        MultivaluedMap<String, Object> httpHeaders,
                        OutputStream entityStream ) throws IOException, WebApplicationException
   {
-    try( PrintWriter printWriter = new PrintWriter( entityStream ) ) {
-      String json = gson.toJson( object );
-      printWriter.write( json );
-      printWriter.flush();
+    try( OutputStream stream = entityStream ) {
+      entityStream.write( gson.toJson( object ).getBytes( "utf-8" ) );
+      entityStream.flush();
     }
   }
 
