@@ -9,11 +9,20 @@ public class RequestError {
   private final String requestUrl;
   private final Response response;
   private final String method;
+  private final String entity;
 
   public RequestError( RequestConfigurer configurer, Response response, String method ) {
     this.response = response;
     this.method = method;
     this.requestUrl = configurer.getRequestUrl();
+    this.entity = getInternalEntity();
+  }
+  
+  public String getInternalEntity() {
+    if( response.hasEntity() ) {
+      return response.readEntity( String.class );
+    }
+    return null;
   }
 
   public int getStatus() {
@@ -25,20 +34,16 @@ public class RequestError {
     stringBuilder.append( "Failed to send " + method + " request to: " + requestUrl );
     stringBuilder.append( "\n" );
     stringBuilder.append( "Received Status: " + response.getStatus() );
-    stringBuilder.append( "\nReceived Body: " );
-    if( response.hasEntity() ) {
-      String body = response.readEntity( String.class );
-      stringBuilder.append( body );
+    if( entity != null ) {
+      stringBuilder.append( "\nReceived Body: " );
+      stringBuilder.append( entity );
     }
     stringBuilder.append( "\n" );
     return stringBuilder.toString();
   }
   
   public String getEntity() {
-    if( response.hasEntity() ) {
-      return response.readEntity( String.class );
-    }
-    return null;
+    return entity;
   }
 
   public String getMethod() {
