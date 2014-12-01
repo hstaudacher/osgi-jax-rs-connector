@@ -16,18 +16,21 @@
     </modules>
 
     <properties>
+        <!-- Change jax-rs connector versions as you like, see available versions here: http://search.maven.org/#search%7Cga%7C1%7Ccom.eclipsesource.jaxrs --> 
+        <jax-rs-publisher.version>4.1</jax-rs-publisher.version>
+        <jax-rs-consumer.version>3.0-SR1</jax-rs-consumer.version>
+        <jax-rs-jersey-all.version>2.10.1</jax-rs-jersey-all.version>
+        <jax-rs-providers.version>2.0-SR1</jax-rs-providers.version>
+      
         <lombok.version>1.14.8</lombok.version>
         <javaee-web-api.version>7.0</javaee-web-api.version>
 
         <org.osgi.core.version>5.0.0</org.osgi.core.version>
         <org.osgi.compendium.version>5.0.0</org.osgi.compendium.version>
-
-        <jax-rs-publisher.version>4.1</jax-rs-publisher.version>
-        <jax-rs-consumer.version>3.0-SR1</jax-rs-consumer.version>
-        <jax-rs-jersey-all.version>2.10.1</jax-rs-jersey-all.version>
-
-        <jax-rs-providers.version>2.0-SR1</jax-rs-providers.version>
+        
         <slf4j-api.version>1.7.7</slf4j-api.version>
+        
+    		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
     <dependencyManagement>
@@ -104,6 +107,7 @@
                 <groupId>junit</groupId>
                 <artifactId>junit</artifactId>
                 <version>4.11</version>
+                <scope>test</scope>
             </dependency>
         </dependencies>
     </dependencyManagement>
