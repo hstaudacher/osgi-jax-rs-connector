@@ -1,11 +1,11 @@
 # OSGi - JAX-RS Connector 4.1
-[![Build Status](https://travis-ci.org/hstaudacher/osgi-jax-rs-connector.png)](https://travis-ci.org/hstaudacher/osgi-jax-rs-connector) [![Maven Status](https://maven-badges.herokuapp.com/maven-central/com.eclipsesource.jaxrs/publisher/badge.png)](http://search.maven.org/#search%7Cga%7C1%7Cg%3A%22com.eclipsesource.jaxrs%22)    
+[![Build Status](https://travis-ci.org/hstaudacher/osgi-jax-rs-connector.png)](https://travis-ci.org/hstaudacher/osgi-jax-rs-connector) [![Maven Status](https://maven-badges.herokuapp.com/maven-central/com.eclipsesource.jaxrs/publisher/badge.png)](http://search.maven.org/#search%7Cga%7C1%7Cg%3A%22com.eclipsesource.jaxrs%22)
 
 ![](http://download.eclipsesource.com/~hstaudacher/connector.png)
-[JAX-RS (JSR 311)](http://jsr311.java.net/) is the community-driven standard for 
-building RESTful web services with Java. The reference implementation for JAX-RS is 
-[Jersey](http://jersey.java.net/) and ships as OSGi bundles. 
-This project connects Jersey and OSGi at the *service level*. This means that OSGi services can be published as 
+[JAX-RS (JSR 311)](http://jsr311.java.net/) is the community-driven standard for
+building RESTful web services with Java. The reference implementation for JAX-RS is
+[Jersey](http://jersey.java.net/) and ships as OSGi bundles.
+This project connects Jersey and OSGi at the *service level*. This means that OSGi services can be published as
 RESTful web services by simply registering them as OSGi services. A neat side feature is that REST services can also be consumed as OSGi services ;).  
 
 *To see how to get started with JAX-RS 2.0 and Jersey please read the [Jersey getting started guide](https://jersey.java.net/documentation/latest/getting-started.html).*
@@ -59,13 +59,13 @@ Basically all you need to to is add the publisher and/or the consumer to your OS
 1. Add the com.eclipsesource.jaxrs.connector.feature (OSGi JAX-RS Connector) to your target using the url mentioned in the Installation/p2 section.
 2. Add the `com.eclipsesource.jaxrs.publisher` and its dependencies bundles to your OSGi instance.
 3. Convert some OSGi services to resources like in [this tutorial](http://jersey.java.net/nonav/documentation/latest/getting-started.html#new-project-structure)
-4. Point your client to the specified url. Don't forget that the default root path is `/services`. So registering a 
+4. Point your client to the specified url. Don't forget that the default root path is `/services`. So registering a
 service with the path `/example` would lead to `/services/example`.
 
 The steps how the consumer will be handled are dscribed in this [post](http://eclipsesource.com/blogs/2012/11/28/consuming-rest-services-in-osgi-the-cool-way/).
 
 ## Examples
-Examples for the publisher and consumer can be found within the [examples](https://github.com/hstaudacher/osgi-jax-rs-connector/tree/master/examples) folder. 
+Examples for the publisher and consumer can be found within the [examples](https://github.com/hstaudacher/osgi-jax-rs-connector/tree/master/examples) folder.
 
 > When using the example's Eclipse launch configuration please ensure that you have selected the connector bundles from your target.
 
@@ -78,7 +78,10 @@ As a bonus the `com.eclipsesource.jaxrs.connector.example.ds` contains an exampl
 Besides these basic example two example exist that are shwoing how the [security integration](https://github.com/hstaudacher/osgi-jax-rs-connector/tree/master/examples/com.eclipsesource.jaxrs.security.example) and [Jersey's SSE integration](https://github.com/hstaudacher/osgi-jax-rs-connector/tree/master/examples/com.eclipsesource.jaxrs.sse.example) works.
 
 ### Consumer Examples
-The example for the consumer is splitted into two bundles called `com.eclipsesource.jaxrs.consumer.example` and `com.eclipsesource.jaxrs.consumer.example.caller`. The example bundle contains the data model and the resource interface while the caller just calls the service. The example fetches data from github and is pretty simple. 
+The example for the consumer is splitted into two bundles called `com.eclipsesource.jaxrs.consumer.example` and `com.eclipsesource.jaxrs.consumer.example.caller`. The example bundle contains the data model and the resource interface while the caller just calls the service. The example fetches data from github and is pretty simple.
+
+## Apache Karaf Integration
+If you want to deploy the connector into [Apache Karaf](http://karaf.apache.org/) take a look at the [karaf-integration example](https://github.com/hstaudacher/osgi-jax-rs-connector/tree/master/examples/karaf-integration). To get tarted read the step-by-step guide in the [README](https://github.com/hstaudacher/osgi-jax-rs-connector/tree/master/examples/karaf-integration/README.md).
 
 ## Starter Kit
 If you are working with [Bndtools](http://bndtools.org), a [Starter Kit](https://github.com/BryanHunt/bndtools-equinox-app-kit) is available to help you get going.  You will most likely want either the [rest](https://github.com/BryanHunt/bndtools-equinox-app-kit/tree/rest) or [mongo-rest](https://github.com/BryanHunt/bndtools-equinox-app-kit/tree/mongo-rest) branch.
@@ -101,4 +104,3 @@ Checkout the [github releases](https://github.com/hstaudacher/osgi-jax-rs-connec
 The code is published under the terms of the [Eclipse Public License, version 1.0](http://www.eclipse.org/legal/epl-v10.html).
 
 Included binaries from [Jersey](http://jersey.java.net/) (rebundled), version 2.10.1, which are published under two licenses, the [CDDL 1.1 and GPL 2 with CPE](http://glassfish.java.net/public/CDDL+GPL_1_1.html)
-
