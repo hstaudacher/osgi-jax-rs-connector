@@ -83,11 +83,20 @@ public class RequestConfigurer {
       Annotation[] annotations = parameterAnnotations[ i ];
       String paramName = extractPathParam( annotations );
       if( paramName != null ) {
-        result = result.replace( "{" + paramName + "}", parameter[ i ].toString() );
+        result = result.replace( getPathSegment( result, paramName ), parameter[ i ].toString() );
       }
     }
     validatePath( result );
     return result;
+  }
+
+  private String getPathSegment( String fullPath, String pathParameter ) {
+    Pattern pattern = Pattern.compile( ".*?(\\{" + pathParameter + ":*?.*?\\}).*?" );
+    Matcher matcher = pattern.matcher( fullPath );
+    if( matcher.matches() ) {
+      return matcher.group( 1 );
+    }
+    return pathParameter;
   }
 
   private String extractPathParam( Annotation[] annotations ) {
