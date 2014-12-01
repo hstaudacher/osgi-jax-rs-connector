@@ -12,6 +12,7 @@ package com.eclipsesource.jaxrs.publisher.internal;
 
 import static org.junit.Assert.assertSame;
 import static org.mockito.Matchers.any;
+import static org.mockito.Matchers.anyLong;
 import static org.mockito.Matchers.anyString;
 import static org.mockito.Matchers.eq;
 import static org.mockito.Mockito.doReturn;
@@ -54,7 +55,7 @@ public class JAXRSConnector_Test {
   public void setUp() {
     JAXRSConnector original = new JAXRSConnector( bundleContext );
     connector = spy( original );
-    doReturn( jerseyContext ).when( connector ).createJerseyContext( any( HttpService.class ), anyString(), eq( false ) );
+    doReturn( jerseyContext ).when( connector ).createJerseyContext( any( HttpService.class ), anyString(), eq( false ), anyLong() );
   }
   
   @Test
@@ -116,13 +117,13 @@ public class JAXRSConnector_Test {
     
     connector.addResource( resourceServiceReference );
     connector.addHttpService( httpServiceReference );
-    connector.updateConfiguration( "/test", false );
+    connector.updateConfiguration( "/test", false, 23 );
     
     InOrder order = inOrder( connector );
-    order.verify( connector ).createJerseyContext( any( HttpService.class ), anyString(), eq( false ) );
+    order.verify( connector ).createJerseyContext( any( HttpService.class ), anyString(), eq( false ), eq( 2500L ) );
     order.verify( connector ).doRemoveHttpService( any( HttpService.class ) );
     order.verify( connector ).doAddHttpService( any( ServiceReference.class ) );
-    order.verify( connector ).createJerseyContext( any( HttpService.class ), eq( "/test" ), eq( false ) );
+    order.verify( connector ).createJerseyContext( any( HttpService.class ), eq( "/test" ), eq( false ), eq( 23L ) );
   }
   
   @Test

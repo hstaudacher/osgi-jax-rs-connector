@@ -37,6 +37,7 @@ public class JAXRSConnector {
   private final List<ServiceHolder> resourceCache;
   private String rootPath;
   private boolean isWadlDisabled;
+  private long publishInterval;
 
   JAXRSConnector( BundleContext bundleContext ) {
     this.bundleContext = bundleContext;
@@ -44,17 +45,19 @@ public class JAXRSConnector {
     this.resources = new ServiceContainer( bundleContext );
     this.contextMap = new HashMap<HttpService, JerseyContext>();
     this.resourceCache = new ArrayList<ServiceHolder>();
+    this.publishInterval = 2500;
   }
   
-  void updateConfiguration( String rootPath, boolean isWadlDisabled ) {
+  void updateConfiguration( String rootPath, boolean isWadlDisabled, long publishInterval ) {
     synchronized( lock ) {
-      doUpdateConfiguration( rootPath, isWadlDisabled );
+      doUpdateConfiguration( rootPath, isWadlDisabled, publishInterval );
     }
   }
 
-  private void doUpdateConfiguration( String rootPath, boolean isWadlDisabled ) {
+  private void doUpdateConfiguration( String rootPath, boolean isWadlDisabled, long publishInterval ) {
     this.rootPath = rootPath;
     this.isWadlDisabled = isWadlDisabled;
+    this.publishInterval = publishInterval;
     ServiceHolder[] services = httpServices.getServices();
     for( ServiceHolder serviceHolder : services ) {
       doRemoveHttpService( ( HttpService )serviceHolder.getService() );
@@ -71,7 +74,7 @@ public class JAXRSConnector {
   HttpService doAddHttpService( ServiceReference reference ) {
     ServiceHolder serviceHolder = httpServices.add( reference );
     HttpService service = ( HttpService )serviceHolder.getService();
-    contextMap.put( service, createJerseyContext( service, rootPath, isWadlDisabled ) );
+    contextMap.put( service, createJerseyContext( service, rootPath, isWadlDisabled, publishInterval ) );
     clearCache();
     return service;
   }
@@ -181,8 +184,8 @@ public class JAXRSConnector {
   }
 
   // For testing purpose
-  JerseyContext createJerseyContext( HttpService service, String rootPath, boolean disableWadl ) {
-    return new JerseyContext( service, rootPath, disableWadl );
+  JerseyContext createJerseyContext( HttpService service, String rootPath, boolean disableWadl, long publishInterval ) {
+    return new JerseyContext( service, rootPath, disableWadl, publishInterval );
   }
   
 }

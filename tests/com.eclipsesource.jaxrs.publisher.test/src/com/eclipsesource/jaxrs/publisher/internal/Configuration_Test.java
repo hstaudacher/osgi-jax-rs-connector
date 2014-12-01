@@ -1,10 +1,11 @@
 package com.eclipsesource.jaxrs.publisher.internal;
 
+import static org.mockito.Matchers.anyLong;
 import static org.mockito.Matchers.anyString;
+import static org.mockito.Matchers.eq;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.eq;
 
 import java.util.Dictionary;
 import java.util.Hashtable;
@@ -29,28 +30,35 @@ public class Configuration_Test {
   public void testUpdateWithNull() throws Exception {
     config.updated( null );
     
-    verify( connector, never() ).updateConfiguration( anyString(), eq(false));
+    verify( connector, never() ).updateConfiguration( anyString(), eq(false), anyLong() );
   }
   
   @Test
   public void testUpdateWithPath() throws Exception {
     config.updated( createProperties( "/test" ) );
     
-    verify( connector ).updateConfiguration( "/test" , false);
+    verify( connector ).updateConfiguration( "/test" , false, 4 );
   }
   
   @Test
   public void testUpdateWithPath2() throws Exception {
     config.updated( createProperties( "/test2" ) );
     
-    verify( connector ).updateConfiguration( "/test2" , false );
+    verify( connector ).updateConfiguration( "/test2" , false, 4 );
   }
   
   @Test
   public void testUpdateWithDisabledWadl() throws Exception {
     config.updated( createProperties( "/test", true ) );
     
-    verify( connector ).updateConfiguration( "/test" , true );
+    verify( connector ).updateConfiguration( "/test" , true, 4 );
+  }
+  
+  @Test
+  public void testUpdateWithPublishInterval() throws Exception {
+    config.updated( createProperties( "/test", true ) );
+    
+    verify( connector ).updateConfiguration( "/test" , true, 4 );
   }
   
   @Test( expected = ConfigurationException.class )
@@ -71,6 +79,7 @@ public class Configuration_Test {
     Hashtable<String, Object> properties = new Hashtable<String, Object>();
     properties.put( Configuration.ROOT_PROPERTY, path );
     properties.put( Configuration.WADL_DISABLE_PROPERTY, disableWadl );
+    properties.put( Configuration.PUBLISH_INTERVAL, "4" );
     return properties;
   }
 

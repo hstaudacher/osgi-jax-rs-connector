@@ -13,6 +13,7 @@ package com.eclipsesource.jaxrs.publisher.internal;
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.anyString;
+import static org.mockito.Matchers.eq;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.never;
@@ -54,9 +55,8 @@ public class JerseyContext_Test {
 
   @Before
   public void setUp() {
-    JerseyContext original = new JerseyContext( httpService, "/test", false );
+    JerseyContext original = new JerseyContext( httpService, "/test", false, 23 );
     jerseyContext = spy( original );
-    doReturn( servletContainer ).when( jerseyContext ).getServletContainer();
     doReturn( rootApplication ).when( jerseyContext ).getRootApplication();
   }
   
@@ -67,7 +67,7 @@ public class JerseyContext_Test {
     jerseyContext.addResource( resource );
     
     verify( rootApplication ).addResource( resource );
-    verify( httpService ).registerServlet( "/test", servletContainer, null, null );
+    verify( httpService ).registerServlet( eq( "/test" ), any( ServletContainer.class ), any( Dictionary.class ), any( HttpContext.class ) );
   }
   
   @Test
@@ -80,7 +80,7 @@ public class JerseyContext_Test {
 
     verify( rootApplication ).addResource( resource );
     verify( rootApplication ).removeResource( resource );
-    verify( httpService ).registerServlet( "/test", servletContainer, null, null );
+    verify( httpService ).registerServlet( eq( "/test" ), any( ServletContainer.class ), any( Dictionary.class ), any( HttpContext.class ) );
     verify( httpService ).unregister( "/test" );
   }
   
@@ -98,10 +98,9 @@ public class JerseyContext_Test {
     verify( rootApplication ).addResource( resource );
     verify( rootApplication ).addResource( resource2 );
     verify( rootApplication ).removeResource( resource );
-    verify( httpService ).registerServlet( "/test", servletContainer, null, null );
+    verify( httpService ).registerServlet( eq( "/test" ), any( ServletContainer.class ), any( Dictionary.class ), any( HttpContext.class ) );
     verify( httpService, never() ).unregister( "/test" );
   }
-  
   
   @Test
   public void testEliminate() throws ServletException, NamespaceException {
@@ -115,7 +114,6 @@ public class JerseyContext_Test {
     
     verify( rootApplication ).addResource( resource );
     verify( httpService ).unregister( "/test" );
-    verify( servletContainer ).destroy();
     assertEquals( 1, resources.size() );
     assertEquals( resource, resources.get( 0 ) );
   }
@@ -143,7 +141,7 @@ public class JerseyContext_Test {
   
   @Test
   public void testDoesNotRegster_METAINF_SERVICES_LOOKUP_DISABLE() {
-    JerseyContext context = new JerseyContext( httpService, "/test", false ); 
+    JerseyContext context = new JerseyContext( httpService, "/test", false, 23 ); 
     
     Map<String, Object> properties = context.getRootApplication().getProperties();
     
@@ -152,7 +150,7 @@ public class JerseyContext_Test {
   
   @Test
   public void testRegsters_FEATURE_AUTO_DISCOVERY_DISABLE() {
-    JerseyContext context = new JerseyContext( httpService, "/test" , false);
+    JerseyContext context = new JerseyContext( httpService, "/test", false, 23 );
     
     Map<String, Object> properties = context.getRootApplication().getProperties();
     
@@ -161,7 +159,7 @@ public class JerseyContext_Test {
   
   @Test
   public void testRegsters_WADL_FEATURE_DISABLE() {
-    JerseyContext context = new JerseyContext( httpService, "/test" , true);
+    JerseyContext context = new JerseyContext( httpService, "/test", true, 23);
     
     Map<String, Object> properties = context.getRootApplication().getProperties();
     

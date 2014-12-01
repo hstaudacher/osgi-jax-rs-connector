@@ -12,16 +12,17 @@
  ******************************************************************************/
 package com.eclipsesource.jaxrs.publisher.internal;
 
+import java.lang.Thread.UncaughtExceptionHandler;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ThreadFactory;
+import java.util.concurrent.TimeUnit;
 
 import javax.servlet.ServletException;
 import javax.ws.rs.core.Application;
-import javax.ws.rs.core.Request;
 
-import org.glassfish.jersey.server.ResourceConfig;
 import org.glassfish.jersey.server.ServerProperties;
-import org.glassfish.jersey.servlet.ServletContainer;
 import org.osgi.service.http.HttpService;
 import org.osgi.service.http.NamespaceException;
 
@@ -29,18 +30,37 @@ import org.osgi.service.http.NamespaceException;
 public class JerseyContext {
 
   private final RootApplication application;
-  private ServletContainer servletContainer;
   private final HttpService httpService;
   private final String rootPath;
   private boolean isApplicationRegistered;
+  private final ServletContainerBridge servletContainerBridge;
 
-  public JerseyContext( HttpService httpService, String rootPath, boolean isWadlDisabled ) {
+  public JerseyContext( HttpService httpService, String rootPath, boolean isWadlDisabled, long publishInterval ) {
     this.httpService = httpService;
     this.rootPath = rootPath == null ? "/services" : rootPath;
     this.application = new RootApplication();
     disableAutoDiscovery();
     disableWadl( isWadlDisabled );
-    this.servletContainer = new ServletContainer( ResourceConfig.forApplication( application ) );
+    this.servletContainerBridge = new ServletContainerBridge( application );
+    scheduleContainerBridge( publishInterval );
+  }
+
+  private void scheduleContainerBridge( long publishInterval ) {
+    Executors.newSingleThreadScheduledExecutor( new ThreadFactory() {
+      
+      @Override
+      public Thread newThread( Runnable runnable ) {
+        Thread thread = new Thread( runnable, "ServletContainerBridge" );
+        thread.setUncaughtExceptionHandler( new UncaughtExceptionHandler() {
+          
+          @Override
+          public void uncaughtException( Thread t, Throwable e ) {
+            throw new IllegalStateException( e );
+          }
+        } );
+        return thread;
+      }
+    } ).scheduleAtFixedRate( servletContainerBridge, 1000, publishInterval, TimeUnit.MILLISECONDS );
   }
 
   private void disableAutoDiscovery() {
@@ -64,15 +84,6 @@ public class JerseyContext {
   public void addResource( Object resource ) {
     getRootApplication().addResource( resource );
     registerServletWhenNotAlreadyRegistered();
-    if( isApplicationRegistered ) {
-      ClassLoader original = getContextClassloader();
-      try {
-        Thread.currentThread().setContextClassLoader( Request.class.getClassLoader() );
-        getServletContainer().reload( ResourceConfig.forApplication( application ) );
-      } finally {
-        resetContextClassloader( original );
-      }
-    }
   }
 
   void registerServletWhenNotAlreadyRegistered() {
@@ -109,7 +120,7 @@ public class JerseyContext {
     try {
       Thread.currentThread().setContextClassLoader( Application.class.getClassLoader() );
       httpService.registerServlet( rootPath, 
-                                   getServletContainer(), 
+                                   servletContainerBridge.getServletContainer(), 
                                    null, 
                                    null );
     } finally {
@@ -123,22 +134,19 @@ public class JerseyContext {
   
   public void removeResource( Object resource ) {
     getRootApplication().removeResource( resource );
-    if( isApplicationRegistered ) {
-      getServletContainer().reload( ResourceConfig.forApplication( application ) );
-    }
     unregisterServletWhenNoresourcePresents();
   }
 
   private void unregisterServletWhenNoresourcePresents() {
     if( !getRootApplication().hasResources() ) {
       httpService.unregister( rootPath );
-      servletContainer = new ServletContainer( ResourceConfig.forApplication( application ) );
+      servletContainerBridge.reset();
       isApplicationRegistered = false;
     }
   }
 
   public List<Object> eliminate() {
-    getServletContainer().destroy();
+    servletContainerBridge.destroy();
     try {
       httpService.unregister( rootPath );
     } catch( IllegalArgumentException iae ) {
@@ -147,11 +155,6 @@ public class JerseyContext {
     return new ArrayList<Object>( getRootApplication().getSingletons() );
   }
 
-  // For testing purpose
-  ServletContainer getServletContainer() {
-    return servletContainer;
-  }
-  
   // For testing purpose
   RootApplication getRootApplication() {
     return application;
