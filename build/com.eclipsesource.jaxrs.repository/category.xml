@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <site>
-   <feature url="features/com.eclipsesource.jaxrs.connector.feature_4.1.1.qualifier.jar" id="com.eclipsesource.jaxrs.connector.feature" version="4.1.1.qualifier">
+   <feature url="features/com.eclipsesource.jaxrs.connector.feature_4.2.0.qualifier.jar" id="com.eclipsesource.jaxrs.connector.feature" version="4.2.0.qualifier">
       <category name="com.eclipsesource.jaxrs.connector"/>
    </feature>
-   <feature url="features/com.eclipsesource.jaxrs.connector.feature.source_4.1.1.qualifier.jar" id="com.eclipsesource.jaxrs.connector.feature.source" version="4.1.1.qualifier">
+   <feature url="features/com.eclipsesource.jaxrs.connector.feature.source_4.2.0.qualifier.jar" id="com.eclipsesource.jaxrs.connector.feature.source" version="4.2.0.qualifier">
       <category name="com.eclipsesource.jaxrs.connector.sources"/>
    </feature>
-   <feature url="features/com.eclipsesource.jaxrs.provider.gson.feature_2.0.0.qualifier.jar" id="com.eclipsesource.jaxrs.provider.gson.feature" version="2.0.0.qualifier">
+   <feature url="features/com.eclipsesource.jaxrs.provider.gson.feature_2.1.0.qualifier.jar" id="com.eclipsesource.jaxrs.provider.gson.feature" version="2.1.0.qualifier">
       <category name="com.eclipsesource.jaxrs.connector.providers"/>
    </feature>
-   <feature url="features/com.eclipsesource.jaxrs.provider.gson.feature.source_2.0.0.qualifier.jar" id="com.eclipsesource.jaxrs.provider.gson.feature.source" version="2.0.0.qualifier">
+   <feature url="features/com.eclipsesource.jaxrs.provider.gson.feature.source_2.1.0.qualifier.jar" id="com.eclipsesource.jaxrs.provider.gson.feature.source" version="2.1.0.qualifier">
       <category name="com.eclipsesource.jaxrs.connector.sources"/>
    </feature>
    <feature url="features/com.eclipsesource.jaxrs.provider.moxy.feature_2.0.0.qualifier.jar" id="com.eclipsesource.jaxrs.provider.moxy.feature" version="2.0.0.qualifier">
