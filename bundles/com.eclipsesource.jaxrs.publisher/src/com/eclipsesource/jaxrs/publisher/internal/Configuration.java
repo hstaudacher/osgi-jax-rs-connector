@@ -7,12 +7,13 @@ import org.osgi.service.cm.ConfigurationException;
 import org.osgi.service.cm.ManagedService;
 
 
+@SuppressWarnings( "rawtypes" )
 public class Configuration implements ManagedService {
 
   static final String CONFIG_SERVICE_PID = "com.eclipsesource.jaxrs.connector";
   static final String ROOT_PROPERTY = "root";
   static final String WADL_DISABLE_PROPERTY = "disableWadl";
-  
+  static final String PUBLISH_INTERVAL = "publishInterval";
   
   private final JAXRSConnector connector;
   
@@ -21,14 +22,13 @@ public class Configuration implements ManagedService {
   }
 
   @Override
-  @SuppressWarnings( "rawtypes" )
   public void updated( Dictionary properties ) throws ConfigurationException {
     if( properties != null ) {
       Object root = properties.get( ROOT_PROPERTY );
       ensureRootIsPresent( root );
       String rootPath = ( String )root;
       ensureRootIsValid( rootPath );
-      connector.updateConfiguration( rootPath, isWadlDisabled( properties ) );
+      connector.updateConfiguration( rootPath, isWadlDisabled( properties ), getPublishInterval( properties ) );
     }
   }
   
@@ -44,12 +44,19 @@ public class Configuration implements ManagedService {
     }
   }
 
-  @SuppressWarnings( "rawtypes" )
   private boolean isWadlDisabled( Dictionary properties ){
     Object wadl = properties.get( WADL_DISABLE_PROPERTY );
     if( wadl == null ){
       return false;
     }
     return ( ( Boolean)wadl ).booleanValue();
+  }
+
+  private long getPublishInterval( Dictionary properties ) {
+    Object interval = properties.get( PUBLISH_INTERVAL );
+    if( interval == null ){
+      return 3000;
+    }
+    return Long.parseLong( ( String )interval );
   }
 }

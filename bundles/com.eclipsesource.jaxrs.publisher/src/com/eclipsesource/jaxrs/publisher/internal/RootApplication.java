@@ -25,6 +25,8 @@ public class RootApplication extends Application {
   
   private final Map<String, Object> properties;
   private final List<Object> resources;
+  private final Object lock = new Object();
+  private boolean dirty;
 
   public RootApplication() {
     resources = new LinkedList<Object>();
@@ -32,11 +34,17 @@ public class RootApplication extends Application {
   }
   
   void addResource( Object resource ) {
-    resources.add( resource );
+    synchronized( lock ) {
+      resources.add( resource );
+      dirty = true;
+    }
   }
   
   void removeResource( Object resource ) {
-    resources.remove( resource );
+    synchronized( lock ) {
+      resources.remove( resource );
+      dirty = false;
+    }
   }
   
   boolean hasResources() {
@@ -57,6 +65,18 @@ public class RootApplication extends Application {
 
   public void addProperty( String key, Object value ) {
     properties.put( key, value );
+  }
+
+  public boolean isDirty() {
+    synchronized( lock ) {
+      return dirty;
+    }
+  }
+
+  public void setDirty( boolean isDirty ) {
+    synchronized( lock ) {
+      dirty = isDirty;
+    }
   }
   
 }
