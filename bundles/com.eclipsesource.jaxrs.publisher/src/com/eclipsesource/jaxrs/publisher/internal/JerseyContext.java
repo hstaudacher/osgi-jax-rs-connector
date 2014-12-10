@@ -149,8 +149,8 @@ public class JerseyContext {
     servletContainerBridge.destroy();
     try {
       httpService.unregister( rootPath );
-    } catch( IllegalArgumentException iae ) {
-      // do nothing
+    } catch( Exception jerseyShutdownException ) {
+      // do nothing because jersey sometimes throws an exception during shutdown
     }
     return new ArrayList<Object>( getRootApplication().getSingletons() );
   }

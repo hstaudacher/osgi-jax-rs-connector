@@ -118,6 +118,23 @@ public class JerseyContext_Test {
     assertEquals( resource, resources.get( 0 ) );
   }
   
+  @Test
+  public void testEliminateDoesNotFailWithException() throws ServletException, NamespaceException {
+    doThrow( Exception.class ).when( httpService ).unregister( anyString() );
+    Object resource = new Object();
+    Set<Object> list = new HashSet<Object>();
+    list.add( resource );
+    when( rootApplication.getSingletons() ).thenReturn( list );
+    jerseyContext.addResource( resource );
+    
+    List<Object> resources = jerseyContext.eliminate();
+    
+    verify( rootApplication ).addResource( resource );
+    verify( httpService ).unregister( "/test" );
+    assertEquals( 1, resources.size() );
+    assertEquals( resource, resources.get( 0 ) );
+  }
+  
   @Test( expected = IllegalStateException.class )
   public void testConvertsServletException() throws ServletException, NamespaceException {
     doThrow( new ServletException() ).when( httpService ).registerServlet( anyString(), 
