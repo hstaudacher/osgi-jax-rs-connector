@@ -12,9 +12,9 @@
         <bundle>mvn:com.eclipsesource.jaxrs/provider-moxy/${jax-rs-providers.version}</bundle>
     </feature>
 
-    <feature name="jax-rs-provider-gson" version="${jax-rs-providers.version}">
+    <feature name="jax-rs-provider-gson" version="${jax-rs-providers.gson.version}">
         <bundle dependency="true">mvn:com.google.code.gson/gson/2.3</bundle>
-        <bundle>mvn:com.eclipsesource.jaxrs/provider-gson/${jax-rs-providers.version}</bundle>
+        <bundle>mvn:com.eclipsesource.jaxrs/provider-gson/${jax-rs-providers.gson.version}</bundle>
     </feature>
 
     <feature name="jax-rs-provider-multipart" version="${jax-rs-providers.version}">
