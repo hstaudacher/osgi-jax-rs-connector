@@ -42,12 +42,12 @@
 						<Bundle-SymbolicName>${project.groupId}.${project.artifactId}</Bundle-SymbolicName>
 						<Bundle-Version>${project.version}</Bundle-Version>
 						<Bundle-Vendor>EclipseSource</Bundle-Vendor>
-						<Export-Package>
+						<_exportcontents>
 							javax.ws.*,
 							javax.annotation.*,
 							org.glassfish.*,
 							javax.inject.*
-						</Export-Package>
+						</_exportcontents>
 						<Import-Package>
 							!com.sun.jdi.*,
 							!sun.misc,
@@ -60,7 +60,7 @@
 						</Import-Package>
 						<Bundle-RequiredExecutionEnvironment>JavaSE-1.7</Bundle-RequiredExecutionEnvironment>
 						<Embed-Dependency>*;scope=compile|runtime</Embed-Dependency>
-						<Embed-Directory>target/dependency</Embed-Directory>
+ 						<Embed-Directory>dependencies</Embed-Directory>
 						<Embed-StripGroup>true</Embed-StripGroup>
 						<Embed-Transitive>true</Embed-Transitive>
 					</instructions>
