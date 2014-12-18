@@ -23,16 +23,16 @@ import org.osgi.util.tracker.ServiceTracker;
 
 
 public class ResourceTracker extends ServiceTracker {
-  
+
   private final BundleContext context;
   private final JAXRSConnector connector;
-  
+
   public ResourceTracker( BundleContext context, Filter filter, JAXRSConnector connector ) {
     super( context, filter, null );
     this.context = context;
     this.connector = connector;
   }
-  
+
   @Override
   public Object addingService( ServiceReference reference ) {
     Object service = context.getService( reference );
@@ -54,9 +54,11 @@ public class ResourceTracker extends ServiceTracker {
     if( isResource( service ) ) {
       connector.removeResource( service );
     }
-    context.ungetService( reference );
+    else {
+      super.removedService( reference, service );
+    }
   }
-  
+
   @Override
   public void modifiedService( ServiceReference reference, Object service ) {
     if( isResource( service ) ) {
@@ -83,5 +85,5 @@ public class ResourceTracker extends ServiceTracker {
   private boolean isRegisterableAnnotationPresent( Class<?> type ) {
     return type.isAnnotationPresent( Path.class ) || type.isAnnotationPresent( Provider.class );
   }
-  
+
 }

@@ -35,7 +35,9 @@ public class ServiceContainer {
   }
 
   void remove( Object service ) {
-    services.remove( find( service ) );
+    ServiceHolder serviceHolder = find( service );
+    services.remove( serviceHolder );
+    bundleContext.ungetService(serviceHolder.getReference());
   }
 
   ServiceHolder[] getServices() {
@@ -80,30 +82,30 @@ public class ServiceContainer {
   }
 
   static class ServiceHolder {
-  
+
     private ServiceReference serviceReference;
     private final Object service;
-  
+
      ServiceHolder( Object service, ServiceReference serviceReference ) {
       this.service = service;
       this.serviceReference = serviceReference;
     }
-  
+
     Object getService() {
       return service;
     }
-  
+
     ServiceReference getReference() {
       return serviceReference;
     }
-  
+
     void setServiceReference( ServiceReference serviceReference ) {
       this.serviceReference = serviceReference;
     }
   }
 
   static class Finder {
-  
+
     ServiceHolder findServiceHolder( Object service, Set<ServiceHolder> collection ) {
       Iterator<ServiceHolder> iterator = collection.iterator();
       ServiceHolder result = null;
