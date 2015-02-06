@@ -36,6 +36,7 @@ public class Activator implements BundleActivator {
   private JAXRSConnector jaxRsConnector;
   private HttpTracker httpTracker;
   private ResourceTracker allTracker;
+  private ServletConfigurationTracker servletConfigurationTracker;
   private ServiceRegistration configRegistration;
 
   @Override
@@ -47,6 +48,7 @@ public class Activator implements BundleActivator {
     registerConfiguration( context );
     connectorRegistration = context.registerService( JAXRSConnector.class.getName(), jaxRsConnector, null );
     openHttpServiceTracker( context );
+    openServletConfigurationTracker( context );
     openAllServiceTracker( context );
   }
 
@@ -63,6 +65,11 @@ public class Activator implements BundleActivator {
     if( bundle.getState() != Bundle.ACTIVE ) {
       bundle.start();
     }
+  }
+  
+  private void openServletConfigurationTracker(BundleContext context) {
+    servletConfigurationTracker = new ServletConfigurationTracker( context, jaxRsConnector );
+    servletConfigurationTracker.open();
   }
 
   private void openHttpServiceTracker( BundleContext context ) {
@@ -87,6 +94,7 @@ public class Activator implements BundleActivator {
   @Override
   public void stop( BundleContext context ) throws Exception {
     httpTracker.close();
+    servletConfigurationTracker.close();
     allTracker.close();
     connectorRegistration.unregister();
     configRegistration.unregister();

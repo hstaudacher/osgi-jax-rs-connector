@@ -22,10 +22,11 @@ public class ServletContainerBridge implements Runnable {
       ClassLoader original = Thread.currentThread().getContextClassLoader();
       try {
         Thread.currentThread().setContextClassLoader( Request.class.getClassLoader() );
-        getServletContainer().reload( ResourceConfig.forApplication( application ) );
+        synchronized( this ) {
+          getServletContainer().reload( ResourceConfig.forApplication( application ) );
+        }
       } finally {
         Thread.currentThread().setContextClassLoader( original );
-        application.setDirty( false );
       }
     }
   }
@@ -35,10 +36,14 @@ public class ServletContainerBridge implements Runnable {
   }
 
   public void destroy() {
-    servletContainer.destroy();
+    synchronized( this ) {
+      servletContainer.destroy();
+    }
   }
 
   public void reset() {
-    this.servletContainer = new ServletContainer( ResourceConfig.forApplication( application ) );
+    synchronized( this ) {
+      this.servletContainer = new ServletContainer( ResourceConfig.forApplication( application ) );
+    }
   }
 }

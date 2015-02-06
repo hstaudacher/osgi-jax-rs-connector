@@ -14,11 +14,13 @@ import org.glassfish.jersey.server.ResourceConfig;
 import org.glassfish.jersey.servlet.ServletContainer;
 import org.junit.Before;
 import org.junit.Test;
+import org.mockito.Mockito;
+import org.mockito.stubbing.Answer;
 
 
 public class ServletContainerBridge_Test {
   
-  private RootApplication application;
+  RootApplication application;
   private ServletContainerBridge bridge;
 
   @Before
@@ -83,8 +85,19 @@ public class ServletContainerBridge_Test {
   @Test
   public void testRunSetsDirtyToFalseAfterRun() {
     ServletContainerBridge actualBridge = spy( bridge );
-    ServletContainer container = mock( ServletContainer.class );
-    when( actualBridge.getServletContainer() ).thenReturn( container );
+    
+    ServletContainer container = new ServletContainer();
+    ServletContainer spyContainer = spy( container );
+    
+    Mockito.doAnswer( new Answer<Object>() {
+      @Override
+      public Object answer(org.mockito.invocation.InvocationOnMock invocation) throws Throwable {
+        application.setDirty( false );
+        return null;
+      }
+    } ).when(spyContainer).reload( any(ResourceConfig.class) );
+    
+    when( actualBridge.getServletContainer() ).thenReturn( spyContainer );
     when( application.isDirty() ).thenReturn( true );
     
     actualBridge.run();

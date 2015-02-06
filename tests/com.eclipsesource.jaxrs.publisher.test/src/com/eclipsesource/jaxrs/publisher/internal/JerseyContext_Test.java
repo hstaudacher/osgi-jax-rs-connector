@@ -14,9 +14,11 @@ import static org.junit.Assert.assertEquals;
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.anyString;
 import static org.mockito.Matchers.eq;
+import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.never;
+import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -40,6 +42,8 @@ import org.mockito.runners.MockitoJUnitRunner;
 import org.osgi.service.http.HttpContext;
 import org.osgi.service.http.HttpService;
 import org.osgi.service.http.NamespaceException;
+
+import com.eclipsesource.jaxrs.publisher.ServletConfigurationService;
 
 
 @RunWith( MockitoJUnitRunner.class )
@@ -107,7 +111,7 @@ public class JerseyContext_Test {
     Object resource = new Object();
     Set<Object> list = new HashSet<Object>();
     list.add( resource );
-    when( rootApplication.getSingletons() ).thenReturn( list );
+    when( rootApplication.getResources() ).thenReturn( list );
     jerseyContext.addResource( resource );
     
     List<Object> resources = jerseyContext.eliminate();
@@ -124,7 +128,7 @@ public class JerseyContext_Test {
     Object resource = new Object();
     Set<Object> list = new HashSet<Object>();
     list.add( resource );
-    when( rootApplication.getSingletons() ).thenReturn( list );
+    when( rootApplication.getResources() ).thenReturn( list );
     jerseyContext.addResource( resource );
     
     List<Object> resources = jerseyContext.eliminate();
@@ -181,6 +185,26 @@ public class JerseyContext_Test {
     Map<String, Object> properties = context.getRootApplication().getProperties();
     
     assertEquals( true, properties.get( ServerProperties.WADL_FEATURE_DISABLE ) );
+  }
+  
+  @Test
+  public void testAddResourceWithServletConfigurationServicePresent()
+    throws ServletException, NamespaceException
+  {
+    ServletConfigurationService servletConfigurationService = mock( ServletConfigurationService.class );
+    JerseyContext withConfiguration = spy( new JerseyContext( httpService,
+                                                              "/test",
+                                                              false,
+                                                              23,
+                                                              servletConfigurationService ) );
+    Object resource = new Object();
+    withConfiguration.addResource( resource );
+    
+    
+    verify( servletConfigurationService, times( 1 ) ).getHttpContext( any( HttpService.class ),
+                                                                      anyString() );
+    verify( servletConfigurationService, times( 1 ) ).getInitParams( any( HttpService.class ),
+                                                                      anyString() );
   }
   
 }

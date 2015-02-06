@@ -53,6 +53,18 @@ public class RootApplication extends Application {
 
   @Override
   public Set<Object> getSingletons() {
+    synchronized( lock ) {
+      Set<Object> currentResources = getResources();
+      
+      // when this method is called jersey has obtained our resources as they are now, we mark the
+      // application as not dirty, next time a resource is added it will mark it as dirty again.
+      dirty = false;
+      
+      return currentResources;
+    }
+  }
+  
+  public Set<Object> getResources() {
     Set<Object> singletons = new HashSet<Object>( super.getSingletons() );
     singletons.addAll( resources );
     return singletons;

@@ -20,6 +20,7 @@ import org.osgi.framework.BundleContext;
 import org.osgi.framework.ServiceReference;
 import org.osgi.service.http.HttpService;
 
+import com.eclipsesource.jaxrs.publisher.ServletConfigurationService;
 import com.eclipsesource.jaxrs.publisher.internal.ServiceContainer.ServiceHolder;
 
 
@@ -35,6 +36,7 @@ public class JAXRSConnector {
   private final Map<HttpService, JerseyContext> contextMap;
   private final BundleContext bundleContext;
   private final List<ServiceHolder> resourceCache;
+  private ServletConfigurationService servletConfigurationService;
   private String rootPath;
   private boolean isWadlDisabled;
   private long publishInterval;
@@ -45,6 +47,7 @@ public class JAXRSConnector {
     this.resources = new ServiceContainer( bundleContext );
     this.contextMap = new HashMap<HttpService, JerseyContext>();
     this.resourceCache = new ArrayList<ServiceHolder>();
+    this.servletConfigurationService = null;
     this.publishInterval = 2500;
   }
   
@@ -58,6 +61,10 @@ public class JAXRSConnector {
     this.rootPath = rootPath;
     this.isWadlDisabled = isWadlDisabled;
     this.publishInterval = publishInterval;
+    doUpdateHttpServices();
+  }
+  
+  private void doUpdateHttpServices() {
     ServiceHolder[] services = httpServices.getServices();
     for( ServiceHolder serviceHolder : services ) {
       doRemoveHttpService( ( HttpService )serviceHolder.getService() );
@@ -70,11 +77,34 @@ public class JAXRSConnector {
       return doAddHttpService( reference );
     }
   }
+  
+  
+  ServletConfigurationService setServletConfiguration(ServiceReference reference) {
+    if(servletConfigurationService == null) {
+      servletConfigurationService = (ServletConfigurationService) bundleContext.getService( reference );
+      
+      doUpdateHttpServices();
+      
+      return servletConfigurationService;
+    }
+    
+    return null;
+  }
+  
+  void unsetServletConfiguration(ServiceReference reference, ServletConfigurationService service) {
+    if(servletConfigurationService == service) {
+      servletConfigurationService = null;
+      bundleContext.ungetService( reference );
+      
+      doUpdateHttpServices();
+    }
+  } 
+  
 
   HttpService doAddHttpService( ServiceReference reference ) {
     ServiceHolder serviceHolder = httpServices.add( reference );
     HttpService service = ( HttpService )serviceHolder.getService();
-    contextMap.put( service, createJerseyContext( service, rootPath, isWadlDisabled, publishInterval ) );
+    contextMap.put( service, createJerseyContext( service, rootPath, isWadlDisabled, publishInterval, servletConfigurationService ) );
     clearCache();
     return service;
   }
@@ -184,8 +214,8 @@ public class JAXRSConnector {
   }
 
   // For testing purpose
-  JerseyContext createJerseyContext( HttpService service, String rootPath, boolean disableWadl, long publishInterval ) {
-    return new JerseyContext( service, rootPath, disableWadl, publishInterval );
+  JerseyContext createJerseyContext( HttpService service, String rootPath, boolean disableWadl, long publishInterval,  
+                                     ServletConfigurationService servletConfigurationService) {
+    return new JerseyContext( service, rootPath, disableWadl, publishInterval, servletConfigurationService );
   }
-  
 }
