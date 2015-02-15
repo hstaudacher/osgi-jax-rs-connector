@@ -7,6 +7,7 @@
  *
  * Contributors:
  *    Holger Staudacher - initial API and implementation
+ *    Ivan Iliev - added ServletConfiguration tests
  ******************************************************************************/
 package com.eclipsesource.jaxrs.publisher.internal;
 
@@ -36,7 +37,7 @@ import org.osgi.framework.BundleContext;
 import org.osgi.framework.ServiceReference;
 import org.osgi.service.http.HttpService;
 
-import com.eclipsesource.jaxrs.publisher.ServletConfigurationService;
+import com.eclipsesource.jaxrs.publisher.ServletConfiguration;
 
 
 @RunWith( MockitoJUnitRunner.class )
@@ -57,7 +58,7 @@ public class JAXRSConnector_Test {
   public void setUp() {
     JAXRSConnector original = new JAXRSConnector( bundleContext );
     connector = spy( original );
-    doReturn( jerseyContext ).when( connector ).createJerseyContext( any( HttpService.class ), anyString(), eq( false ), anyLong(), any (ServletConfigurationService.class));
+    doReturn( jerseyContext ).when( connector ).createJerseyContext( any( HttpService.class ), anyString(), eq( false ), anyLong(), any (ServletConfiguration.class));
   }
   
   @Test
@@ -122,10 +123,10 @@ public class JAXRSConnector_Test {
     connector.updateConfiguration( "/test", false, 23 );
     
     InOrder order = inOrder( connector );
-    order.verify( connector ).createJerseyContext( any( HttpService.class ), anyString(), eq( false ), eq( 2500L ), any(ServletConfigurationService.class) );
+    order.verify( connector ).createJerseyContext( any( HttpService.class ), anyString(), eq( false ), eq( 150L ), any(ServletConfiguration.class) );
     order.verify( connector ).doRemoveHttpService( any( HttpService.class ) );
     order.verify( connector ).doAddHttpService( any( ServiceReference.class ) );
-    order.verify( connector ).createJerseyContext( any( HttpService.class ), eq( "/test" ), eq( false ), eq( 23L ), any(ServletConfigurationService.class) );
+    order.verify( connector ).createJerseyContext( any( HttpService.class ), eq( "/test" ), eq( false ), eq( 23L ), any(ServletConfiguration.class) );
   }
   
   @Test
@@ -178,7 +179,7 @@ public class JAXRSConnector_Test {
   }
   
   @Test
-  public void testServletConfigurationServiceUpdatesHttpServices() {
+  public void testServletConfigurationUpdatesHttpServices() {
     HttpService mockHttpService = mockHttpService();
     Object resource = new Object();
     when( bundleContext.getService( resourceServiceReference ) ).thenReturn( resource );
@@ -187,42 +188,39 @@ public class JAXRSConnector_Test {
     connector.addHttpService( httpServiceReference );
     connector.addResource( resourceServiceReference );
     
-    ServletConfigurationService servletConfigurationService = mock( ServletConfigurationService.class );
-    ServiceReference servletConfigurationServiceReference = mock( ServiceReference.class );
+    ServletConfiguration servletConfiguration = mock( ServletConfiguration.class );
+    ServiceReference servletConfigurationReference = mock( ServiceReference.class );
     
-    when( bundleContext.getService( servletConfigurationServiceReference ) ).thenReturn( servletConfigurationService );
+    when( bundleContext.getService( servletConfigurationReference ) ).thenReturn( servletConfiguration );
     
-    connector.setServletConfiguration( servletConfigurationServiceReference );
-    // adding a configuration service will remove and readd all http services
-    verify(connector, times(1)).doRemoveHttpService ( mockHttpService );
-    verify(connector, times(2)).doAddHttpService ( httpServiceReference );
+    connector.setServletConfiguration( servletConfigurationReference );
+    // adding a configuration service will remove and read all http services
+    verify( connector, times( 1 ) ).doRemoveHttpService( mockHttpService );
+    verify( connector, times( 2 ) ).doAddHttpService( httpServiceReference );
     
-    connector.unsetServletConfiguration( servletConfigurationServiceReference,  servletConfigurationService);
+    connector.unsetServletConfiguration( servletConfigurationReference, servletConfiguration );
 
-    // removing a configuration service will remove and readd all http services
-    verify(connector, times(2)).doRemoveHttpService ( mockHttpService );
-    verify(connector, times(3)).doAddHttpService ( httpServiceReference );
-    
+    // removing a configuration service will remove and read all http services
+    verify( connector, times( 2 ) ).doRemoveHttpService( mockHttpService );
+    verify( connector, times( 3 ) ).doAddHttpService( httpServiceReference );
   }
   
   @Test
-  public void testServletConfigurationServiceNoHttpServices() {
-    
-    ServletConfigurationService servletConfigurationService = mock( ServletConfigurationService.class );
+  public void testServletConfigurationWithoutHttpServices() {
+    ServletConfiguration servletConfigurationService = mock( ServletConfiguration.class );
     ServiceReference servletConfigurationServiceReference = mock( ServiceReference.class );
     
     when( bundleContext.getService( servletConfigurationServiceReference ) ).thenReturn( servletConfigurationService );
     
     connector.setServletConfiguration( servletConfigurationServiceReference );
     
-    verify(connector, never()).doRemoveHttpService ( any( HttpService.class ) );
-    verify(connector, never()).doAddHttpService ( any (ServiceReference.class) );
+    verify( connector, never() ).doRemoveHttpService( any( HttpService.class ) );
+    verify( connector, never() ).doAddHttpService( any( ServiceReference.class ) );
     
-    connector.unsetServletConfiguration( servletConfigurationServiceReference,  servletConfigurationService);
+    connector.unsetServletConfiguration( servletConfigurationServiceReference, servletConfigurationService );
     
-    verify(connector, never()).doRemoveHttpService ( any( HttpService.class ) );
-    verify(connector, never()).doAddHttpService ( any (ServiceReference.class) );
-    
+    verify( connector, never() ).doRemoveHttpService( any( HttpService.class ) );
+    verify( connector, never() ).doAddHttpService( any( ServiceReference.class ) );
   }
 
   private HttpService mockHttpService() {

@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2012 EclipseSource and others.
+ * Copyright (c) 2012,2015 EclipseSource and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -7,6 +7,7 @@
  *
  * Contributors:
  *    Holger Staudacher - initial API and implementation
+ *    Ivan Iliev - added tests for ServletConfigurationTracker
  ******************************************************************************/
 package com.eclipsesource.jaxrs.publisher.internal;
 
@@ -43,7 +44,7 @@ import org.osgi.service.http.HttpContext;
 import org.osgi.service.http.HttpService;
 import org.osgi.service.http.NamespaceException;
 
-import com.eclipsesource.jaxrs.publisher.ServletConfigurationService;
+import com.eclipsesource.jaxrs.publisher.ServletConfiguration;
 
 
 @RunWith( MockitoJUnitRunner.class )
@@ -188,10 +189,9 @@ public class JerseyContext_Test {
   }
   
   @Test
-  public void testAddResourceWithServletConfigurationServicePresent()
-    throws ServletException, NamespaceException
+  public void testAddResourceWithServletConfigurationServicePresent() throws Exception
   {
-    ServletConfigurationService servletConfigurationService = mock( ServletConfigurationService.class );
+    ServletConfiguration servletConfigurationService = mock( ServletConfiguration.class );
     JerseyContext withConfiguration = spy( new JerseyContext( httpService,
                                                               "/test",
                                                               false,
@@ -199,7 +199,6 @@ public class JerseyContext_Test {
                                                               servletConfigurationService ) );
     Object resource = new Object();
     withConfiguration.addResource( resource );
-    
     
     verify( servletConfigurationService, times( 1 ) ).getHttpContext( any( HttpService.class ),
                                                                       anyString() );

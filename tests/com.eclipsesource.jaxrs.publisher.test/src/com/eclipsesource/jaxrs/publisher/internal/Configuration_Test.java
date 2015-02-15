@@ -1,3 +1,13 @@
+/*******************************************************************************
+ * Copyright (c) 2015 EclipseSource and others.
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *    Holger Staudacher - initial API and implementation
+ ******************************************************************************/
 package com.eclipsesource.jaxrs.publisher.internal;
 
 import static org.mockito.Matchers.anyLong;
@@ -77,9 +87,9 @@ public class Configuration_Test {
   
   private Dictionary<String, ?> createProperties( String path, Boolean disableWadl) {
     Hashtable<String, Object> properties = new Hashtable<String, Object>();
-    properties.put( Configuration.ROOT_PROPERTY, path );
-    properties.put( Configuration.WADL_DISABLE_PROPERTY, disableWadl );
-    properties.put( Configuration.PUBLISH_INTERVAL, "4" );
+    properties.put( Configuration.PROPERTY_ROOT, path );
+    properties.put( Configuration.PROPERTY_WADL_DISABLE, disableWadl );
+    properties.put( Configuration.PROPERTY_PUBLISH_DELAY, "4" );
     return properties;
   }
 

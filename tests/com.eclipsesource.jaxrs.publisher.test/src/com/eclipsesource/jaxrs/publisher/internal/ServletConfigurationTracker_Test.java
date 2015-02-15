@@ -1,12 +1,12 @@
 /*******************************************************************************
- * Copyright (c) 2012 EclipseSource and others.
+ * Copyright (c) 2015 EclipseSource and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v10.html
  *
  * Contributors:
- *    Holger Staudacher - initial API and implementation
+ *    Ivan Iliev - initial API and implementation
  ******************************************************************************/
 package com.eclipsesource.jaxrs.publisher.internal;
 
@@ -21,11 +21,11 @@ import org.mockito.runners.MockitoJUnitRunner;
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.ServiceReference;
 
-import com.eclipsesource.jaxrs.publisher.ServletConfigurationService;
+import com.eclipsesource.jaxrs.publisher.ServletConfiguration;
 
 
 @RunWith( MockitoJUnitRunner.class )
-public class ServiceConfigurationTracker_Test {
+public class ServletConfigurationTracker_Test {
   
   private ServletConfigurationTracker servletConfigurationTracker;
   
@@ -49,7 +49,7 @@ public class ServiceConfigurationTracker_Test {
   
   @Test
   public void delegatesRemoveServletConfigurationService() {
-    ServletConfigurationService service = mock( ServletConfigurationService.class );
+    ServletConfiguration service = mock( ServletConfiguration.class );
     
     servletConfigurationTracker.removedService( reference, service );
     
