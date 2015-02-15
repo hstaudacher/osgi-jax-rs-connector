@@ -35,7 +35,6 @@
 
 	<modules>
 		<!-- Bundles -->
-		<module>../com.eclipsesource.jaxrs.jersey.all</module>
 		<module>../../bundles/com.eclipsesource.jaxrs.publisher</module>
 		<module>../../bundles/com.eclipsesource.jaxrs.consumer</module>
 		<module>../../bundles/com.eclipsesource.jaxrs.provider.moxy</module>
