@@ -89,7 +89,7 @@ public class Configuration_Test {
     Hashtable<String, Object> properties = new Hashtable<String, Object>();
     properties.put( Configuration.PROPERTY_ROOT, path );
     properties.put( Configuration.PROPERTY_WADL_DISABLE, disableWadl );
-    properties.put( Configuration.PROPERTY_PUBLISH_DELAY, "4" );
+    properties.put( Configuration.PROPERTY_PUBLISH_DELAY, 4L );
     return properties;
   }
 
