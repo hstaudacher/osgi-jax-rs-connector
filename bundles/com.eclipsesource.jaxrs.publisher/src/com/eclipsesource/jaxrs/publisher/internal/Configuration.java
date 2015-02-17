@@ -68,6 +68,6 @@ public class Configuration implements ManagedService {
     if( interval == null ){
       return DEFAULT_PUBLISH_DELAY;
     }
-    return Long.parseLong( ( String )interval );
+    return ( ( Long )interval );
   }
 }
