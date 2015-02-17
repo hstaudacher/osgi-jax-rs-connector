@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <site>
-   <feature url="features/com.eclipsesource.jaxrs.connector.feature_4.2.0.qualifier.jar" id="com.eclipsesource.jaxrs.connector.feature" version="4.2.0.qualifier">
+   <feature url="features/com.eclipsesource.jaxrs.connector.feature_4.2.1.qualifier.jar" id="com.eclipsesource.jaxrs.connector.feature" version="4.2.1.qualifier">
       <category name="com.eclipsesource.jaxrs.connector"/>
    </feature>
-   <feature url="features/com.eclipsesource.jaxrs.connector.feature.source_4.2.0.qualifier.jar" id="com.eclipsesource.jaxrs.connector.feature.source" version="4.2.0.qualifier">
+   <feature url="features/com.eclipsesource.jaxrs.connector.feature.source_4.2.1.qualifier.jar" id="com.eclipsesource.jaxrs.connector.feature.source" version="4.2.1.qualifier">
       <category name="com.eclipsesource.jaxrs.connector.sources"/>
    </feature>
    <feature url="features/com.eclipsesource.jaxrs.provider.gson.feature_2.1.0.qualifier.jar" id="com.eclipsesource.jaxrs.provider.gson.feature" version="2.1.0.qualifier">
