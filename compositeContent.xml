@@ -2,9 +2,9 @@
 <?compositeMetadataRepository version='1.0.0'?>
 <repository name='OSGi - JAX-RS Connector Repository' type='org.eclipse.equinox.internal.p2.metadata.repository.CompositeMetadataRepository' version='1.0.0'>
   <properties size='1'>
-    <property name='p2.timestamp' value='1424179353070'/>
+    <property name='p2.timestamp' value='1424871307375'/>
   </properties>
-  <children size='8'>
+  <children size='9'>
     <child location='unsorted/'/>
     <child location='3.2.0/'/>
     <child location='3.3.0/'/>
@@ -13,5 +13,6 @@
     <child location='4.1.1'/>
     <child location='4.2.0'/>
     <child location='4.2.1'/>
+    <child location='4.2.2'/>
   </children>
 </repository>
