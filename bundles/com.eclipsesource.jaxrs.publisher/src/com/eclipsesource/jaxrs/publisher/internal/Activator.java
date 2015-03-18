@@ -38,6 +38,7 @@ public class Activator implements BundleActivator {
   private HttpTracker httpTracker;
   private ResourceTracker allTracker;
   private ServletConfigurationTracker servletConfigurationTracker;
+  private ApplicationConfigurationTracker applicationConfigurationTracker;
   private ServiceRegistration configRegistration;
 
   @Override
@@ -50,6 +51,7 @@ public class Activator implements BundleActivator {
     connectorRegistration = context.registerService( JAXRSConnector.class.getName(), jaxRsConnector, null );
     openHttpServiceTracker( context );
     openServletConfigurationTracker( context );
+    openApplicationConfigurationTracker( context );
     openAllServiceTracker( context );
   }
 
@@ -78,6 +80,11 @@ public class Activator implements BundleActivator {
     servletConfigurationTracker.open();
   }
   
+  private void openApplicationConfigurationTracker( BundleContext context ) {
+    applicationConfigurationTracker = new ApplicationConfigurationTracker( context, jaxRsConnector );
+    applicationConfigurationTracker.open();
+  }
+  
   private void openAllServiceTracker( BundleContext context ) throws InvalidSyntaxException {
     ResourceFilter allResourceFilter = getResourceFilter( context );
     allTracker = new ResourceTracker( context, allResourceFilter.getFilter(), jaxRsConnector );
@@ -96,6 +103,7 @@ public class Activator implements BundleActivator {
   public void stop( BundleContext context ) throws Exception {
     httpTracker.close();
     servletConfigurationTracker.close();
+    applicationConfigurationTracker.close();
     allTracker.close();
     connectorRegistration.unregister();
     configRegistration.unregister();

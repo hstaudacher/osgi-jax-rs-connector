@@ -10,9 +10,10 @@
  ******************************************************************************/
 package com.eclipsesource.jaxrs.publisher.internal;
 
-import static org.mockito.Matchers.anyLong;
-import static org.mockito.Matchers.anyString;
-import static org.mockito.Matchers.eq;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
@@ -22,9 +23,11 @@ import java.util.Hashtable;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.mockito.ArgumentCaptor;
 import org.osgi.service.cm.ConfigurationException;
 
 
+@SuppressWarnings( "deprecation" )
 public class Configuration_Test {
   
   private JAXRSConnector connector;
@@ -37,38 +40,76 @@ public class Configuration_Test {
   }
   
   @Test
-  public void testUpdateWithNull() throws Exception {
-    config.updated( null );
+  public void testHasDefaultPublishDelay() {
+    long publishDelay = config.getPublishDelay();
     
-    verify( connector, never() ).updateConfiguration( anyString(), eq(false), anyLong() );
+    assertEquals( 150L, publishDelay );
   }
   
   @Test
+  public void testHasDefaultRootPath() {
+    String roothPath = config.getRoothPath();
+    
+    assertEquals( "/services", roothPath );
+  }
+  
+  @Test
+  public void testHasDefaultDisableWadl() {
+    boolean wadlDisabled = config.isWadlDisabled();
+    
+    assertFalse( wadlDisabled );
+  }
+  
+  @Test
+  public void testUpdateWithNull() throws Exception {
+    config.updated( null );
+    
+    verify( connector, never() ).updateConfiguration( any( Configuration.class ) );
+  }
+  
+  @Test
+  
   public void testUpdateWithPath() throws Exception {
     config.updated( createProperties( "/test" ) );
     
-    verify( connector ).updateConfiguration( "/test" , false, 4 );
+    ArgumentCaptor<Configuration> captor = ArgumentCaptor.forClass( Configuration.class );
+    verify( connector ).updateConfiguration( captor.capture() );
+    assertEquals( "/test", captor.getValue().getRoothPath() );
+    assertEquals( 4L, captor.getValue().getPublishDelay() );
+    assertFalse( captor.getValue().isWadlDisabled() );
   }
   
   @Test
   public void testUpdateWithPath2() throws Exception {
     config.updated( createProperties( "/test2" ) );
     
-    verify( connector ).updateConfiguration( "/test2" , false, 4 );
+    ArgumentCaptor<Configuration> captor = ArgumentCaptor.forClass( Configuration.class );
+    verify( connector ).updateConfiguration( captor.capture() );
+    assertEquals( "/test2", captor.getValue().getRoothPath() );
+    assertEquals( 4L, captor.getValue().getPublishDelay() );
+    assertFalse( captor.getValue().isWadlDisabled() );
   }
   
   @Test
   public void testUpdateWithDisabledWadl() throws Exception {
     config.updated( createProperties( "/test", true ) );
     
-    verify( connector ).updateConfiguration( "/test" , true, 4 );
+    ArgumentCaptor<Configuration> captor = ArgumentCaptor.forClass( Configuration.class );
+    verify( connector ).updateConfiguration( captor.capture() );
+    assertEquals( "/test", captor.getValue().getRoothPath() );
+    assertEquals( 4L, captor.getValue().getPublishDelay() );
+    assertTrue( captor.getValue().isWadlDisabled() );
   }
   
   @Test
   public void testUpdateWithPublishInterval() throws Exception {
     config.updated( createProperties( "/test", true ) );
     
-    verify( connector ).updateConfiguration( "/test" , true, 4 );
+    ArgumentCaptor<Configuration> captor = ArgumentCaptor.forClass( Configuration.class );
+    verify( connector ).updateConfiguration( captor.capture() );
+    assertEquals( "/test", captor.getValue().getRoothPath() );
+    assertEquals( 4L, captor.getValue().getPublishDelay() );
+    assertTrue( captor.getValue().isWadlDisabled() );
   }
   
   @Test( expected = ConfigurationException.class )
@@ -92,5 +133,5 @@ public class Configuration_Test {
     properties.put( Configuration.PROPERTY_PUBLISH_DELAY, 4L );
     return properties;
   }
-
+  
 }

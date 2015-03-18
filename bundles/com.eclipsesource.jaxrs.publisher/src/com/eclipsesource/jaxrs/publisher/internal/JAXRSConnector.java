@@ -20,6 +20,7 @@ import org.osgi.framework.BundleContext;
 import org.osgi.framework.ServiceReference;
 import org.osgi.service.http.HttpService;
 
+import com.eclipsesource.jaxrs.publisher.ApplicationConfiguration;
 import com.eclipsesource.jaxrs.publisher.ServletConfiguration;
 import com.eclipsesource.jaxrs.publisher.internal.ServiceContainer.ServiceHolder;
 
@@ -37,37 +38,23 @@ public class JAXRSConnector {
   private final BundleContext bundleContext;
   private final List<ServiceHolder> resourceCache;
   private ServletConfiguration servletConfiguration;
-  private String rootPath;
-  private boolean isWadlDisabled;
-  private long publishDelay;
+  private final ServiceContainer applicationConfigurations;
+  private Configuration configuration;
 
   JAXRSConnector( BundleContext bundleContext ) {
     this.bundleContext = bundleContext;
+    this.configuration = new Configuration( this );
     this.httpServices = new ServiceContainer( bundleContext );
     this.resources = new ServiceContainer( bundleContext );
     this.contextMap = new HashMap<HttpService, JerseyContext>();
     this.resourceCache = new ArrayList<ServiceHolder>();
-    this.publishDelay = Configuration.DEFAULT_PUBLISH_DELAY;
+    this.applicationConfigurations = new ServiceContainer( bundleContext );
   }
   
-  void updateConfiguration( String rootPath, boolean isWadlDisabled, long publishDelay ) {
+  void updateConfiguration( Configuration configuration ) {
     synchronized( lock ) {
-      doUpdateConfiguration( rootPath, isWadlDisabled, publishDelay );
-    }
-  }
-
-  private void doUpdateConfiguration( String rootPath, boolean isWadlDisabled, long publishDelay ) {
-    this.rootPath = rootPath;
-    this.isWadlDisabled = isWadlDisabled;
-    this.publishDelay = publishDelay;
-    doUpdateHttpServices();
-  }
-  
-  private void doUpdateHttpServices() {
-    ServiceHolder[] services = httpServices.getServices();
-    for( ServiceHolder serviceHolder : services ) {
-      doRemoveHttpService( ( HttpService )serviceHolder.getService() );
-      doAddHttpService( serviceHolder.getReference() );
+      this.configuration = configuration;
+      doUpdateHttpServices();
     }
   }
   
@@ -94,11 +81,33 @@ public class JAXRSConnector {
     }
   } 
 
+  ApplicationConfiguration addApplicationConfiguration( ServiceReference reference ) {
+    synchronized( lock ) {
+      ApplicationConfiguration service = ( ApplicationConfiguration )applicationConfigurations.add( reference ).getService();
+      doUpdateHttpServices();
+      return service;
+    }
+  }
+
+  void removeApplicationConfiguration( ServiceReference reference, ApplicationConfiguration service ) {
+    synchronized( lock ) {
+      applicationConfigurations.remove( service );
+      doUpdateHttpServices();
+    }
+  }
+
+  private void doUpdateHttpServices() {
+    ServiceHolder[] services = httpServices.getServices();
+    for( ServiceHolder serviceHolder : services ) {
+      doRemoveHttpService( ( HttpService )serviceHolder.getService() );
+      doAddHttpService( serviceHolder.getReference() );
+    }
+  }
+
   HttpService doAddHttpService( ServiceReference reference ) {
     ServiceHolder serviceHolder = httpServices.add( reference );
     HttpService service = ( HttpService )serviceHolder.getService();
-    contextMap.put( service, 
-                    createJerseyContext( service, rootPath, isWadlDisabled, publishDelay, servletConfiguration ) );
+    contextMap.put( service, createJerseyContext( service, configuration, servletConfiguration ) );
     clearCache();
     return service;
   }
@@ -209,11 +218,9 @@ public class JAXRSConnector {
 
   // For testing purpose
   JerseyContext createJerseyContext( HttpService service,
-                                     String rootPath,
-                                     boolean disableWadl,
-                                     long publishDelay,
+                                     Configuration configuration,
                                      ServletConfiguration servletConfiguration )
   {
-    return new JerseyContext( service, rootPath, disableWadl, publishDelay, servletConfiguration );
+    return new JerseyContext( service, configuration, servletConfiguration, applicationConfigurations );
   }
 }

@@ -77,6 +77,10 @@ public class RootApplication extends Application {
     properties.put( key, value );
   }
 
+  public void addProperties( Map<String, Object> properties ) {
+    this.properties.putAll( properties );
+  }
+
   public boolean isDirty() {
     synchronized( lock ) {
       return dirty;

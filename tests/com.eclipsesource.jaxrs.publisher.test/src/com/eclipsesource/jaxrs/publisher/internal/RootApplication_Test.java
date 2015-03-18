@@ -16,6 +16,7 @@ import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.spy;
 
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
@@ -117,6 +118,20 @@ public class RootApplication_Test {
     
     assertEquals( 1, properties.size() );
     assertEquals( "bar", properties.get( "foo" ) );
+  }
+  
+  @Test
+  public void testPutsAllProperties() {
+    HashMap<String, Object> map = new HashMap<>();
+    map.put( "foo", "bar" );
+    map.put( "foo2", "bar2" );
+    
+    application.addProperties( map );
+    Map<String, Object> properties = application.getProperties();
+    
+    assertEquals( 2, properties.size() );
+    assertEquals( "bar", properties.get( "foo" ) );
+    assertEquals( "bar2", properties.get( "foo2" ) );
   }
   
 }
