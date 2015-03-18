@@ -1,4 +1,5 @@
 eclipse.preferences.version=1
 org.moreunit.preferences.version=2
+org.moreunit.testClassNameTemplate=${srcFile}_Test
 org.moreunit.unitsourcefolder=com.eclipsesource.jaxrs.publisher\:src\:com.eclipsesource.jaxrs.publisher.test\:src
 org.moreunit.useprojectsettings=true
