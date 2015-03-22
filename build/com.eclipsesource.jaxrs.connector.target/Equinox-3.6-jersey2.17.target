@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<?pde version="3.8"?><target name="Equinox 3.6" sequenceNumber="47">
+<?pde version="3.8"?><target name="Equinox 3.6" sequenceNumber="49">
 <locations>
 <location path="${project_loc:com.eclipsesource.jaxrs.connector.target}/eclipselink/bundles" type="Directory"/>
 <location path="${project_loc:com.eclipsesource.jaxrs.connector.target}/eclipselink/source-bundles" type="Directory"/>
