@@ -6,34 +6,34 @@
    <feature url="features/com.eclipsesource.jaxrs.connector.feature.source_4.3.0.qualifier.jar" id="com.eclipsesource.jaxrs.connector.feature.source" version="4.3.0.qualifier">
       <category name="com.eclipsesource.jaxrs.connector.sources"/>
    </feature>
-   <feature url="features/com.eclipsesource.jaxrs.provider.gson.feature_2.1.0.qualifier.jar" id="com.eclipsesource.jaxrs.provider.gson.feature" version="2.1.0.qualifier">
+   <feature url="features/com.eclipsesource.jaxrs.provider.gson.feature_2.2.0.qualifier.jar" id="com.eclipsesource.jaxrs.provider.gson.feature" version="2.2.0.qualifier">
       <category name="com.eclipsesource.jaxrs.connector.providers"/>
    </feature>
-   <feature url="features/com.eclipsesource.jaxrs.provider.gson.feature.source_2.1.0.qualifier.jar" id="com.eclipsesource.jaxrs.provider.gson.feature.source" version="2.1.0.qualifier">
+   <feature url="features/com.eclipsesource.jaxrs.provider.gson.feature.source_2.2.0.qualifier.jar" id="com.eclipsesource.jaxrs.provider.gson.feature.source" version="2.2.0.qualifier">
       <category name="com.eclipsesource.jaxrs.connector.sources"/>
    </feature>
-   <feature url="features/com.eclipsesource.jaxrs.provider.moxy.feature_2.0.0.qualifier.jar" id="com.eclipsesource.jaxrs.provider.moxy.feature" version="2.0.0.qualifier">
+   <feature url="features/com.eclipsesource.jaxrs.provider.moxy.feature_2.1.0.qualifier.jar" id="com.eclipsesource.jaxrs.provider.moxy.feature" version="2.1.0.qualifier">
       <category name="com.eclipsesource.jaxrs.connector.providers"/>
    </feature>
-   <feature url="features/com.eclipsesource.jaxrs.provider.moxy.feature.source_2.0.0.qualifier.jar" id="com.eclipsesource.jaxrs.provider.moxy.feature.source" version="2.0.0.qualifier">
+   <feature url="features/com.eclipsesource.jaxrs.provider.moxy.feature.source_2.1.0.qualifier.jar" id="com.eclipsesource.jaxrs.provider.moxy.feature.source" version="2.1.0.qualifier">
       <category name="com.eclipsesource.jaxrs.connector.sources"/>
    </feature>
-   <feature url="features/com.eclipsesource.jaxrs.provider.security.feature_2.0.0.qualifier.jar" id="com.eclipsesource.jaxrs.provider.security.feature" version="2.0.0.qualifier">
+   <feature url="features/com.eclipsesource.jaxrs.provider.security.feature_2.1.0.qualifier.jar" id="com.eclipsesource.jaxrs.provider.security.feature" version="2.1.0.qualifier">
       <category name="com.eclipsesource.jaxrs.connector.providers"/>
    </feature>
-   <feature url="features/com.eclipsesource.jaxrs.provider.security.feature.source_2.0.0.qualifier.jar" id="com.eclipsesource.jaxrs.provider.security.feature.source" version="2.0.0.qualifier">
+   <feature url="features/com.eclipsesource.jaxrs.provider.security.feature.source_2.1.0.qualifier.jar" id="com.eclipsesource.jaxrs.provider.security.feature.source" version="2.1.0.qualifier">
       <category name="com.eclipsesource.jaxrs.connector.sources"/>
    </feature>
-   <feature url="features/com.eclipsesource.jaxrs.provider.sse.feature_2.0.0.qualifier.jar" id="com.eclipsesource.jaxrs.provider.sse.feature" version="2.0.0.qualifier">
+   <feature url="features/com.eclipsesource.jaxrs.provider.sse.feature_2.1.0.qualifier.jar" id="com.eclipsesource.jaxrs.provider.sse.feature" version="2.1.0.qualifier">
       <category name="com.eclipsesource.jaxrs.connector.providers"/>
    </feature>
-   <feature url="features/com.eclipsesource.jaxrs.provider.sse.feature.source_2.0.0.qualifier.jar" id="com.eclipsesource.jaxrs.provider.sse.feature.source" version="2.0.0.qualifier">
+   <feature url="features/com.eclipsesource.jaxrs.provider.sse.feature.source_2.1.0.qualifier.jar" id="com.eclipsesource.jaxrs.provider.sse.feature.source" version="2.1.0.qualifier">
       <category name="com.eclipsesource.jaxrs.connector.sources"/>
    </feature>
-   <feature url="features/com.eclipsesource.jaxrs.provider.multipart.feature_2.0.0.qualifier.jar" id="com.eclipsesource.jaxrs.provider.multipart.feature" version="2.0.0.qualifier">
+   <feature url="features/com.eclipsesource.jaxrs.provider.multipart.feature_2.1.0.qualifier.jar" id="com.eclipsesource.jaxrs.provider.multipart.feature" version="2.1.0.qualifier">
       <category name="com.eclipsesource.jaxrs.connector.providers"/>
    </feature>
-   <feature url="features/com.eclipsesource.jaxrs.provider.multipart.feature.source_2.0.0.qualifier.jar" id="com.eclipsesource.jaxrs.provider.multipart.feature.source" version="2.0.0.qualifier">
+   <feature url="features/com.eclipsesource.jaxrs.provider.multipart.feature.source_2.1.0.qualifier.jar" id="com.eclipsesource.jaxrs.provider.multipart.feature.source" version="2.1.0.qualifier">
       <category name="com.eclipsesource.jaxrs.connector.sources"/>
    </feature>
    <category-def name="com.eclipsesource.jaxrs.connector" label="OSGi - JAX-RS Connector"/>

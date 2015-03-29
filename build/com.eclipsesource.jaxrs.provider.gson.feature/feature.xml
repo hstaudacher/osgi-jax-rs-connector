@@ -2,7 +2,7 @@
 <feature
       id="com.eclipsesource.jaxrs.provider.gson.feature"
       label="Gson Provider"
-      version="2.1.0.qualifier"
+      version="2.2.0.qualifier"
       provider-name="EclipseSource">
 
    <description>
