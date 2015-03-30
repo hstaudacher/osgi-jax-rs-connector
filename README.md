@@ -1,4 +1,4 @@
-# OSGi - JAX-RS Connector 4.2
+# OSGi - JAX-RS Connector 4.3
 [![Build Status](https://travis-ci.org/hstaudacher/osgi-jax-rs-connector.png)](https://travis-ci.org/hstaudacher/osgi-jax-rs-connector) [![Maven Status](https://maven-badges.herokuapp.com/maven-central/com.eclipsesource.jaxrs/publisher/badge.png)](http://search.maven.org/#search%7Cga%7C1%7Cg%3A%22com.eclipsesource.jaxrs%22)
 
 ![](http://download.eclipsesource.com/~hstaudacher/connector.png)
@@ -20,8 +20,10 @@ The publisher is located in the bundle `com.eclipsesource.jaxrs.publisher`. All 
 By default the publisher registers the services using the context path `/services`. This means an OSGi service that is annotated with `@Path( "/foo" )` will be available using the path `/services/foo`. This context path is configurable using the OSGi configuration admin. You can configure the service using the service.pid `com.eclipsesource.jaxrs.connector` with the following properties:
 
 * `root` : defines a custom root path. Default is `/services`.
-* `disableWadl` : disables the wadl generation. Default is `false`.
+* `disableWadl` ***deprecated*** : disables the wadl generation. Default is `false`.
 * `publishDelay` : the time in ms to wait after a resource was registered before its going to be published. Default is `150`.
+
+Besides the config admin you can [configure the JAX-RS Application with properties](https://jersey.java.net/documentation/latest/appendix-properties.html) too. Simply register a service implementing the [ApplicationConfiguration](https://github.com/hstaudacher/osgi-jax-rs-connector/blob/master/bundles/com.eclipsesource.jaxrs.publisher/src/com/eclipsesource/jaxrs/publisher/ApplicationConfiguration.java) interface. It will be called before the Application got published.
 
 As said earlier, the publisher uses the OSGi HTTPService to publish the services. As a result all configuration topics regarding ports, protocol and so on are up to the HTTPService implementation of your choice.
 
@@ -97,7 +99,7 @@ If you are working with [Bndtools](http://bndtools.org), a [Starter Kit](https:/
 API 3.x*
 
 ## Jersey version
-With Jersey 2.0 the library was splitted into several modules with a whole bunch of dependencies. To ease the OSGi application development Jersey was rebundled in this project and ships as a single bundle called `com.eclipsesource.jaxrs.jersey.all`. Currently it includes Jersey 2.16 and it's dependencies. Also the Eclipse Source Bundle will be shipped to make the Jersey API more discoverable when using Eclipse.
+With Jersey 2.0 the library was splitted into several modules with a whole bunch of dependencies. To ease the OSGi application development Jersey was rebundled in this project and ships as a single bundle called `com.eclipsesource.jaxrs.jersey.all`. Currently it includes Jersey 2.17 and it's dependencies. Also the Eclipse Source Bundle will be shipped to make the Jersey API more discoverable when using Eclipse.
 
 ## Changelog
 Checkout the [github releases](https://github.com/hstaudacher/osgi-jax-rs-connector/releases).
@@ -105,4 +107,4 @@ Checkout the [github releases](https://github.com/hstaudacher/osgi-jax-rs-connec
 ## License
 The code is published under the terms of the [Eclipse Public License, version 1.0](http://www.eclipse.org/legal/epl-v10.html).
 
-Included binaries from [Jersey](http://jersey.java.net/) (rebundled), version 2.16, which are published under two licenses, the [CDDL 1.1 and GPL 2 with CPE](http://glassfish.java.net/public/CDDL+GPL_1_1.html)
+Included binaries from [Jersey](http://jersey.java.net/) (rebundled), version 2.17, which are published under two licenses, the [CDDL 1.1 and GPL 2 with CPE](http://glassfish.java.net/public/CDDL+GPL_1_1.html)
