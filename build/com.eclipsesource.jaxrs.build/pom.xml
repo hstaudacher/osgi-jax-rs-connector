@@ -35,7 +35,6 @@
 
 	<modules>
 		<!-- Bundles -->
-		<module>../com.eclipsesource.jaxrs.jersey.all</module>
 		<module>../../bundles/com.eclipsesource.jaxrs.publisher</module>
 		<module>../../bundles/com.eclipsesource.jaxrs.consumer</module>
 		<module>../../bundles/com.eclipsesource.jaxrs.provider.moxy</module>
@@ -114,7 +113,7 @@
 							<groupId>${project.groupId}</groupId>
 							<artifactId>${project.artifactId}</artifactId>
 							<version>${project.version}</version>
-							<classifier>${project.parent.relativePath}/../com.eclipsesource.jaxrs.connector.target/Equinox-3.6-jersey2.13.0</classifier>
+							<classifier>${project.parent.relativePath}/../com.eclipsesource.jaxrs.connector.target/Equinox-3.6-jersey2.17</classifier>
 						</artifact>
 					</target>
 					<environments>
@@ -156,6 +155,20 @@
 					</execution>
 				</executions>
 			</plugin>
+			
+			<plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-javadoc-plugin</artifactId>
+        <version>2.10</version>
+        <executions>
+          <execution>
+            <id>attach-javadocs</id>
+            <goals>
+              <goal>jar</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
 
 		</plugins>
 	</build>

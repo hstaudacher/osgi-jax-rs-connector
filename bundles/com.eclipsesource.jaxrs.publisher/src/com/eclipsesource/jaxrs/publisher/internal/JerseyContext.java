@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2012 EclipseSource and others.
+ * Copyright (c) 2012,2015 EclipseSource and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -9,81 +9,66 @@
  *    Holger Staudacher - initial API and implementation
  *    Dragos Dascalita  - disbaled autodiscovery
  *    Lars Pfannenschmidt  - made WADL generation configurable
+ *    Ivan Iliev - added ServletConfiguration handling
  ******************************************************************************/
 package com.eclipsesource.jaxrs.publisher.internal;
 
-import java.lang.Thread.UncaughtExceptionHandler;
 import java.util.ArrayList;
+import java.util.Dictionary;
 import java.util.List;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ThreadFactory;
-import java.util.concurrent.TimeUnit;
+import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.ws.rs.core.Application;
 
-import org.glassfish.jersey.server.ServerProperties;
+import org.osgi.service.http.HttpContext;
 import org.osgi.service.http.HttpService;
 import org.osgi.service.http.NamespaceException;
 
+import com.eclipsesource.jaxrs.publisher.ApplicationConfiguration;
+import com.eclipsesource.jaxrs.publisher.ServletConfiguration;
+import com.eclipsesource.jaxrs.publisher.internal.ServiceContainer.ServiceHolder;
 
+
+@SuppressWarnings( "rawtypes" )
 public class JerseyContext {
 
   private final RootApplication application;
   private final HttpService httpService;
-  private final String rootPath;
-  private boolean isApplicationRegistered;
   private final ServletContainerBridge servletContainerBridge;
-
-  public JerseyContext( HttpService httpService, String rootPath, boolean isWadlDisabled, long publishInterval ) {
+  private final Configuration configuration;
+  private final ServletConfiguration servletConfiguration;
+  private final ResourcePublisher resourcePublisher;
+  private boolean isApplicationRegistered;
+  
+  public JerseyContext( HttpService httpService, Configuration configuration, ServletConfiguration servletConfiguration, ServiceContainer applicationConfigurations ) {
     this.httpService = httpService;
-    this.rootPath = rootPath == null ? "/services" : rootPath;
+    this.configuration = configuration;
     this.application = new RootApplication();
-    disableAutoDiscovery();
-    disableWadl( isWadlDisabled );
+    applyApplicationConfigurations( applicationConfigurations );
     this.servletContainerBridge = new ServletContainerBridge( application );
-    scheduleContainerBridge( publishInterval );
+    this.servletConfiguration = servletConfiguration;
+    this.resourcePublisher = new ResourcePublisher( servletContainerBridge, configuration.getPublishDelay() );
   }
 
-  private void scheduleContainerBridge( long publishInterval ) {
-    Executors.newSingleThreadScheduledExecutor( new ThreadFactory() {
-      
-      @Override
-      public Thread newThread( Runnable runnable ) {
-        Thread thread = new Thread( runnable, "ServletContainerBridge" );
-        thread.setUncaughtExceptionHandler( new UncaughtExceptionHandler() {
-          
-          @Override
-          public void uncaughtException( Thread t, Throwable e ) {
-            throw new IllegalStateException( e );
-          }
-        } );
-        return thread;
+  private void applyApplicationConfigurations( ServiceContainer applicationConfigurations ) {
+    application.addProperties( new DefaultApplicationConfiguration( configuration ).getProperties() );
+    ServiceHolder[] services = applicationConfigurations.getServices();
+    for( ServiceHolder serviceHolder : services ) {
+      Object service = serviceHolder.getService();
+      if( service instanceof ApplicationConfiguration ) {
+        Map<String, Object> properties = ( ( ApplicationConfiguration )service ).getProperties();
+        if( properties != null ) {
+          application.addProperties( properties );
+        }
       }
-    } ).scheduleAtFixedRate( servletContainerBridge, 1000, publishInterval, TimeUnit.MILLISECONDS );
-  }
-
-  private void disableAutoDiscovery() {
-    // don't look for implementations described by META-INF/services/*
-    this.application.addProperty(ServerProperties.METAINF_SERVICES_LOOKUP_DISABLE, false );
-    // disable auto discovery on server, as it's handled via OSGI
-    this.application.addProperty(ServerProperties.FEATURE_AUTO_DISCOVERY_DISABLE, true );
-  }
-
-  /**
-   * WADL generation is enabled in Jersey by default. This means that OPTIONS methods are added by
-   * default to each resource and an auto-generated /application.wadl resource is deployed too. In
-   * case you want to disable that you can set this property to true.
-   * 
-   * @param disableWadl <code>true</code> to disable WADL feature 
-   */
-  private void disableWadl( boolean disableWadl ) {
-    this.application.addProperty( ServerProperties.WADL_FEATURE_DISABLE, disableWadl );
+    }
   }
 
   public void addResource( Object resource ) {
     getRootApplication().addResource( resource );
     registerServletWhenNotAlreadyRegistered();
+    resourcePublisher.schedulePublishing();
   }
 
   void registerServletWhenNotAlreadyRegistered() {
@@ -119,13 +104,27 @@ public class JerseyContext {
     ClassLoader original = getContextClassloader();
     try {
       Thread.currentThread().setContextClassLoader( Application.class.getClassLoader() );
-      httpService.registerServlet( rootPath, 
+      httpService.registerServlet( configuration.getRoothPath(), 
                                    servletContainerBridge.getServletContainer(), 
-                                   null, 
-                                   null );
+                                   getInitParams(), 
+                                   getHttpContext() );
     } finally {
       resetContextClassloader( original );
     }
+  }
+
+  private Dictionary getInitParams() {
+    if( servletConfiguration != null ) {
+      return servletConfiguration.getInitParams( httpService, configuration.getRoothPath() );
+    }
+    return null;
+  }
+
+  private HttpContext getHttpContext() {
+    if( servletConfiguration != null ) {
+      return servletConfiguration.getHttpContext( httpService, configuration.getRoothPath() );
+    }
+    return null;
   }
 
   private void resetContextClassloader( ClassLoader loader ) {
@@ -135,24 +134,35 @@ public class JerseyContext {
   public void removeResource( Object resource ) {
     getRootApplication().removeResource( resource );
     unregisterServletWhenNoresourcePresents();
+    resourcePublisher.schedulePublishing();
   }
 
   private void unregisterServletWhenNoresourcePresents() {
-    if( !getRootApplication().hasResources() ) {
-      httpService.unregister( rootPath );
-      servletContainerBridge.reset();
-      isApplicationRegistered = false;
+    if( !getRootApplication().hasResources() && isApplicationRegistered ) {
+      // unregistering while jersey context is being reloaded can lead to many exceptions
+      synchronized( servletContainerBridge ) {
+        httpService.unregister( configuration.getRoothPath() );
+        servletContainerBridge.reset();
+        resourcePublisher.cancelPublishing();
+        isApplicationRegistered = false;
+      }
     }
   }
 
   public List<Object> eliminate() {
-    servletContainerBridge.destroy();
-    try {
-      httpService.unregister( rootPath );
-    } catch( Exception jerseyShutdownException ) {
-      // do nothing because jersey sometimes throws an exception during shutdown
+    if( isApplicationRegistered ) {
+      // unregistering while jersey context is being reloaded can lead to many exceptions
+      synchronized( servletContainerBridge ) {
+        try {
+          // this should call destroy on our servlet container
+          httpService.unregister( configuration.getRoothPath() );
+        } catch( Exception jerseyShutdownException ) {
+          // do nothing because jersey sometimes throws an exception during shutdown
+        }
+      }
+      resourcePublisher.cancelPublishing();
     }
-    return new ArrayList<Object>( getRootApplication().getSingletons() );
+    return new ArrayList<Object>( getRootApplication().getResources() );
   }
 
   // For testing purpose

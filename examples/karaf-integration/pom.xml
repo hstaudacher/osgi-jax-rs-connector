@@ -7,7 +7,7 @@
     <groupId>com.eclipsesource.jaxrs</groupId>
     <artifactId>osgi-jax-rs-connector-pom</artifactId>
     <packaging>pom</packaging>
-    <version>4.2-SNAPSHOT</version>
+    <version>4.3</version>
 
     <modules>
         <module>features</module>
@@ -24,11 +24,11 @@
 
     <properties>
         <!-- Change jax-rs connector versions as you like, see available versions here: http://search.maven.org/#search%7Cga%7C1%7Ccom.eclipsesource.jaxrs --> 
-        <jax-rs-publisher.version>4.2-SNAPSHOT</jax-rs-publisher.version>
-        <jax-rs-consumer.version>3.1-SNAPSHOT</jax-rs-consumer.version>
-        <jax-rs-jersey-all.version>2.13-SNAPSHOT</jax-rs-jersey-all.version>
-        <jax-rs-providers.version>2.0.1-SNAPSHOT</jax-rs-providers.version>
-        <jax-rs-providers.gson.version>2.1-SNAPSHOT</jax-rs-providers.gson.version>
+        <jax-rs-publisher.version>4.3</jax-rs-publisher.version>
+        <jax-rs-consumer.version>3.2</jax-rs-consumer.version>
+        <jax-rs-jersey-all.version>2.17</jax-rs-jersey-all.version>
+        <jax-rs-providers.version>2.1</jax-rs-providers.version>
+        <jax-rs-providers.gson.version>2.2</jax-rs-providers.gson.version>
       
         <lombok.version>1.14.8</lombok.version>
         <javaee-web-api.version>7.0</javaee-web-api.version>

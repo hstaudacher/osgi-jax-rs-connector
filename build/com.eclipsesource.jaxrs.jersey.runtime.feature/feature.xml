@@ -2,7 +2,7 @@
 <feature
       id="com.eclipsesource.jaxrs.jersey.runtime.feature"
       label="Jersey Runtime"
-      version="2.13.0.qualifier"
+      version="2.17.0.qualifier"
       provider-name="EclipseSource">
 
    <description url="http://www.example.com/description">
@@ -26,6 +26,13 @@
 
    <plugin
          id="com.eclipsesource.jaxrs.jersey-all"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="com.eclipsesource.jaxrs.jersey-min"
          download-size="0"
          install-size="0"
          version="0.0.0"

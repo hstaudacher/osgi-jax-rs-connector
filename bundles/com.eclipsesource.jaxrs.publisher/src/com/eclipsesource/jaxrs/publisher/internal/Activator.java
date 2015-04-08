@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2012 EclipseSource and others.
+ * Copyright (c) 2012,2015 EclipseSource and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -8,6 +8,7 @@
  * Contributors:
  *    Holger Staudacher - initial API and implementation
  *    ProSyst Software GmbH. - compatibility with OSGi specification 4.2 APIs
+ *    Ivan Iliev - added ServletConfigurationTracker
  ******************************************************************************/
 package com.eclipsesource.jaxrs.publisher.internal;
 
@@ -36,6 +37,8 @@ public class Activator implements BundleActivator {
   private JAXRSConnector jaxRsConnector;
   private HttpTracker httpTracker;
   private ResourceTracker allTracker;
+  private ServletConfigurationTracker servletConfigurationTracker;
+  private ApplicationConfigurationTracker applicationConfigurationTracker;
   private ServiceRegistration configRegistration;
 
   @Override
@@ -47,6 +50,8 @@ public class Activator implements BundleActivator {
     registerConfiguration( context );
     connectorRegistration = context.registerService( JAXRSConnector.class.getName(), jaxRsConnector, null );
     openHttpServiceTracker( context );
+    openServletConfigurationTracker( context );
+    openApplicationConfigurationTracker( context );
     openAllServiceTracker( context );
   }
 
@@ -70,6 +75,16 @@ public class Activator implements BundleActivator {
     httpTracker.open();
   }
 
+  private void openServletConfigurationTracker( BundleContext context ) {
+    servletConfigurationTracker = new ServletConfigurationTracker( context, jaxRsConnector );
+    servletConfigurationTracker.open();
+  }
+  
+  private void openApplicationConfigurationTracker( BundleContext context ) {
+    applicationConfigurationTracker = new ApplicationConfigurationTracker( context, jaxRsConnector );
+    applicationConfigurationTracker.open();
+  }
+  
   private void openAllServiceTracker( BundleContext context ) throws InvalidSyntaxException {
     ResourceFilter allResourceFilter = getResourceFilter( context );
     allTracker = new ResourceTracker( context, allResourceFilter.getFilter(), jaxRsConnector );
@@ -87,6 +102,8 @@ public class Activator implements BundleActivator {
   @Override
   public void stop( BundleContext context ) throws Exception {
     httpTracker.close();
+    servletConfigurationTracker.close();
+    applicationConfigurationTracker.close();
     allTracker.close();
     connectorRegistration.unregister();
     configRegistration.unregister();

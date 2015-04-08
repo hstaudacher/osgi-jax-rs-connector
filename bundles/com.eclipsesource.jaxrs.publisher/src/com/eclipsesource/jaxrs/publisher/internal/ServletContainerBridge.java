@@ -1,3 +1,13 @@
+/*******************************************************************************
+ * Copyright (c) 2014,2015 EclipseSource and others.
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *    Holger Staudacher - initial API and implementation
+ ******************************************************************************/
 package com.eclipsesource.jaxrs.publisher.internal;
 
 import javax.ws.rs.core.Request;
@@ -22,10 +32,11 @@ public class ServletContainerBridge implements Runnable {
       ClassLoader original = Thread.currentThread().getContextClassLoader();
       try {
         Thread.currentThread().setContextClassLoader( Request.class.getClassLoader() );
-        getServletContainer().reload( ResourceConfig.forApplication( application ) );
+        synchronized( this ) {
+          getServletContainer().reload( ResourceConfig.forApplication( application ) );
+        }
       } finally {
         Thread.currentThread().setContextClassLoader( original );
-        application.setDirty( false );
       }
     }
   }
@@ -35,10 +46,14 @@ public class ServletContainerBridge implements Runnable {
   }
 
   public void destroy() {
-    servletContainer.destroy();
+    synchronized( this ) {
+      servletContainer.destroy();
+    }
   }
 
   public void reset() {
-    this.servletContainer = new ServletContainer( ResourceConfig.forApplication( application ) );
+    synchronized( this ) {
+      this.servletContainer = new ServletContainer( ResourceConfig.forApplication( application ) );
+    }
   }
 }

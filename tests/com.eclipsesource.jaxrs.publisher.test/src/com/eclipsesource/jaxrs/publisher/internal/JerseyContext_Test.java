@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2012 EclipseSource and others.
+ * Copyright (c) 2012,2015 EclipseSource and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -7,6 +7,7 @@
  *
  * Contributors:
  *    Holger Staudacher - initial API and implementation
+ *    Ivan Iliev - added tests for ServletConfigurationTracker
  ******************************************************************************/
 package com.eclipsesource.jaxrs.publisher.internal;
 
@@ -16,12 +17,15 @@ import static org.mockito.Matchers.anyString;
 import static org.mockito.Matchers.eq;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.doThrow;
+import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.spy;
+import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import java.util.Dictionary;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -37,9 +41,14 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
+import org.osgi.framework.BundleContext;
+import org.osgi.framework.ServiceReference;
 import org.osgi.service.http.HttpContext;
 import org.osgi.service.http.HttpService;
 import org.osgi.service.http.NamespaceException;
+
+import com.eclipsesource.jaxrs.publisher.ApplicationConfiguration;
+import com.eclipsesource.jaxrs.publisher.ServletConfiguration;
 
 
 @RunWith( MockitoJUnitRunner.class )
@@ -55,7 +64,12 @@ public class JerseyContext_Test {
 
   @Before
   public void setUp() {
-    JerseyContext original = new JerseyContext( httpService, "/test", false, 23 );
+    Configuration configuration = createConfiguration( "/test", false, 23L );
+    ServletConfiguration servletConfigurationService = mock( ServletConfiguration.class );
+    JerseyContext original = new JerseyContext( httpService,
+                                                configuration,
+                                                servletConfigurationService,
+                                                new ServiceContainer( mock( BundleContext.class ) ) );
     jerseyContext = spy( original );
     doReturn( rootApplication ).when( jerseyContext ).getRootApplication();
   }
@@ -107,7 +121,7 @@ public class JerseyContext_Test {
     Object resource = new Object();
     Set<Object> list = new HashSet<Object>();
     list.add( resource );
-    when( rootApplication.getSingletons() ).thenReturn( list );
+    when( rootApplication.getResources() ).thenReturn( list );
     jerseyContext.addResource( resource );
     
     List<Object> resources = jerseyContext.eliminate();
@@ -124,7 +138,7 @@ public class JerseyContext_Test {
     Object resource = new Object();
     Set<Object> list = new HashSet<Object>();
     list.add( resource );
-    when( rootApplication.getSingletons() ).thenReturn( list );
+    when( rootApplication.getResources() ).thenReturn( list );
     jerseyContext.addResource( resource );
     
     List<Object> resources = jerseyContext.eliminate();
@@ -158,7 +172,12 @@ public class JerseyContext_Test {
   
   @Test
   public void testDoesNotRegster_METAINF_SERVICES_LOOKUP_DISABLE() {
-    JerseyContext context = new JerseyContext( httpService, "/test", false, 23 ); 
+    Configuration configuration = createConfiguration( "/test", false, 23L );
+    ServletConfiguration servletConfigurationService = mock( ServletConfiguration.class );
+    JerseyContext context = new JerseyContext( httpService,
+                                               configuration,
+                                               servletConfigurationService,
+                                               new ServiceContainer( mock( BundleContext.class ) ) ); 
     
     Map<String, Object> properties = context.getRootApplication().getProperties();
     
@@ -167,7 +186,12 @@ public class JerseyContext_Test {
   
   @Test
   public void testRegsters_FEATURE_AUTO_DISCOVERY_DISABLE() {
-    JerseyContext context = new JerseyContext( httpService, "/test", false, 23 );
+    Configuration configuration = createConfiguration( "/test", false, 23L );
+    ServletConfiguration servletConfigurationService = mock( ServletConfiguration.class );
+    JerseyContext context = new JerseyContext( httpService,
+                                               configuration,
+                                               servletConfigurationService,
+                                               new ServiceContainer( mock( BundleContext.class ) ) );
     
     Map<String, Object> properties = context.getRootApplication().getProperties();
     
@@ -176,11 +200,62 @@ public class JerseyContext_Test {
   
   @Test
   public void testRegsters_WADL_FEATURE_DISABLE() {
-    JerseyContext context = new JerseyContext( httpService, "/test", true, 23);
+    Configuration configuration = createConfiguration( "/test", true, 23L );
+    ServletConfiguration servletConfigurationService = mock( ServletConfiguration.class );
+    JerseyContext context = new JerseyContext( httpService,
+                                               configuration,
+                                               servletConfigurationService,
+                                               new ServiceContainer( mock( BundleContext.class ) ) );
     
     Map<String, Object> properties = context.getRootApplication().getProperties();
     
     assertEquals( true, properties.get( ServerProperties.WADL_FEATURE_DISABLE ) );
+  }
+  
+  @Test
+  public void testAddResourceWithServletConfigurationServicePresent() throws Exception {
+    Configuration configuration = createConfiguration( "/test", false, 23L );
+    ServletConfiguration servletConfigurationService = mock( ServletConfiguration.class );
+    JerseyContext withConfiguration = spy( new JerseyContext( httpService,
+                                                              configuration,
+                                                              servletConfigurationService,
+                                                              new ServiceContainer( mock( BundleContext.class ) ) ) );
+    Object resource = new Object();
+    withConfiguration.addResource( resource );
+    
+    verify( servletConfigurationService, times( 1 ) ).getHttpContext( any( HttpService.class ), anyString() );
+    verify( servletConfigurationService, times( 1 ) ).getInitParams( any( HttpService.class ), anyString() );
+  }
+  
+  @Test
+  public void testAddsApplicationConfigurationsOnStart() {
+    BundleContext context = mock( BundleContext.class );
+    ServiceContainer container = new ServiceContainer( context );
+    ServiceReference reference = mock( ServiceReference.class );
+    ApplicationConfiguration appConfig = mock( ApplicationConfiguration.class );
+    Map<String, Object> map = new HashMap<>();
+    map.put( "foo", "bar" );
+    when( appConfig.getProperties() ).thenReturn( map );
+    when( context.getService( reference ) ).thenReturn( appConfig );
+    container.add( reference );
+    Configuration configuration = createConfiguration( "/test", false, 23L );
+    ServletConfiguration servletConfigurationService = mock( ServletConfiguration.class );
+    JerseyContext jerseyContext = new JerseyContext( httpService,
+                                                          configuration,
+                                                          servletConfigurationService,
+                                                          container );
+    
+    Map<String, Object> properties = jerseyContext.getRootApplication().getProperties();
+    assertEquals( properties.get( "foo" ), "bar" );
+  }
+  
+  @SuppressWarnings( "deprecation" )
+  private Configuration createConfiguration( String path, boolean wadlDisable, long publishDelay ) {
+    Configuration configuration = mock( Configuration.class );
+    when( configuration.getRoothPath() ).thenReturn( path );
+    when( configuration.getPublishDelay() ).thenReturn( publishDelay );
+    when( configuration.isWadlDisabled() ).thenReturn( wadlDisable );
+    return configuration;
   }
   
 }
