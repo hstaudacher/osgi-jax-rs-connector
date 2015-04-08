@@ -32,7 +32,9 @@ public class HttpTracker extends ServiceTracker {
     return connector.addHttpService( reference );
   }
 
-  public void removedService( ServiceReference reference, HttpService service ) {
-    connector.removeHttpService( service );
+  @Override
+  public void removedService( ServiceReference reference, Object service ) {
+    connector.removeHttpService( (HttpService) service );
   }
+
 }
