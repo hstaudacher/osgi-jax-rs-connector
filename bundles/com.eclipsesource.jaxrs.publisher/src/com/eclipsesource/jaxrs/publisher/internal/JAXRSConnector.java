@@ -1,13 +1,9 @@
 /*******************************************************************************
- * Copyright (c) 2012 EclipseSource and others.
- * All rights reserved. This program and the accompanying materials
- * are made available under the terms of the Eclipse Public License v1.0
+ * Copyright (c) 2012 EclipseSource and others. All rights reserved. This program and the
+ * accompanying materials are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
- * http://www.eclipse.org/legal/epl-v10.html
- *
- * Contributors:
- *    Holger Staudacher - initial API and implementation
- *    ProSyst Software GmbH. - compatibility with OSGi specification 4.2 APIs
+ * http://www.eclipse.org/legal/epl-v10.html Contributors: Holger Staudacher - initial API and
+ * implementation ProSyst Software GmbH. - compatibility with OSGi specification 4.2 APIs
  ******************************************************************************/
 package com.eclipsesource.jaxrs.publisher.internal;
 
@@ -24,13 +20,11 @@ import com.eclipsesource.jaxrs.publisher.ApplicationConfiguration;
 import com.eclipsesource.jaxrs.publisher.ServletConfiguration;
 import com.eclipsesource.jaxrs.publisher.internal.ServiceContainer.ServiceHolder;
 
-
 public class JAXRSConnector {
-  
+
   private static final String HTTP_SERVICE_PORT_PROPERTY = "org.osgi.service.http.port";
   private static final String RESOURCE_HTTP_PORT_PROPERTY = "http.port";
   private static final String DEFAULT_HTTP_PORT = "80";
-  
   private final Object lock = new Object();
   private final ServiceContainer httpServices;
   private final ServiceContainer resources;
@@ -50,57 +44,75 @@ public class JAXRSConnector {
     this.resourceCache = new ArrayList<ServiceHolder>();
     this.applicationConfigurations = new ServiceContainer( bundleContext );
   }
-  
+
   void updateConfiguration( Configuration configuration ) {
     synchronized( lock ) {
       this.configuration = configuration;
-      doUpdateHttpServices();
+      doUpdateConfiguration(configuration);   
     }
   }
-  
+
   HttpService addHttpService( ServiceReference reference ) {
     synchronized( lock ) {
       return doAddHttpService( reference );
     }
   }
-  
+
   ServletConfiguration setServletConfiguration( ServiceReference reference ) {
     if( servletConfiguration == null ) {
       servletConfiguration = ( ServletConfiguration )bundleContext.getService( reference );
-      doUpdateHttpServices();
+      doUpdateServletConfiguration();
       return servletConfiguration;
     }
     return null;
   }
-  
-  void unsetServletConfiguration(ServiceReference reference, ServletConfiguration service) {
+
+  void unsetServletConfiguration( ServiceReference reference, ServletConfiguration service ) {
     if( servletConfiguration == service ) {
       servletConfiguration = null;
       bundleContext.ungetService( reference );
-      doUpdateHttpServices();
+      doUpdateServletConfiguration();
     }
-  } 
+  }
 
   ApplicationConfiguration addApplicationConfiguration( ServiceReference reference ) {
     synchronized( lock ) {
-      ApplicationConfiguration service = ( ApplicationConfiguration )applicationConfigurations.add( reference ).getService();
-      doUpdateHttpServices();
+      ApplicationConfiguration service = ( ApplicationConfiguration )applicationConfigurations.add( reference )
+        .getService();
+      doUpdateAppConfiguration();
       return service;
     }
   }
 
-  void removeApplicationConfiguration( ServiceReference reference, ApplicationConfiguration service ) {
+  void removeApplicationConfiguration( ServiceReference reference, ApplicationConfiguration service )
+  {
     synchronized( lock ) {
       applicationConfigurations.remove( service );
-      doUpdateHttpServices();
+      doUpdateAppConfiguration();
+    }
+  }
+  
+  private void doUpdateServletConfiguration() {
+    ServiceHolder[] services = httpServices.getServices();
+    for( ServiceHolder serviceHolder : services ) {
+      contextMap.get( serviceHolder.getService() )
+        .updateServletConfiguration( servletConfiguration );
+    }
+  }
+  
+  private void doUpdateAppConfiguration() {
+    ServiceHolder[] services = httpServices.getServices();
+    for( ServiceHolder serviceHolder : services ) {
+      contextMap.get( serviceHolder.getService() )
+        .updateAppConfiguration( applicationConfigurations );
     }
   }
 
-  private void doUpdateHttpServices() {
+  private void doUpdateConfiguration(Configuration configuration) {
     ServiceHolder[] services = httpServices.getServices();
     for( ServiceHolder serviceHolder : services ) {
-      doRemoveHttpService( ( HttpService )serviceHolder.getService() );
-      doAddHttpService( serviceHolder.getReference() );
+      contextMap.get( serviceHolder.getService() )
+        .updateConfiguration( configuration );
     }
   }
 
@@ -221,6 +233,9 @@ public class JAXRSConnector {
                                      Configuration configuration,
                                      ServletConfiguration servletConfiguration )
   {
-    return new JerseyContext( service, configuration, servletConfiguration, applicationConfigurations );
+    return new JerseyContext( service,
+                              configuration,
+                              servletConfiguration,
+                              applicationConfigurations );
   }
 }

@@ -28,11 +28,14 @@ public class HttpTracker extends ServiceTracker {
   }
 
   @Override
-  public HttpService addingService( ServiceReference reference ) {
+  public Object addingService( ServiceReference reference ) {
     return connector.addHttpService( reference );
   }
 
-  public void removedService( ServiceReference reference, HttpService service ) {
-    connector.removeHttpService( service );
+  @Override
+  public void removedService( ServiceReference reference, Object service ) {
+    if(service instanceof HttpService) {
+      connector.removeHttpService( (HttpService)service );
+    }
   }
 }

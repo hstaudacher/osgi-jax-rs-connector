@@ -52,9 +52,12 @@ public class RootApplication_Test {
     application.addResource( resource );
     application.removeResource( resource );
     
+    assertTrue(application.isDirty());
+    
     Set<Object> services = application.getSingletons();
     
     assertEquals( 0, services.size() );
+    assertFalse(application.isDirty());
   }
   
   @Test
@@ -72,10 +75,14 @@ public class RootApplication_Test {
     Object resource2 = mock( Object.class );
     application.addResource( resource2 );
     
+    assertTrue(application.isDirty());
+    
     Set<Object> resources = application.getSingletons();
     assertEquals( 2, resources.size() );
     assertTrue( resources.contains( resource1 ) );
     assertTrue( resources.contains( resource2 ) );
+    
+    assertFalse(application.isDirty());
   }
   
   @Test
@@ -132,6 +139,27 @@ public class RootApplication_Test {
     assertEquals( 2, properties.size() );
     assertEquals( "bar", properties.get( "foo" ) );
     assertEquals( "bar2", properties.get( "foo2" ) );
+  }
+  
+  @Test
+  public void testAddPropertiesMarksDirty() {
+    HashMap<String, Object> map = new HashMap<>();
+    map.put( "foo", "bar" );
+    map.put( "foo2", "bar2" );
+    
+    application.addProperties( map );
+    application.setDirty( false );
+    
+    application.addProperties( map );
+    
+    assertEquals(application.isDirty(), false);
+    
+    
+    map.put( "foo", "bar3" );
+    application.addProperties( map );
+    
+    assertEquals(application.isDirty(), true);
+    
   }
   
 }
