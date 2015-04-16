@@ -1,13 +1,9 @@
 /*******************************************************************************
- * Copyright (c) 2012 EclipseSource and others.
- * All rights reserved. This program and the accompanying materials
- * are made available under the terms of the Eclipse Public License v1.0
+ * Copyright (c) 2012 EclipseSource and others. All rights reserved. This program and the
+ * accompanying materials are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
- * http://www.eclipse.org/legal/epl-v10.html
- *
- * Contributors:
- *    Holger Staudacher - initial API and implementation
- *    Dragos Dascalita  - added properties
+ * http://www.eclipse.org/legal/epl-v10.html Contributors: Holger Staudacher - initial API and
+ * implementation Dragos Dascalita - added properties
  ******************************************************************************/
 package com.eclipsesource.jaxrs.publisher.internal;
 
@@ -20,33 +16,32 @@ import java.util.Set;
 
 import javax.ws.rs.core.Application;
 
-
 public class RootApplication extends Application {
-  
+
   private final Map<String, Object> properties;
   private final List<Object> resources;
   private final Object lock = new Object();
-  private boolean dirty;
+  private volatile boolean dirty;
 
   public RootApplication() {
     resources = new LinkedList<Object>();
     properties = new HashMap<String, Object>();
   }
-  
+
   void addResource( Object resource ) {
     synchronized( lock ) {
       resources.add( resource );
       dirty = true;
     }
   }
-  
+
   void removeResource( Object resource ) {
     synchronized( lock ) {
       resources.remove( resource );
-      dirty = false;
+      dirty = true;
     }
   }
-  
+
   boolean hasResources() {
     return !resources.isEmpty();
   }
@@ -61,7 +56,7 @@ public class RootApplication extends Application {
       return currentResources;
     }
   }
-  
+
   public Set<Object> getResources() {
     Set<Object> singletons = new HashSet<Object>( super.getSingletons() );
     singletons.addAll( resources );
@@ -74,11 +69,18 @@ public class RootApplication extends Application {
   }
 
   public void addProperty( String key, Object value ) {
+    Object oldValue = properties.get( key );
     properties.put( key, value );
+    // if application is not dirty but the current property is changed - mark it
+    if( !dirty && ( value != oldValue && ( value == null || !value.equals( oldValue ) ) ) ) {
+      dirty = true;
+    }
   }
 
   public void addProperties( Map<String, Object> properties ) {
-    this.properties.putAll( properties );
+    for( Map.Entry<String, Object> entry : properties.entrySet() ) {
+      addProperty( entry.getKey(), entry.getValue() );
+    }
   }
 
   public boolean isDirty() {
@@ -92,5 +94,4 @@ public class RootApplication extends Application {
       dirty = isDirty;
     }
   }
-  
 }

@@ -108,7 +108,7 @@ public class ResourceTrackerWithResourceInterface_Test {
     
     resourceTracker.removedService( reference, service );
     
-    verify( connector, never() ).removeResource( service );
+    verify( connector ).removeResource( service );
     verify( context ).ungetService( reference );
   }
 }

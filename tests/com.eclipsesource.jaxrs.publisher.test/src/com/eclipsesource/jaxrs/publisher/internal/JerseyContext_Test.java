@@ -258,4 +258,72 @@ public class JerseyContext_Test {
     return configuration;
   }
   
+  @Test
+  public void testUpdateConfigurationBeforeServletRegistered() {
+    Configuration configuration = createConfiguration("/test2", true, 15000L);
+    jerseyContext.updateConfiguration( configuration );
+    
+    verify(jerseyContext).updateConfiguration( configuration );
+    verify(jerseyContext, never()).safeUnregister( "/test" );
+    verify(jerseyContext, never()).registerServletWhenNotAlreadyRegistered();
+  }
+  
+  @Test
+  public void testUpdateConfigurationAfterServletRegistered() {
+    Object resource = new Object();
+    
+    jerseyContext.addResource( resource );
+    
+    Configuration configuration = createConfiguration("/test2", true, 15000L);
+    jerseyContext.updateConfiguration( configuration );
+    
+    verify(jerseyContext).updateConfiguration( configuration );
+    verify(jerseyContext).safeUnregister( "/test" );
+    verify(jerseyContext, times(2)).registerServletWhenNotAlreadyRegistered();
+  }
+  
+  @Test
+  public void testUpdateAppConfiguration() {
+    BundleContext context = mock( BundleContext.class );
+    ServiceContainer container = new ServiceContainer( context );
+    ServiceReference reference = mock( ServiceReference.class );
+    ApplicationConfiguration appConfig = mock( ApplicationConfiguration.class );
+    Map<String, Object> map = new HashMap<>();
+    map.put( "foo", "bar" );
+    when( appConfig.getProperties() ).thenReturn( map );
+    when( context.getService( reference ) ).thenReturn( appConfig );
+    container.add( reference );
+
+    
+    jerseyContext.updateAppConfiguration( container );
+    
+    verify( rootApplication).addProperties( map );
+  }
+  
+  @Test
+  public void testUpdateServletConfigurationBeforeServletRegistered() {
+    ServletConfiguration configuration = mock ( ServletConfiguration.class);
+    
+    jerseyContext.updateServletConfiguration( configuration );
+    
+    verify(jerseyContext).updateServletConfiguration( configuration );
+    verify(jerseyContext, never()).safeUnregister( "/test" );
+    verify(jerseyContext, never()).registerServletWhenNotAlreadyRegistered();
+  }
+  
+  @Test
+  public void testUpdateServletConfigurationAfterServletRegistered() {
+    Object resource = new Object();
+    
+    jerseyContext.addResource( resource );
+    
+    ServletConfiguration configuration = mock ( ServletConfiguration.class);
+    
+    jerseyContext.updateServletConfiguration( configuration );
+    
+    verify(jerseyContext).updateServletConfiguration( configuration );
+    verify(jerseyContext).safeUnregister( "/test" );
+    verify(jerseyContext, times(2)).registerServletWhenNotAlreadyRegistered();
+  }
+  
 }
