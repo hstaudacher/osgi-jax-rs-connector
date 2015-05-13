@@ -9,7 +9,7 @@
  *    Holger Staudacher - initial API and implementation
  *    Dragos Dascalita  - disbaled autodiscovery
  *    Lars Pfannenschmidt  - made WADL generation configurable
- *    Ivan Iliev - added ServletConfiguration handling
+ *    Ivan Iliev - added ServletConfiguration handling, Optimized Performance
  ******************************************************************************/
 package com.eclipsesource.jaxrs.publisher.internal;
 
@@ -36,30 +36,38 @@ public class JerseyContext {
   private final RootApplication application;
   private final HttpService httpService;
   private final ServletContainerBridge servletContainerBridge;
-  private final Configuration configuration;
-  private final ServletConfiguration servletConfiguration;
   private final ResourcePublisher resourcePublisher;
-  private boolean isApplicationRegistered;
-  
-  public JerseyContext( HttpService httpService, Configuration configuration, ServletConfiguration servletConfiguration, ServiceContainer applicationConfigurations ) {
+  private volatile boolean isApplicationRegistered;
+  private Configuration configuration;
+  private ServletConfiguration servletConfiguration;
+  private String rootPath;
+  private ServiceContainer applicationConfigurations;
+
+  public JerseyContext( HttpService httpService,
+                        Configuration configuration,
+                        ServletConfiguration servletConfiguration,
+                        ServiceContainer applicationConfigurations )
+  {
     this.httpService = httpService;
+    this.rootPath = configuration.getRoothPath();
     this.configuration = configuration;
     this.application = new RootApplication();
+    this.applicationConfigurations = applicationConfigurations;
     applyApplicationConfigurations( applicationConfigurations );
     this.servletContainerBridge = new ServletContainerBridge( application );
     this.servletConfiguration = servletConfiguration;
     this.resourcePublisher = new ResourcePublisher( servletContainerBridge, configuration.getPublishDelay() );
   }
 
-  private void applyApplicationConfigurations( ServiceContainer applicationConfigurations ) {
-    application.addProperties( new DefaultApplicationConfiguration( configuration ).getProperties() );
+  void applyApplicationConfigurations( ServiceContainer applicationConfigurations ) {
+    getRootApplication().addProperties( new DefaultApplicationConfiguration( configuration ).getProperties() );
     ServiceHolder[] services = applicationConfigurations.getServices();
     for( ServiceHolder serviceHolder : services ) {
       Object service = serviceHolder.getService();
       if( service instanceof ApplicationConfiguration ) {
         Map<String, Object> properties = ( ( ApplicationConfiguration )service ).getProperties();
         if( properties != null ) {
-          application.addProperties( properties );
+          getRootApplication().addProperties( properties );
         }
       }
     }
@@ -69,6 +77,53 @@ public class JerseyContext {
     getRootApplication().addResource( resource );
     registerServletWhenNotAlreadyRegistered();
     resourcePublisher.schedulePublishing();
+  }
+
+  public void updateConfiguration( Configuration configuration ) {
+    resourcePublisher.setPublishDelay( configuration.getPublishDelay() );
+    String oldRootPath = this.rootPath;
+    this.configuration = configuration;
+    this.rootPath = configuration.getRoothPath();
+    handleRootPath( oldRootPath );
+    applyApplicationConfigurations( this.applicationConfigurations );
+    handeRepublish();
+  }
+
+  private void handleRootPath( String oldRootPath ) {
+    // if rootPath has changed and we already have registered our servlet and we need to refresh it
+    if( isApplicationRegistered && !oldRootPath.equals( rootPath ) ) {
+      refreshServletRegistration( oldRootPath );
+    }
+  }
+
+  public void updateAppConfiguration( ServiceContainer applicationConfigurations ) {
+    this.applicationConfigurations = applicationConfigurations;
+    applyApplicationConfigurations( this.applicationConfigurations );
+    handeRepublish();
+  }
+
+  public void updateServletConfiguration( ServletConfiguration servletConfiguration ) {
+    boolean isServletUpdateRequired = this.servletConfiguration != servletConfiguration;
+    this.servletConfiguration = servletConfiguration;
+    // if servletConfiguration object has changed and we already have a servlet - refresh it
+    if( isApplicationRegistered && isServletUpdateRequired ) {
+      refreshServletRegistration( rootPath );
+    }
+    handeRepublish();
+  }
+
+  private void handeRepublish() {
+    // if application has been marked dirty and we have registered resources - we will republish
+    if( isApplicationRegistered ) {
+      resourcePublisher.schedulePublishing();
+    }
+  }
+
+  private void refreshServletRegistration( String pathToUnregister ) {
+    synchronized( servletContainerBridge ) {
+      safeUnregister( pathToUnregister );
+    }
+    registerServletWhenNotAlreadyRegistered();
   }
 
   void registerServletWhenNotAlreadyRegistered() {
@@ -104,10 +159,7 @@ public class JerseyContext {
     ClassLoader original = getContextClassloader();
     try {
       Thread.currentThread().setContextClassLoader( Application.class.getClassLoader() );
-      httpService.registerServlet( configuration.getRoothPath(), 
-                                   servletContainerBridge.getServletContainer(), 
-                                   getInitParams(), 
-                                   getHttpContext() );
+      httpService.registerServlet( rootPath, servletContainerBridge, getInitParams(), getHttpContext() );
     } finally {
       resetContextClassloader( original );
     }
@@ -115,14 +167,14 @@ public class JerseyContext {
 
   private Dictionary getInitParams() {
     if( servletConfiguration != null ) {
-      return servletConfiguration.getInitParams( httpService, configuration.getRoothPath() );
+      return servletConfiguration.getInitParams( httpService, rootPath );
     }
     return null;
   }
 
   private HttpContext getHttpContext() {
     if( servletConfiguration != null ) {
-      return servletConfiguration.getHttpContext( httpService, configuration.getRoothPath() );
+      return servletConfiguration.getHttpContext( httpService, rootPath );
     }
     return null;
   }
@@ -130,44 +182,46 @@ public class JerseyContext {
   private void resetContextClassloader( ClassLoader loader ) {
     Thread.currentThread().setContextClassLoader( loader );
   }
-  
+
   public void removeResource( Object resource ) {
     getRootApplication().removeResource( resource );
-    unregisterServletWhenNoresourcePresents();
+    unregisterServletWhenNoResourcePresents();
     resourcePublisher.schedulePublishing();
   }
 
-  private void unregisterServletWhenNoresourcePresents() {
+  private void unregisterServletWhenNoResourcePresents() {
     if( !getRootApplication().hasResources() && isApplicationRegistered ) {
       // unregistering while jersey context is being reloaded can lead to many exceptions
+      resourcePublisher.cancelPublishing();
       synchronized( servletContainerBridge ) {
-        httpService.unregister( configuration.getRoothPath() );
-        servletContainerBridge.reset();
-        resourcePublisher.cancelPublishing();
-        isApplicationRegistered = false;
+        safeUnregister( this.rootPath );
       }
     }
   }
 
   public List<Object> eliminate() {
+    resourcePublisher.cancelPublishing();
+    resourcePublisher.shutdown();
     if( isApplicationRegistered ) {
-      // unregistering while jersey context is being reloaded can lead to many exceptions
       synchronized( servletContainerBridge ) {
-        try {
-          // this should call destroy on our servlet container
-          httpService.unregister( configuration.getRoothPath() );
-        } catch( Exception jerseyShutdownException ) {
-          // do nothing because jersey sometimes throws an exception during shutdown
-        }
+        safeUnregister( this.rootPath );
       }
-      resourcePublisher.cancelPublishing();
     }
     return new ArrayList<Object>( getRootApplication().getResources() );
+  }
+
+  void safeUnregister( String rootPath ) {
+    try {
+      // this should call destroy on our servlet container
+      httpService.unregister( rootPath );
+    } catch( Exception jerseyShutdownException ) {
+      // do nothing because jersey sometimes throws an exception during shutdown
+    }
+    isApplicationRegistered = false;
   }
 
   // For testing purpose
   RootApplication getRootApplication() {
     return application;
   }
-
 }

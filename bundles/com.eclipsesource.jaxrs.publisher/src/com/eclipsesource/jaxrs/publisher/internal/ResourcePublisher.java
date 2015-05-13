@@ -7,6 +7,7 @@
  *
  * Contributors:
  *    Holger Staudacher - initial API and implementation
+ *    Ivan Iliev - Performance Optimizations
  ******************************************************************************/
 package com.eclipsesource.jaxrs.publisher.internal;
 
@@ -21,15 +22,18 @@ import java.util.concurrent.TimeUnit;
 public class ResourcePublisher {
 
   private final ServletContainerBridge servletContainerBridge;
-  private final long publishDelay;
   private final ScheduledExecutorService executor;
+  private long publishDelay;
   private volatile ScheduledFuture<?> scheduledFuture;
-  
+
   public ResourcePublisher( ServletContainerBridge servletContainerBridge, long publishDelay ) {
     this( createExecutor(), servletContainerBridge, publishDelay );
   }
 
-  ResourcePublisher( ScheduledExecutorService executor, ServletContainerBridge servletContainerBridge, long publishDelay ) {
+  ResourcePublisher( ScheduledExecutorService executor,
+                     ServletContainerBridge servletContainerBridge,
+                     long publishDelay )
+  {
     this.servletContainerBridge = servletContainerBridge;
     this.publishDelay = publishDelay;
     this.executor = executor;
@@ -37,12 +41,12 @@ public class ResourcePublisher {
 
   private static ScheduledExecutorService createExecutor() {
     return Executors.newSingleThreadScheduledExecutor( new ThreadFactory() {
-      
+
       @Override
       public Thread newThread( Runnable runnable ) {
         Thread thread = new Thread( runnable, "ResourcePublisher" );
         thread.setUncaughtExceptionHandler( new UncaughtExceptionHandler() {
-          
+
           @Override
           public void uncaughtException( Thread thread, Throwable exception ) {
             throw new IllegalStateException( exception );
@@ -52,12 +56,20 @@ public class ResourcePublisher {
       }
     } );
   }
-  
+
+  public void setPublishDelay( long publishDelay ) {
+    this.publishDelay = publishDelay;
+  }
+
   public void schedulePublishing() {
     if( scheduledFuture != null ) {
       scheduledFuture.cancel( false );
     }
     scheduledFuture = executor.schedule( servletContainerBridge, publishDelay, TimeUnit.MILLISECONDS );
+  }
+
+  public void shutdown() {
+    executor.shutdown();
   }
 
   public void cancelPublishing() {
