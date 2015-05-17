@@ -32,10 +32,10 @@ import com.github.restdriver.clientdriver.ClientDriverRule;
 
 
 public class AdvancedPutRequestsTest {
-  
+
   @Rule
   public ClientDriverRule driver = new ClientDriverRule();
-  
+
   @Path( "/test" )
   private interface FakeResource {
     @PUT
@@ -46,37 +46,38 @@ public class AdvancedPutRequestsTest {
     @PUT
     String getContent( @MatrixParam( "foo" ) String foo, String content );
   }
-  
+
   @Test
   public void testPutWithFormParam() {
     driver.addExpectation( onRequestTo( "/test" )
                            .withMethod( PUT )
                            .withParam( "foo", "bar" )
-                           .withHeader( CONTENT_TYPE, APPLICATION_FORM_URLENCODED ), 
+                           .withHeader( CONTENT_TYPE, APPLICATION_FORM_URLENCODED )
+                           .withAnyParams(),
                            giveResponse( "put", TEXT_PLAIN ) );
-    
+
     FakeResource resource = createResource( FakeResource.class, driver.getBaseUrl() );
-    
+
     assertEquals( "put", resource.getContent( "bar" ) );
   }
-  
+
   @Test
   public void testPutWithPathParam() {
     driver.addExpectation( onRequestTo( "/test/bar/bar2" ).withMethod( PUT ), giveResponse( "put", TEXT_PLAIN ) );
-    
+
     FakeResource resource = createResource( FakeResource.class, driver.getBaseUrl() );
-    
+
     assertEquals( "put", resource.getContent( "bar", "bar2", "content" ) );
   }
-  
+
   @Test
   public void testPutWithMatrixParams() {
 //    TODO: Extend ClientDriver to not strip of the matrix paramters. See HttpRealRequest contructor.
 //    driver.addExpectation( onRequestTo( "/test;foo=bar;foo1=bar1;foo2=bar2" ).withMethod( PUT ), giveResponse( "put" ) );
     driver.addExpectation( onRequestTo( "/test" ).withMethod( PUT ), giveResponse( "put", TEXT_PLAIN ) );
-    
+
     FakeResource resource = createResource( FakeResource.class, driver.getBaseUrl() );
-    
+
     assertEquals( "put", resource.getContent( "bar", "content" ) );
   }
 }
