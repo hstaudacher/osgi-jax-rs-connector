@@ -199,20 +199,6 @@ public class JerseyContext_Test {
   }
 
   @Test
-  public void testRegsters_WADL_FEATURE_DISABLE() {
-    Configuration configuration = createConfiguration( "/test", true, 23L );
-    ServletConfiguration servletConfigurationService = mock( ServletConfiguration.class );
-    JerseyContext context = new JerseyContext( httpService,
-                                               configuration,
-                                               servletConfigurationService,
-                                               new ServiceContainer( mock( BundleContext.class ) ) );
-
-    Map<String, Object> properties = context.getRootApplication().getProperties();
-
-    assertEquals( true, properties.get( ServerProperties.WADL_FEATURE_DISABLE ) );
-  }
-
-  @Test
   public void testAddResourceWithServletConfigurationServicePresent() throws Exception {
     Configuration configuration = createConfiguration( "/test", false, 23L );
     ServletConfiguration servletConfigurationService = mock( ServletConfiguration.class );
@@ -316,12 +302,10 @@ public class JerseyContext_Test {
     verify( jerseyContext, times( 2 ) ).registerServletWhenNotAlreadyRegistered();
   }
 
-  @SuppressWarnings( "deprecation" )
   private Configuration createConfiguration( String path, boolean wadlDisable, long publishDelay ) {
     Configuration configuration = mock( Configuration.class );
     when( configuration.getRoothPath() ).thenReturn( path );
     when( configuration.getPublishDelay() ).thenReturn( publishDelay );
-    when( configuration.isWadlDisabled() ).thenReturn( wadlDisable );
     return configuration;
   }
 

@@ -16,8 +16,6 @@ import java.util.Dictionary;
 import org.osgi.service.cm.ConfigurationException;
 import org.osgi.service.cm.ManagedService;
 
-import com.eclipsesource.jaxrs.publisher.ApplicationConfiguration;
-
 
 @SuppressWarnings( "rawtypes" )
 public class Configuration implements ManagedService {
@@ -26,18 +24,11 @@ public class Configuration implements ManagedService {
   static final String PROPERTY_ROOT = "root";
   static final String PROPERTY_PUBLISH_DELAY = "publishDelay";
   static final long DEFAULT_PUBLISH_DELAY = 150;
-  
-  /**
-   * Will be remove in favor of {@link ApplicationConfiguration}
-   */
-  @Deprecated
-  static final String PROPERTY_WADL_DISABLE = "disableWadl";
-  
+
   private final JAXRSConnector connector;
-  private boolean isWadlDisabled;
   private long publishDelay;
   private String rootPath;
-  
+
   public Configuration( JAXRSConnector jaxRsConnector ) {
     this.connector = jaxRsConnector;
     this.publishDelay = DEFAULT_PUBLISH_DELAY;
@@ -51,12 +42,11 @@ public class Configuration implements ManagedService {
       String rootPath = ( String )root;
       ensureRootIsValid( rootPath );
       this.rootPath = rootPath;
-      this.isWadlDisabled = isWadlDisabled( properties );
       this.publishDelay = getPublishDelay( properties );
       connector.updateConfiguration( this );
     }
   }
-  
+
   private void ensureRootIsValid( String rootPath ) throws ConfigurationException {
     if( !rootPath.startsWith( "/" ) ) {
       throw new ConfigurationException( PROPERTY_ROOT, "Root path does not start with a /" );
@@ -69,14 +59,6 @@ public class Configuration implements ManagedService {
     }
   }
 
-  private boolean isWadlDisabled( Dictionary properties ){
-    Object wadl = properties.get( PROPERTY_WADL_DISABLE );
-    if( wadl == null ){
-      return false;
-    }
-    return ( ( Boolean)wadl ).booleanValue();
-  }
-
   private long getPublishDelay( Dictionary properties ) {
     Object interval = properties.get( PROPERTY_PUBLISH_DELAY );
     if( interval == null ){
@@ -85,20 +67,12 @@ public class Configuration implements ManagedService {
     return ( ( Long )interval );
   }
 
-  /**
-   * Will be remove in favor of {@link ApplicationConfiguration}
-   */
-  @Deprecated
-  public boolean isWadlDisabled() {
-    return isWadlDisabled;
-  }
-  
   public long getPublishDelay() {
     return publishDelay;
   }
-  
+
   public String getRoothPath() {
     return rootPath == null ? "/services" : rootPath;
   }
-  
+
 }

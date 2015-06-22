@@ -38,7 +38,6 @@ public class JerseyContext {
   private final ServletContainerBridge servletContainerBridge;
   private final ResourcePublisher resourcePublisher;
   private volatile boolean isApplicationRegistered;
-  private Configuration configuration;
   private ServletConfiguration servletConfiguration;
   private String rootPath;
   private ServiceContainer applicationConfigurations;
@@ -50,7 +49,6 @@ public class JerseyContext {
   {
     this.httpService = httpService;
     this.rootPath = configuration.getRoothPath();
-    this.configuration = configuration;
     this.application = new RootApplication();
     this.applicationConfigurations = applicationConfigurations;
     applyApplicationConfigurations( applicationConfigurations );
@@ -60,7 +58,7 @@ public class JerseyContext {
   }
 
   void applyApplicationConfigurations( ServiceContainer applicationConfigurations ) {
-    getRootApplication().addProperties( new DefaultApplicationConfiguration( configuration ).getProperties() );
+    getRootApplication().addProperties( new DefaultApplicationConfiguration().getProperties() );
     ServiceHolder[] services = applicationConfigurations.getServices();
     for( ServiceHolder serviceHolder : services ) {
       Object service = serviceHolder.getService();
@@ -82,7 +80,6 @@ public class JerseyContext {
   public void updateConfiguration( Configuration configuration ) {
     resourcePublisher.setPublishDelay( configuration.getPublishDelay() );
     String oldRootPath = this.rootPath;
-    this.configuration = configuration;
     this.rootPath = configuration.getRoothPath();
     handleRootPath( oldRootPath );
     applyApplicationConfigurations( this.applicationConfigurations );
