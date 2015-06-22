@@ -2,7 +2,7 @@
 <feature
       id="com.eclipsesource.jaxrs.provider.sse.feature"
       label="Sse Provider"
-      version="2.1.0.qualifier"
+      version="2.2.0.qualifier"
       provider-name="EclipseSource">
 
    <description>

@@ -2,9 +2,9 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Multipart Provider Test
 Bundle-SymbolicName: com.eclipsesource.jaxrs.provider.multipart.test
-Bundle-Version: 2.1.0.qualifier
+Bundle-Version: 2.2.0.qualifier
 Bundle-Vendor: EclipseSource
-Fragment-Host: com.eclipsesource.jaxrs.provider.multipart;bundle-version="2.1.0"
+Fragment-Host: com.eclipsesource.jaxrs.provider.multipart;bundle-version="2.2.0"
 Bundle-RequiredExecutionEnvironment: JavaSE-1.7
 Require-Bundle: org.mockito.mockito-all;bundle-version="1.9.5",
  org.junit;bundle-version="4.10.0"

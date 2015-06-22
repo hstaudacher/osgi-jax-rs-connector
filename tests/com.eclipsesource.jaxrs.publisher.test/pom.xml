@@ -11,7 +11,7 @@
 
   <groupId>com.eclipsesource</groupId>
   <artifactId>com.eclipsesource.jaxrs.publisher.test</artifactId>
-  <version>4.3.0-SNAPSHOT</version>
+  <version>5.0.0-SNAPSHOT</version>
   <packaging>eclipse-plugin</packaging>
   
   <build>
