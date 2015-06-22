@@ -64,13 +64,6 @@
          unpack="false"/>
 
    <plugin
-         id="javax.servlet-api.source"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
          id="com.eclipsesource.jaxrs.jersey-all"
          download-size="0"
          install-size="0"
