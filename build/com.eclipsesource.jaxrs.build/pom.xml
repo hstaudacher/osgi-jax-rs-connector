@@ -19,12 +19,11 @@
 	  <maven.compiler.source>1.7</maven.compiler.source>
     <maven.compiler.target>1.7</maven.compiler.target>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<kar-packager-version>0.6.0</kar-packager-version>
-		<tycho-version>0.20.0</tycho-version>
-		<tycho-extras-version>0.20.0</tycho-extras-version>
+		<tycho-version>0.23.0</tycho-version>
+		<tycho-extras-version>0.23.0</tycho-extras-version>
 		<tycho-groupid>org.eclipse.tycho</tycho-groupid>
-		<surefire-version>2.16</surefire-version>
-		<findbugs-version>2.5.2</findbugs-version>
+		<surefire-version>2.18</surefire-version>
+		<findbugs-version>2.5.5</findbugs-version>
 		<junit-version>4.11</junit-version>
 		<mockito-version>1.9.5</mockito-version>
 		<jacocoagent>${basedir}/../../build/com.eclipsesource.jaxrs.build/lib/jacocoagent.jar</jacocoagent>
