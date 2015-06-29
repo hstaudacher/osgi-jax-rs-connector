@@ -20,7 +20,6 @@ The publisher is located in the bundle `com.eclipsesource.jaxrs.publisher`. All 
 By default the publisher registers the services using the context path `/services`. This means an OSGi service that is annotated with `@Path( "/foo" )` will be available using the path `/services/foo`. This context path is configurable using the OSGi configuration admin. You can configure the service using the service.pid `com.eclipsesource.jaxrs.connector` with the following properties:
 
 * `root` : defines a custom root path. Default is `/services`.
-* `disableWadl` ***deprecated*** : disables the wadl generation. Default is `false`.
 * `publishDelay` : the time in ms to wait after a resource was registered before its going to be published. Default is `150`.
 
 Besides the config admin you can [configure the JAX-RS Application with properties](https://jersey.java.net/documentation/latest/appendix-properties.html) too. Simply register a service implementing the [ApplicationConfiguration](https://github.com/hstaudacher/osgi-jax-rs-connector/blob/master/bundles/com.eclipsesource.jaxrs.publisher/src/com/eclipsesource/jaxrs/publisher/ApplicationConfiguration.java) interface. It will be called before the Application got published.
