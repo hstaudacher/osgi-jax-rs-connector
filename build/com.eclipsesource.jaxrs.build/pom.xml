@@ -41,6 +41,7 @@
 		<module>../../bundles/com.eclipsesource.jaxrs.provider.security</module>
 		<module>../../bundles/com.eclipsesource.jaxrs.provider.sse</module>
 		<module>../../bundles/com.eclipsesource.jaxrs.provider.multipart</module>
+		<module>../../bundles/com.eclipsesource.jaxrs.provider.swagger</module>
 		<!-- Tests -->
 		<module>../../tests/com.eclipsesource.jaxrs.publisher.test</module>
 		<module>../../tests/com.eclipsesource.jaxrs.consumer.test</module>
@@ -48,6 +49,7 @@
 		<module>../../tests/com.eclipsesource.jaxrs.provider.security.test</module>
 		<module>../../tests/com.eclipsesource.jaxrs.provider.sse.test</module>
 		<module>../../tests/com.eclipsesource.jaxrs.provider.multipart.test</module>
+		<module>../../tests/com.eclipsesource.jaxrs.provider.swagger.test</module>
 		<!-- Features -->
 		<module>../com.eclipsesource.jaxrs.jersey.runtime.feature</module>
 		<module>../com.eclipsesource.jaxrs.connector.feature</module>
@@ -56,6 +58,7 @@
 		<module>../com.eclipsesource.jaxrs.provider.security.feature</module>
 		<module>../com.eclipsesource.jaxrs.provider.sse.feature</module>
 		<module>../com.eclipsesource.jaxrs.provider.multipart.feature</module>
+		<module>../com.eclipsesource.jaxrs.provider.swagger.feature</module>
 		<!-- Repository -->
 		<module>../com.eclipsesource.jaxrs.repository</module>
 	</modules>
