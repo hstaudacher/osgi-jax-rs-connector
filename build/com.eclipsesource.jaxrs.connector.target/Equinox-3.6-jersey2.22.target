@@ -15,5 +15,6 @@
 <repository location="http://hstaudacher.github.com/osgi-additionals"/>
 </location>
 <location path="${project_loc:com.eclipsesource.jaxrs.connector.target}/jersey2.22/" type="Directory"/>
+<location path="${project_loc:com.eclipsesource.jaxrs.connector.target}/swagger-1.5.4/" type="Directory"/>
 </locations>
 </target>
