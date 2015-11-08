@@ -1,0 +1,13 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: OSG JAX-RS Swagger Example
+Bundle-SymbolicName: com.eclipsesource.jaxrs.connector.example.swagger
+Bundle-Version: 2.0.0.qualifier
+Bundle-Vendor: EclipseSource
+Bundle-RequiredExecutionEnvironment: JavaSE-1.7
+Import-Package: io.swagger.annotations;version="[1.5.4,2.0.0)",
+ javax.ws.rs;version="[2.0.0,3.0.0)",
+ javax.ws.rs.core;version="[2.0.0,3.0.0)",
+ org.osgi.framework;version="[1.5.0,2.0.0)",
+ org.osgi.service.cm;version="[1.2.0,2.0.0)"
+Bundle-Activator: com.eclipsesource.jaxrs.connector.example.swagger.Activator
