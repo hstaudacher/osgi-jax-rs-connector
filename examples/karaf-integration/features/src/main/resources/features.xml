@@ -1,6 +1,7 @@
 <features xmlns="http://karaf.apache.org/xmlns/features/v1.0.0" name="osgi-jax-rs-connector">
 
     <feature name="jax-rs-connector" version="${jax-rs-publisher.version}" resolver="(obr)">
+        <bundle dependency="true">mvn:javax.servlet/javax.servlet-api/3.1.0</bundle>
         <bundle dependency="true">mvn:com.eclipsesource.jaxrs/jersey-all/${jax-rs-jersey-all.version}</bundle>
         <bundle dependency="true">mvn:com.eclipsesource.jaxrs/consumer/${jax-rs-consumer.version}</bundle>
         <bundle>mvn:com.eclipsesource.jaxrs/publisher/${jax-rs-publisher.version}</bundle>

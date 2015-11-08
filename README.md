@@ -97,7 +97,7 @@ If you are working with [Bndtools](http://bndtools.org), a [Starter Kit](https:/
 * *If you want to use the SSE provider you need javax.servlet API 3.x*
 
 ## Jersey version
-With Jersey 2.0 the library was splitted into several modules with a whole bunch of dependencies. To ease the OSGi application development Jersey was rebundled in this project and ships as a single bundle called `com.eclipsesource.jaxrs.jersey.all`. Currently it includes Jersey 2.22 and it's dependencies. Also the Eclipse Source Bundle will be shipped to make the Jersey API more discoverable when using Eclipse.
+With Jersey 2.0 the library was splitted into several modules with a whole bunch of dependencies. To ease the OSGi application development Jersey was rebundled in this project and ships as a single bundle called `com.eclipsesource.jaxrs.jersey.all`. Currently it includes Jersey 2.22 and it's dependencies. Also the Eclipse Source Bundle will be shipped to make the Jersey API more discoverable when using Eclipse. Anyway, it's up to you to use this 'all' bundle or to fetch the single Jersey bundles yourself. The connector just imports packages.
 
 ## Changelog
 Checkout the [github releases](https://github.com/hstaudacher/osgi-jax-rs-connector/releases).
