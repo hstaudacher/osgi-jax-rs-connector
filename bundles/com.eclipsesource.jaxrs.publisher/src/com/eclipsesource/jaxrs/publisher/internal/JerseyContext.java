@@ -17,6 +17,7 @@ import java.util.ArrayList;
 import java.util.Dictionary;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import javax.servlet.ServletException;
 import javax.ws.rs.core.Application;
@@ -63,9 +64,16 @@ public class JerseyContext {
     for( ServiceHolder serviceHolder : services ) {
       Object service = serviceHolder.getService();
       if( service instanceof ApplicationConfiguration ) {
-        Map<String, Object> properties = ( ( ApplicationConfiguration )service ).getProperties();
+        ApplicationConfiguration ac = (ApplicationConfiguration) service;  
+        Map<String, Object> properties = ac.getProperties();
         if( properties != null ) {
           getRootApplication().addProperties( properties );
+        }
+        Set<Object> singletons = ac.getSingletons();
+        if( singletons != null) {
+          for( Object object : singletons ) {
+            getRootApplication().addResource( object );
+          }
         }
       }
     }

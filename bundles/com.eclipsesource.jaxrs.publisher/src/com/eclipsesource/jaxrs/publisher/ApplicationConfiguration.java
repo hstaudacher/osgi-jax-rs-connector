@@ -11,6 +11,7 @@
 package com.eclipsesource.jaxrs.publisher;
 
 import java.util.Map;
+import java.util.Set;
 
 import javax.ws.rs.core.Application;
 
@@ -33,5 +34,16 @@ public interface ApplicationConfiguration {
    * @see Application#getProperties()
    */
   Map<String, Object> getProperties();
+  
+  /**
+   * <p>
+   * Will be called before the JAX-RS {@link Application} is registered. Please note that 
+   * one {@link ApplicationConfiguration} can overwrite the values of other {@link ApplicationConfiguration}s. It 
+   * depends on the order they are available in the OSGi container.
+   * </p>
+   * 
+   * @see Application#getSingletons()
+   */
+  Set<Object> getSingletons();
   
 }
