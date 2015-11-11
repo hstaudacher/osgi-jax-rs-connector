@@ -223,6 +223,9 @@ public class JerseyContext_Test {
     Map<String, Object> map = new HashMap<>();
     map.put( "foo", "bar" );
     when( appConfig.getProperties() ).thenReturn( map );
+    Set<Object> set = new HashSet<Object>();
+    set.add( "test" );
+    when( appConfig.getSingletons()).thenReturn( set );
     when( context.getService( reference ) ).thenReturn( appConfig );
     container.add( reference );
     Configuration configuration = createConfiguration( "/test", false, 23L );
@@ -235,6 +238,8 @@ public class JerseyContext_Test {
 
     Map<String, Object> properties = jerseyContext.getRootApplication().getProperties();
     assertEquals( properties.get( "foo" ), "bar" );
+    Set<Object> singletons = jerseyContext.getRootApplication().getSingletons();
+    assertEquals( singletons.contains( "test" ), true);
   }
 
   @Test
