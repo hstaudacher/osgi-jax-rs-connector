@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: %Bundle-Name
 Bundle-SymbolicName: com.eclipsesource.jaxrs.publisher
-Bundle-Version: 5.1.0.qualifier
+Bundle-Version: 5.2.0.qualifier
 Bundle-Vendor: %Bundle-Name
 Bundle-RequiredExecutionEnvironment: JavaSE-1.7
 Bundle-Localization: plugin
@@ -19,4 +19,4 @@ Import-Package: javax.servlet;version="[2.3.0,4.0.0)",
  org.osgi.service.cm;version="[1.2.0,2.0.0)",
  org.osgi.service.http;version="[1.2.0,2.0.0)",
  org.osgi.util.tracker;version="[1.4.0,2.0.0)"
-Export-Package: com.eclipsesource.jaxrs.publisher;version="5.1.0"
+Export-Package: com.eclipsesource.jaxrs.publisher;version="5.2.0"

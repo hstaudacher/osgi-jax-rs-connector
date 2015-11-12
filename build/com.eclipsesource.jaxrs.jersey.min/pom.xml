@@ -3,12 +3,12 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.eclipsesource.jaxrs</groupId>
 	<artifactId>jersey-min</artifactId>
-	<version>2.22</version>
+	<version>2.22.1</version>
 
 	<properties>
 		<maven.compiler.source>1.7</maven.compiler.source>
 		<maven.compiler.target>1.7</maven.compiler.target>
-		<jersey.version>2.22</jersey.version>
+		<jersey.version>2.22.1</jersey.version>
 		<jaxrs.version>2.0</jaxrs.version>
 	</properties>
 
