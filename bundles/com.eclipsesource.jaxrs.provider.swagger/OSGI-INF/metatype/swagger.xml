@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<MetaData xmlns="http://www.osgi.org/xmlns/metatype/v1.1.0">
+	<OCD name="Swagger" id="com.eclipsesource.jaxrs.swagger.config" description="Swagger Configuration">
+		<AD name="Base Path" id="swagger.basePath" type="String" description="The root URI for publishing swagger services.  Must be set to same value as the publisher root.  Defaults to /services" default="/services" />
+    	<AD name="Host" id="swagger.host" type="String" description="Host and port of the swagger services.  Example: localhost:8080" />
+    	<AD name="API Title" id="swagger.info.title" type="String" description="The title of the API" />
+    	<AD name="API Description" id="swagger.info.description" type="String" description="The description of the API" />
+    	<AD name="API Version" id="swagger.info.version" type="String" description="The version of the API" />
+    	<AD name="API Terms Of Service" id="swagger.info.termsOfService" type="String" description="The terms of service of the API" />
+    	<AD name="API Contact Name" id="swagger.info.contact.name" type="String" description="The contact name of the API" />
+    	<AD name="API Contact URL" id="swagger.info.contact.url" type="String" description="The contact URL of the API" />
+    	<AD name="API Contact Email" id="swagger.info.contact.email" type="String" description="The contact email of the API" />
+    	<AD name="API License Name" id="swagger.info.license.name" type="String" description="The license name of the API" />
+    	<AD name="API License URL" id="swagger.info.license.url" type="String" description="The license URL of the API" />
+	</OCD>
+	<Designate pid="com.eclipsesource.jaxrs.swagger.config">
+		<Object ocdref="com.eclipsesource.jaxrs.swagger.config"/>
+	</Designate>
+</MetaData>
