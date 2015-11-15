@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Swagger Provider
 Bundle-SymbolicName: com.eclipsesource.jaxrs.provider.swagger
-Bundle-Version: 1.0.0.qualifier
+Bundle-Version: 1.0.1.qualifier
 Bundle-Activator: com.eclipsesource.jaxrs.provider.swagger.internal.Activator
 Bundle-Vendor: EclipseSource
 Bundle-RequiredExecutionEnvironment: JavaSE-1.7

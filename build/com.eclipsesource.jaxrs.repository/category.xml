@@ -36,10 +36,10 @@
    <feature url="features/com.eclipsesource.jaxrs.provider.multipart.feature.source_2.2.0.qualifier.jar" id="com.eclipsesource.jaxrs.provider.multipart.feature.source" version="2.2.0.qualifier">
       <category name="com.eclipsesource.jaxrs.connector.sources"/>
    </feature>
-   <feature url="features/com.eclipsesource.jaxrs.provider.swagger.feature_1.0.0.qualifier.jar" id="com.eclipsesource.jaxrs.provider.swagger.feature" version="1.0.0.qualifier">
+   <feature url="features/com.eclipsesource.jaxrs.provider.swagger.feature_1.0.1.qualifier.jar" id="com.eclipsesource.jaxrs.provider.swagger.feature" version="1.0.1.qualifier">
       <category name="com.eclipsesource.jaxrs.connector.providers"/>
    </feature>
-   <feature url="features/com.eclipsesource.jaxrs.provider.swagger.feature.source_1.0.0.qualifier.jar" id="com.eclipsesource.jaxrs.provider.swagger.feature.source" version="1.0.0.qualifier">
+   <feature url="features/com.eclipsesource.jaxrs.provider.swagger.feature.source_1.0.1.qualifier.jar" id="com.eclipsesource.jaxrs.provider.swagger.feature.source" version="1.0.1.qualifier">
       <category name="com.eclipsesource.jaxrs.connector.sources"/>
    </feature>
    <category-def name="com.eclipsesource.jaxrs.connector" label="OSGi - JAX-RS Connector"/>
