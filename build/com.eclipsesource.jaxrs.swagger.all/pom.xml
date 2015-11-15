@@ -43,7 +43,8 @@
 						<Bundle-Version>${project.version}</Bundle-Version>
 						<Bundle-Vendor>EclipseSource</Bundle-Vendor>
 						<_exportcontents>
-							io.swagger.*
+							io.swagger.*,
+							com.fasterxml.jackson.*;version="2.4.5"
 						</_exportcontents>
 						<Import-Package>
 							!com.google.*,
