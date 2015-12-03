@@ -55,7 +55,6 @@
 							!org.w3c.*,
 							!org.xml.sax.*,
 							!com.sun.jdi.*,
-							!javax.xml.*,
 							!sun.misc.*,
 							!javax.activation.*,
 							javax.servlet.*;version="[2.3.0,4.0.0)";resolution:=optional,
