@@ -17,6 +17,12 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import java.util.HashSet;
+import java.util.Set;
+
+import javax.servlet.ServletConfig;
+import javax.ws.rs.core.Application;
+
 import org.junit.Test;
 
 import io.swagger.jaxrs.config.DefaultJaxrsScanner;
@@ -49,6 +55,32 @@ public class OSGiJaxRsScannerTest {
     verify( swagger ).setInfo( info );
     assertEquals( scanner.getFilterClass(), "filter" );
     assertSame( swagger, actualSwagger );
+  }
+
+
+  @Test
+  public void testAddsIntefacesToClasses() {
+    Application application = mock( Application.class );
+    Set<Object> singletons = new HashSet<>();
+    singletons.add( new TestResource() );
+    when( application.getSingletons() ).thenReturn( singletons );
+    OSGiJaxRsScanner scanner = new OSGiJaxRsScanner( null );
+
+    Set<Class<?>> classes = scanner.classesFromContext( application, mock( ServletConfig.class ) );
+
+    assertTrue( classes.contains( TestResource.class ) );
+    assertTrue( classes.contains( TestInterface.class ) );
+  }
+
+  private interface TestInterface {
+    // no content
+  }
+
+  private static class TestResource implements TestInterface {
+
+    public TestResource() {
+    }
+
   }
 
 }

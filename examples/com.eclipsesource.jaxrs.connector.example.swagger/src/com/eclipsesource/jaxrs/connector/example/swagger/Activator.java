@@ -10,8 +10,10 @@
  ******************************************************************************/
 package com.eclipsesource.jaxrs.connector.example.swagger;
 
+import java.util.ArrayList;
 import java.util.Dictionary;
 import java.util.Hashtable;
+import java.util.List;
 
 import org.osgi.framework.BundleActivator;
 import org.osgi.framework.BundleContext;
@@ -23,13 +25,13 @@ import org.osgi.service.cm.ConfigurationAdmin;
 
 public class Activator implements BundleActivator {
 
-  private ServiceRegistration registration;
+  private final List<ServiceRegistration> registrations = new ArrayList<>();
 
   @Override
   public void start( BundleContext context ) throws Exception {
-    UserService exampleService = new UserService();
     configureSwagger( context );
-    registration = context.registerService( UserService.class.getName(), exampleService, null );
+    registrations.add( context.registerService( UserService.class.getName(), new UserService(), null ) );
+    registrations.add( context.registerService( MetaInfo.class.getName(), new MetaInfoService(), null ) );
   }
 
   private void configureSwagger( BundleContext context ) throws Exception {
@@ -58,6 +60,8 @@ public class Activator implements BundleActivator {
 
   @Override
   public void stop( BundleContext context ) throws Exception {
-    registration.unregister();
+    for( ServiceRegistration serviceRegistration : registrations ) {
+      serviceRegistration.unregister();
+    }
   }
 }
