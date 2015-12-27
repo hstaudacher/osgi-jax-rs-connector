@@ -1,12 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<?pde version="3.8"?><target name="Equinox 3.10" sequenceNumber="40">
+<?pde version="3.8"?><target name="Equinox 3.10" sequenceNumber="41">
 <locations>
 <location path="${project_loc:com.eclipsesource.jaxrs.connector.target}/eclipselink/bundles" type="Directory"/>
 <location path="${project_loc:com.eclipsesource.jaxrs.connector.target}/eclipselink/source-bundles" type="Directory"/>
-<location includeAllPlatforms="false" includeConfigurePhase="false" includeMode="slicer" includeSource="true" type="InstallableUnit">
-<unit id="com.eclipsesource.osgi.additionals.feature.group" version="1.24.0.201404161640"/>
-<repository location="http://hstaudacher.github.com/osgi-additionals"/>
-</location>
 <location path="${project_loc:com.eclipsesource.jaxrs.connector.target}/jersey2.22/" type="Directory"/>
 <location path="${project_loc:com.eclipsesource.jaxrs.connector.target}/swagger-1.5.4/" type="Directory"/>
 <location includeAllPlatforms="false" includeConfigurePhase="false" includeMode="slicer" includeSource="true" type="InstallableUnit">
@@ -15,6 +11,10 @@
 <unit id="org.eclipse.equinox.serverside.sdk.feature.group" version="3.10.2.v20150203-1939"/>
 <unit id="org.eclipse.equinox.core.sdk.feature.group" version="3.10.2.v20150203-1939"/>
 <repository location="http://download.eclipse.org/eclipse/updates/4.4"/>
+</location>
+<location includeAllPlatforms="false" includeConfigurePhase="false" includeMode="slicer" includeSource="true" type="InstallableUnit">
+<unit id="com.eclipsesource.osgi.additionals.source.feature.group" version="1.49.0.201512202143"/>
+<repository location="http://hstaudacher.github.com/osgi-additionals"/>
 </location>
 </locations>
 </target>
