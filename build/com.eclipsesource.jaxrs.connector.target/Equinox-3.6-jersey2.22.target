@@ -11,7 +11,7 @@
 <repository location="http://download.eclipse.org/eclipse/updates/3.6"/>
 </location>
 <location path="${project_loc:com.eclipsesource.jaxrs.connector.target}/jersey2.22/" type="Directory"/>
-<location path="${project_loc:com.eclipsesource.jaxrs.connector.target}/swagger-1.5.4/" type="Directory"/>
+<location path="${project_loc:com.eclipsesource.jaxrs.connector.target}/swagger-1.5.5/" type="Directory"/>
 <location includeAllPlatforms="false" includeConfigurePhase="false" includeMode="slicer" includeSource="true" type="InstallableUnit">
 <unit id="com.eclipsesource.osgi.additionals.feature.group" version="1.49.0.201512202143"/>
 <repository location="http://hstaudacher.github.com/osgi-additionals"/>
