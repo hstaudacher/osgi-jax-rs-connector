@@ -1,4 +1,4 @@
-# OSGi - JAX-RS Connector 5.2
+# OSGi - JAX-RS Connector 5.3
 [![Build Status](https://travis-ci.org/hstaudacher/osgi-jax-rs-connector.png)](https://travis-ci.org/hstaudacher/osgi-jax-rs-connector) [![Maven Status](https://maven-badges.herokuapp.com/maven-central/com.eclipsesource.jaxrs/publisher/badge.png)](http://search.maven.org/#search%7Cga%7C1%7Cg%3A%22com.eclipsesource.jaxrs%22) [![License](http://img.shields.io/badge/license-EPL-blue.svg)](http://www.eclipse.org/legal/epl-v10.html) [![Gitter](http://img.shields.io/badge/Gitter-join-yellow.svg)](https://gitter.im/hstaudacher/osgi-jax-rs-connector?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
 
 ![](http://download.eclipsesource.com/~hstaudacher/connector.png)
@@ -109,4 +109,4 @@ The code is published under the terms of the [Eclipse Public License, version 1.
 
 Included binaries from [Jersey](http://jersey.java.net/) (rebundled), version 2.22.1, which are published under two licenses, the [CDDL 1.1 and GPL 2 with CPE](http://glassfish.java.net/public/CDDL+GPL_1_1.html).
 
-Included binaries from [Swagger](http://swagger.io/) (rebundled), version 1.5.4, which are published under [Apache License 2.0](http://www.apache.org/licenses/LICENSE-2.0.html).
+Included binaries from [Swagger](http://swagger.io/) (rebundled), version 1.5.5, which are published under [Apache License 2.0](http://www.apache.org/licenses/LICENSE-2.0.html).
