@@ -11,7 +11,7 @@
 
   <groupId>com.eclipsesource</groupId>
   <artifactId>com.eclipsesource.jaxrs.repository</artifactId>
-  <version>5.3.0</version>
+  <version>5.3.1</version>
   <packaging>eclipse-repository</packaging>
   
 </project>
