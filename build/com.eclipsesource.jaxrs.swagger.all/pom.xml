@@ -3,12 +3,12 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.eclipsesource.jaxrs</groupId>
 	<artifactId>swagger-all</artifactId>
-	<version>1.5.5</version>
+	<version>1.5.7</version>
 
 	<properties>
 		<maven.compiler.source>1.7</maven.compiler.source>
 		<maven.compiler.target>1.7</maven.compiler.target>
-		<swagger.version>1.5.5</swagger.version>
+		<swagger.version>1.5.7</swagger.version>
 		<jersey.version>2.22</jersey.version>
 	</properties>
 
@@ -26,7 +26,7 @@
 							<addClasspath>false</addClasspath>
 						</manifest>
 						<manifestEntries>
-							<Built-By>EclipseSource</Built-By>
+							<Built-By>Holger Staudacher</Built-By>
 						</manifestEntries>
 					</archive>
 				</configuration>
