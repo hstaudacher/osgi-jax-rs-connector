@@ -2,9 +2,9 @@
 <?compositeArtifactRepository version='1.0.0'?>
 <repository name='OSGi - JAX-RS Connector Repository' type='org.eclipse.equinox.internal.p2.artifact.repository.CompositeArtifactRepository' version='1.0.0'>
   <properties size='1'>
-    <property name='p2.timestamp' value='1451206530910'/>
+    <property name='p2.timestamp' value='1456664155921'/>
   </properties>
-  <children size='15'>
+  <children size='16'>
     <child location='unsorted/'/>
     <child location='3.2.0/'/>
     <child location='3.3.0/'/>
@@ -20,5 +20,6 @@
     <child location='5.2.0'/>
     <child location='5.2.1'/>
     <child location='5.3.0'/>
+    <child location='5.3.1'/>
   </children>
 </repository>
