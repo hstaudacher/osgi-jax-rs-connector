@@ -51,11 +51,14 @@ public class ResourceInvocationHandler implements InvocationHandler {
   private final String baseUrl;
 
   public ResourceInvocationHandler( String baseUrl, Configuration configuration ) {
-    ClientBuilder clientBuilder = ClientBuilder.newBuilder();
-    this.client = clientBuilder.withConfig( configuration )
+    this( baseUrl, ClientBuilder.newBuilder().withConfig( configuration )
                                .sslContext( ClientHelper.createSSLContext() )
                                .hostnameVerifier( ClientHelper.createHostNameVerifier() )
-                               .build();
+                               .build() );
+  }
+
+  public ResourceInvocationHandler( String baseUrl, Client client ) {
+    this.client = client;
     this.baseUrl = baseUrl;
   }
 
@@ -221,7 +224,7 @@ public class ResourceInvocationHandler implements InvocationHandler {
     if( firstNonAnnotatedParameter != -1 ) {
       result =  Entity.entity( parameter[ firstNonAnnotatedParameter ], determineContentType( method ) );
     } else {
-      throw new IllegalStateException( "Can not find entity for method " + method.getName() 
+      throw new IllegalStateException( "Can not find entity for method " + method.getName()
                                        + ". It has no non-annotated parameter" );
     }
     return result;
@@ -241,7 +244,7 @@ public class ResourceInvocationHandler implements InvocationHandler {
 
   private void checkParametersForAnnotation( Method method, Annotation[][] parameterAnnotations ) {
     if( parameterAnnotations.length == 0 ) {
-      throw new IllegalStateException( "Can not find entity for method " 
+      throw new IllegalStateException( "Can not find entity for method "
                                        + method.getName() + ". It has no paramters." );
     }
   }

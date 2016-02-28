@@ -68,12 +68,43 @@ public class ConsumerFactory {
    */
   @SuppressWarnings( "unchecked" )
   public static <T> T createConsumer( String baseUrl, Configuration configuration, Class<T> type ) {
-    validateArguments( baseUrl, type, configuration );
+    checkUrl( baseUrl );
+    checkType( type );
+    checkConfiguration( configuration );
+    checkAnnotation( type );
+    ensureTypeIsAnInterface( type );
     Path path = type.getAnnotation( Path.class );
     ensureMultiPartFeature( configuration, type );
     return ( T )Proxy.newProxyInstance( type.getClassLoader(),
                                         new Class<?>[] { type },
                                         createHandler( baseUrl, configuration, path ) );
+  }
+
+  /**
+   * <p>
+   * Creates a consumer object out of a <code>@Path</code> interface. It will create a proxy object of the interface
+   * that calls the specified service using the passed in base url. The de/serialization is done using the passed in
+   * <code>@Provider</code> objects. The passed in {@link Client} will be used to send requests.
+   * </p>
+   *
+   * @param baseUrl The server url hosting the specified service.
+   * @param client The {@link Client} to use for sending requests
+   * @param type The <code>@Path</code> annotated interface class object.
+   * @param customProvider An array of <code>@Provider</code> object for de/serialization.
+   * @return a proxy object for the passed in type.
+   */
+  @SuppressWarnings( "unchecked" )
+  public static <T> T createConsumer( String baseUrl, Client client, Class<T> type ) {
+    checkUrl( baseUrl );
+    checkType( type );
+    checkClient( client );
+    checkAnnotation( type );
+    ensureTypeIsAnInterface( type );
+    Path path = type.getAnnotation( Path.class );
+    ensureMultiPartFeature( client.getConfiguration(), type );
+    return ( T )Proxy.newProxyInstance( type.getClassLoader(),
+                                        new Class<?>[] { type },
+                                        createHandler( baseUrl, client, path ) );
   }
 
   private static <T> void ensureMultiPartFeature( Configuration configuration, Class<T> type ) {
@@ -98,12 +129,11 @@ public class ConsumerFactory {
     return new ResourceInvocationHandler( baseUrl + path.value(), configuration );
   }
 
-  private static <T> void validateArguments( String baseUrl, Class<T> type, Configuration configuration ) {
-    checkUrl( baseUrl );
-    checkType( type );
-    checkConfiguration( configuration );
-    checkAnnotation( type );
-    ensureTypeIsAnInterface( type );
+  private static ResourceInvocationHandler createHandler( String baseUrl,
+                                                          Client client,
+                                                          Path path )
+  {
+    return new ResourceInvocationHandler( baseUrl + path.value(), client );
   }
 
   private static void checkUrl( String url ) {
@@ -123,6 +153,12 @@ public class ConsumerFactory {
   private static void checkConfiguration(Configuration configuration) {
     if( configuration == null ) {
       throw new IllegalArgumentException( "Configuration must not be null" );
+    }
+  }
+
+  private static void checkClient(Client client) {
+    if( client == null ) {
+      throw new IllegalArgumentException( "Client must not be null" );
     }
   }
 
