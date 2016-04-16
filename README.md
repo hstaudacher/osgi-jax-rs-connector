@@ -10,7 +10,7 @@ This project connects Jersey and OSGi at the *service level*. This means that OS
 RESTful web services by simply registering them as OSGi services. A neat side feature is that REST services can also be consumed as OSGi services ;).  
 
 *To see how to get started with JAX-RS 2.0 and Jersey please read the [Jersey getting started guide](https://jersey.java.net/documentation/latest/getting-started.html).*
-
+mox
 ## Features
 The OSGi-JAX-RS Connector provides **two main bundles**. A **publisher** and a **consumer**. Both can be used completely separately or together, it's up to you. Additional the connector provides custom `@Provider` and `Feature` implementations that can be used optionally.
 
@@ -39,7 +39,7 @@ A detailed explanation of the concepts of the consumer together with some exampl
 
 ### Providers
 The custom `@Provider` and `Feature` implementations are located in their own features. The following features are currently included.
-* `com.eclipsesource.jaxrs.provider.moxy` - Allows the de/serialization using [EclipseLink MOXy](http://www.eclipse.org/eclipselink/moxy.php).  
+* `com.eclipsesource.jaxrs.provider.moxy` - Allows the de/serialization using [EclipseLink MOXy](https://www.eclipse.org/eclipselink/#moxy).  
 * `com.eclipsesource.jaxrs.provider.gson` - Allows the de/serialization using [Gson](https://code.google.com/p/google-gson/).  
 * `com.eclipsesource.jaxrs.provider.security` - Provides an OSGi friendly integration of Jersey's/JAX-RS security features. [Read the wiki for more information](https://github.com/hstaudacher/osgi-jax-rs-connector/wiki/security).
 * `com.eclipsesource.jaxrs.provider.sse` - Provides an integration of Jersey's [SSE feature](https://jersey.java.net/documentation/latest/sse.html) *(requires javax.servlet 3.x)*.
