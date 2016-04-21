@@ -45,17 +45,19 @@ public class ServletContainerBridge extends HttpServlet implements Runnable {
       try {
         Thread.currentThread().setContextClassLoader( Request.class.getClassLoader() );
         synchronized( this ) {
-          if( !isJerseyReady() ) {
-            // if jersey has not been initialized - use the init method
+          isJerseyReady = false;
+          // No WebComponent present, initialize Jersey so it's created
+          if( getServletContainer().getWebComponent() == null ) {
             getServletContainer().init( servletConfig );
-          } else {
-            // otherwise reload
-            isJerseyReady = false;
+          } 
+          // We already have a WebComponent we need to reload it
+          else {
             getServletContainer().reload( ResourceConfig.forApplication( application ) );
           }
           isJerseyReady = true;
         }
-      } catch( ServletException e ) {
+      } catch( Throwable e ) {
+        e.printStackTrace();
         throw new RuntimeException( e );
       } finally {
         Thread.currentThread().setContextClassLoader( original );
@@ -83,8 +85,8 @@ public class ServletContainerBridge extends HttpServlet implements Runnable {
   public void destroy() {
     synchronized( this ) {
       if( isJerseyReady() ) {
-        getServletContainer().destroy();
         this.isJerseyReady = false;
+        getServletContainer().destroy();
         // create a new ServletContainer when the old one is destroyed.
         this.servletContainer = new ServletContainer( ResourceConfig.forApplication( application ) );
       }
@@ -94,6 +96,10 @@ public class ServletContainerBridge extends HttpServlet implements Runnable {
   // for testing purposes
   ServletContainer getServletContainer() {
     return servletContainer;
+  }
+  
+  void setJerseyReady(boolean isJerseyReady) {
+    this.isJerseyReady = isJerseyReady;
   }
 
   // for testing purposes

@@ -36,15 +36,14 @@ public class RootApplication extends Application {
 
   void addResource( Object resource ) {
     synchronized( lock ) {
-      resources.add( resource );
-      dirty = true;
+      dirty = resources.add( resource );
     }
   }
 
-  void removeResource( Object resource ) {
+  boolean removeResource( Object resource ) {
     synchronized( lock ) {
-      resources.remove( resource );
-      dirty = true;
+      dirty = resources.remove( resource );
+      return dirty;
     }
   }
 

@@ -14,12 +14,14 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNotSame;
 import static org.junit.Assert.assertSame;
+import static org.junit.Assert.assertTrue;
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.eq;
 import static org.mockito.Mockito.doAnswer;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.spy;
+import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -35,6 +37,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.glassfish.jersey.server.ResourceConfig;
 import org.glassfish.jersey.servlet.ServletContainer;
+import org.glassfish.jersey.servlet.WebComponent;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
@@ -149,7 +152,7 @@ public class ServletContainerBridge_Test {
     ServletContainer container = mock( ServletContainer.class );
     when( actualBridge.getServletContainer() ).thenReturn( container );
     when( application.isDirty() ).thenReturn( true );
-    when( actualBridge.isJerseyReady() ).thenReturn( true );
+    when( container.getWebComponent() ).thenReturn( mock(WebComponent.class));
 
     actualBridge.run();
 
@@ -181,4 +184,99 @@ public class ServletContainerBridge_Test {
 
     verify(container).service(request, response);
   }
+  
+  @Test
+  public void testServiceWhenNotReadyAndDestroyIsRunningSlow()
+    throws ServletException, IOException, InterruptedException
+  {
+    Object monitor = new Object();
+    ServletContainerBridge actualBridge = getDestroyMockedServletBridge( monitor );
+    
+    // Initialize Jersey
+    actualBridge.run();
+    assertTrue( actualBridge.isJerseyReady() );
+    
+    // Async destroy
+    runDestroyAsync( actualBridge );
+    
+    // Make sure destroy thread has started!
+    waitForMonitor( monitor, 1000L );
+    
+    // Try to fire up a request - should get a 503 while destroying!
+    verifyServiceWasNotExecuted(actualBridge);
+    
+    // finish up destroying
+    notifyAllMonitor( monitor );
+    
+    // Fire up a request again should get a 503 after destroying!
+    verifyServiceWasNotExecuted(actualBridge);
+  }
+
+  /**
+   * @param monitor
+   * @return A {@link ServletContainerBridge} with a mocked {@link ServletContainer#destroy()}
+   *         method in such away that it blocks until the given monitor is notified
+   */
+  private ServletContainerBridge getDestroyMockedServletBridge( final Object monitor ) {
+    final ServletContainerBridge actualBridge = spy( bridge );
+    ServletContainer spyContainer = mock( ServletContainer.class );
+    when( application.isDirty() ).thenReturn( true );
+    when( actualBridge.getServletContainer() ).thenReturn( spyContainer );
+    // Mock destroy so that it will block until the given monitor is notified!
+    doAnswer( new Answer<Object>() {
+
+      @Override
+      public Object answer( InvocationOnMock invocation ) throws Throwable {
+        synchronized( monitor ) {
+          monitor.notifyAll();
+          monitor.wait();
+        }
+        return null;
+      }
+    } ).when( spyContainer ).destroy();
+    return actualBridge;
+  }
+
+  private void runDestroyAsync( final ServletContainerBridge bridge ) {
+    // Start destroying the bridge asynchronously
+    new Thread( new Runnable() {
+
+      @Override
+      public void run() {
+        bridge.destroy();
+      }
+    } ).start();
+  }
+
+  private void waitForMonitor( Object monitor, Long timeout ) throws InterruptedException {
+    synchronized( monitor ) {
+      monitor.wait( timeout );
+    }
+  }
+
+  private void notifyAllMonitor( Object monitor ) {
+    synchronized( monitor ) {
+      monitor.notifyAll();
+    }
+  }
+  
+  /**
+   * Calls the service method of the given {@link ServletContainerBridge} and verifies that the
+   * {@link HttpServletResponse#sendError(int)} is executed with
+   * HttpServletResponse.SC_SERVICE_UNAVAILABLE.
+   * 
+   * @param servletContainerBridge
+   * @param numberOfTimes
+   * @throws ServletException
+   * @throws IOException
+   */
+  private void verifyServiceWasNotExecuted( ServletContainerBridge servletContainerBridge)
+                                              throws ServletException, IOException
+  {
+    HttpServletResponse response = mock( HttpServletResponse.class );
+    servletContainerBridge.service( mock( ServletRequest.class ), response );
+    verify( response, times( 1 ) )
+      .sendError( eq( HttpServletResponse.SC_SERVICE_UNAVAILABLE ), any( String.class ) );
+  }
+  
 }
