@@ -33,4 +33,4 @@ Third line installs the jax-rs connector and a provider for JSON marshalling (us
 
 The last line installs our sample application that exposes a JAX-RS annotated service via Declarative Serivces.
 
-Once the application is deployed, visit  [http://localhost:8181/sercices/greeting](http://localhost:8181/sercices/greeting)
+Once the application is deployed, visit  [http://localhost:8181/services/greeting](http://localhost:8181/services/greeting)
