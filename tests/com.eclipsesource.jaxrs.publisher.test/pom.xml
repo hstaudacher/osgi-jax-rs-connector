@@ -50,6 +50,13 @@
                 <versionRange>[2.3.0,4.0.0)</versionRange>
               </restrictTo>
             </filter>
+			 <filter>
+				<type>eclipse-plugin</type>
+				<id>org.mockito.mockito-all</id>
+				<restrictTo>
+				   <version>1.9.5</version>
+				</restrictTo>
+			 </filter>
           </filters>
         </configuration>
       </plugin>      
@@ -69,6 +76,11 @@
       <version>${mockito-version}</version>
       <scope>test</scope>
     </dependency>
+	<dependency>
+	  <groupId>org.mockito</groupId>
+	  <artifactId>mockito-all</artifactId>
+	  <version>${mockito-version}</version>
+	</dependency>
   </dependencies>
   
 </project>
