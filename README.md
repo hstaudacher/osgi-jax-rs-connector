@@ -88,7 +88,7 @@ Besides these basic example two example exist that are shwoing how the [security
 The example for the consumer is splitted into two bundles called `com.eclipsesource.jaxrs.consumer.example` and `com.eclipsesource.jaxrs.consumer.example.caller`. The example bundle contains the data model and the resource interface while the caller just calls the service. The example fetches data from github and is pretty simple.
 
 ### Apache Karaf Integration
-If you want to deploy the connector into [Apache Karaf](http://karaf.apache.org/) take a look at the [karaf-integration example](https://github.com/hstaudacher/osgi-jax-rs-connector/tree/master/examples/karaf-integration). To get tarted read the step-by-step guide in the [README](https://github.com/hstaudacher/osgi-jax-rs-connector/tree/master/examples/karaf-integration/README.md).
+If you want to deploy the connector into [Apache Karaf](http://karaf.apache.org/) take a look at the [karaf-integration example](https://github.com/hstaudacher/osgi-jax-rs-connector/tree/master/examples/karaf-integration). To get started read the step-by-step guide in the [README](https://github.com/hstaudacher/osgi-jax-rs-connector/tree/master/examples/karaf-integration/README.md).
 
 ### Starter Kit
 If you are working with [Bndtools](http://bndtools.org), a [Starter Kit](https://github.com/BryanHunt/bndtools-equinox-app-kit) is available to help you get going.  You will most likely want either the [rest](https://github.com/BryanHunt/bndtools-equinox-app-kit/tree/rest) or [mongo-rest](https://github.com/BryanHunt/bndtools-equinox-app-kit/tree/mongo-rest) branch.
