@@ -12,6 +12,7 @@ package com.eclipsesource.jaxrs.publisher.internal;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 
 import org.glassfish.jersey.server.ServerProperties;
 
@@ -28,6 +29,12 @@ public class DefaultApplicationConfiguration implements ApplicationConfiguration
     // disable auto discovery on server, as it's handled via OSGI
     properties.put( ServerProperties.FEATURE_AUTO_DISCOVERY_DISABLE, true );
     return properties;
+  }
+
+  @Override
+  public Set<Object> getSingletons() {
+    // no default
+    return null;
   }
 
 }
