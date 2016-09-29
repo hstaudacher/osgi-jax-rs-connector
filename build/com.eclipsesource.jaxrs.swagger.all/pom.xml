@@ -51,7 +51,6 @@
 							!org.apache.commons.*,
 							!org.dom4j.*,
 							!org.joda.*,
-							!org.slf4j.*,
 							!org.w3c.*,
 							!org.xml.sax.*,
 							!com.sun.jdi.*,
@@ -62,7 +61,7 @@
 							*
 						</Import-Package>
 						<Bundle-RequiredExecutionEnvironment>JavaSE-1.7</Bundle-RequiredExecutionEnvironment>
-						<Embed-Dependency>*;scope=compile|runtime;inline=true</Embed-Dependency>
+						<Embed-Dependency>*;scope=compile|runtime;inline=true;artifactId=!slf4j-*</Embed-Dependency>
 						<Embed-Directory>dependencies</Embed-Directory>
 						<Embed-StripGroup>true</Embed-StripGroup>
 						<Embed-Transitive>true</Embed-Transitive>
