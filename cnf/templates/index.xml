@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<repository increment="1461452580000" name="Templates" xmlns="http://www.osgi.org/xmlns/repository/v1.0.0">
+  <resource>
+    <capability namespace="osgi.identity">
+      <attribute name="osgi.identity" value="org.bndtools.templates.osgi"/>
+      <attribute name="type" value="osgi.bundle"/>
+      <attribute name="version" type="Version" value="3.2.0.201604232153"/>
+    </capability>
+    <capability namespace="osgi.content">
+      <attribute name="osgi.content" value="dc03296aa6b9319948831a0f1f614338d8401418ca37b579422c779dc405d30c"/>
+      <attribute name="url" value="org.bndtools.templates.osgi/org.bndtools.templates.osgi-3.2.0.jar"/>
+      <attribute name="size" type="Long" value="20276"/>
+      <attribute name="mime" value="application/vnd.osgi.bundle"/>
+    </capability>
+    <capability namespace="osgi.wiring.bundle">
+      <attribute name="osgi.wiring.bundle" value="org.bndtools.templates.osgi"/>
+      <attribute name="bundle-version" type="Version" value="3.2.0.201604232153"/>
+    </capability>
+    <capability namespace="osgi.wiring.host">
+      <attribute name="osgi.wiring.host" value="org.bndtools.templates.osgi"/>
+      <attribute name="bundle-version" type="Version" value="3.2.0.201604232153"/>
+    </capability>
+    <capability namespace="org.bndtools.template">
+      <attribute name="org.bndtools.template" value="project"/>
+      <attribute name="name" value="Component Development"/>
+      <attribute name="category" value="bbb/OSGi Standard Templates"/>
+      <attribute name="ranking" type="Double" value="1001.0"/>
+      <attribute name="dir" value="templates/ds"/>
+      <attribute name="icon" value="data:image/gif;base64,R0lGODlhEAAQAPYAAElJSU5OTlFRUVNTU1hYWFtbW2FhYWJiYmRkZGlpaWtra21tbW5ubm9vb3l5eYCAgIGBgYKCgoODg4WFhYeHh4mJiYyMjI+Pj5ycnJ6enqCgoKGhoaOjo6Wlpaampqenp6ioqKqqqqysrLCwsLGxsbKysrW1tbe3t7m5ubq6ury8vL29vb6+vr+/v8DAwMHBwcLCwsPDw8TExMXFxcbGxsfHx8jIyMnJycrKysvLy8zMzM3Nzc7Ozs/Pz9HR0dLS0tTU1NXV1dbW1tjY2NnZ2dvb29zc3N3d3d7e3uLi4uTk5OXl5efn5+np6e3t7QAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACH5BAEAAE8AIf8LSW1hZ2VNYWdpY2sHZ2FtbWE9MQAsAAAAABAAEAAAB6CAT4KDTy8vhIiEL05MI4mCPjw8hUxGjiIeHoRGTkYvKj4+IyI8TCqKTD5GRqGsPC8OipGfGB6GnxWCry9GPCoRghWGPBURES+pkpqDIp88RgwqqS88joO2Iy8+CR4XHq88GIIXnyoJBAGCzdQvIiIq8B4MhCI+1JKSzvODKkYexp8YMPDgI9agCA0SPInwSmGBAAAeLVQxooBERAUIPAoEADs="/>
+      <attribute name="help" value="comp-help.xml"/>
+    </capability>
+    <capability namespace="org.bndtools.template">
+      <attribute name="org.bndtools.template" value="project"/>
+      <attribute name="name" value="API Project"/>
+      <attribute name="category" value="bbb/OSGi Standard Templates"/>
+      <attribute name="ranking" type="Double" value="1000.0"/>
+      <attribute name="dir" value="templates/api"/>
+      <attribute name="icon" value="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAJ+SURBVBgZBcExbFRlAADg7//fu7teC3elQEoMgeDkYDQ6oMQQTYyGxMHZuDA6Ypw0cWI20cHJUdl0cJLIiomR6OACGhUCpqGWtlzbu/b97/3v9/tCKQVc/e7RRXz+7OrSpUXbW7S9tu8ddv0M+3iCjF1s42v8WAP0XffKi2eOXfro9dMAYJ766SL1092jfDa17DfZgycHfvh7/hau1QB9161PhgE8epoNQlAHqprRIDo3iqoYDSpeOjv2zHRl7atfNj6LALltJys1Xc9+CmYtTxtmR8yO2D7kv4MMPr7x0KULK54/NThdA+S2XTs+jOYN86MsxqBGVRErKkEV6BHynp//2fXbw9lGDZBTWp+OK7PDzqIpYiyqSMxBFakUVYVS2dxrfHHrrz1crQG6lM6vTwZmR0UHhSoHsSBTKeoS9YU8yLrUXfj+w9d2IkBOzfkz05F5KkKkCkFERACEQil0TSOnJkMNV67fHNdVHI4GUcpZVFAUZAEExEibs4P5osMeROiadHoUiIEeCgFREAoRBOMB2weNrkmbNz+9UiBCTs1yrVdHqhgIkRL0EOj7QGG5jrZ2D+XUbADEy9dunOpSun7xuXMe7xUPNrOd/WyeyKUIoRgOGS8xWWZ7b6FLaROgzim9iXd+vXvf7mHtoCnaXDRtkLpel3t9KdamUx+8fcbj7YWc0hZAndv25XffeGH8yfuvAoBcaHOROhS+vLlhecD+wUJu222AOrft/cdPZr65ddfqsbHVyZLVlZHpysjx5aHRMBrV0XuX141qtnb25bb9F6Duu+7b23funb195955nMRJnMAJTJeGg8HS0sBkZWx1suz3Px79iZ8A/gd7ijssEaZF9QAAAABJRU5ErkJggg=="/>
+      <attribute name="help" value="api-help.xml"/>
+    </capability>
+    <capability namespace="org.bndtools.template">
+      <attribute name="org.bndtools.template" value="project"/>
+      <attribute name="name" value="Integration Testing"/>
+      <attribute name="category" value="bbb/OSGi Standard Templates"/>
+      <attribute name="ranking" type="Double" value="999.0"/>
+      <attribute name="dir" value="templates/integration-test"/>
+      <attribute name="help" value="integration-test-help.xml"/>
+      <attribute name="icon" value="data:image/gif;base64,R0lGODlhEAAQAMQAAOCwsuG6u9hCT9lLV9pfattqc9x0fNx+hd2IjiGETzmPYSyKV1Gbc12hfGqnhXatjo65oJu/qafFsrPKu7/QxOLExP///wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACH5BAEAABYALAAAAAAQABAAAAVMoCWOZGmeaHpGTMs8qsgkUyzTtjVPRV8hBYRpZxEILYQT0ShKihqQW42JFEUSCtEiIaI6LQsGBZKAIQUWwIEEYTgko4BhcAjk7vhTCAA7"/>
+    </capability>
+    <capability namespace="org.bndtools.template">
+      <attribute name="org.bndtools.template" value="project"/>
+      <attribute name="name" value="Servlet Component"/>
+      <attribute name="category" value="bbb/OSGi Standard Templates"/>
+      <attribute name="dir" value="templates/servlet"/>
+      <attribute name="help" value="servlet-help.xml"/>
+      <attribute name="engine" value="mustache"/>
+      <attribute name="icon" value="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAADYUlEQVR4nGWTW2hbBQCGv3PJOT1JeslJejeu6Q1bW1ulY5vZppg6n5RhH9SBA4dziChT5nxpEUEG7kkUcQ6kE5lUkY2+iA/rQFRscU666TrtNemaNGma2CTN5STnHB/mYOr/9D98/A8f/AL/Scf+95tcnu4XfLockpyFdmwbM6MuJZOlqXx6eXxh5vX1u3nhTmnuPybUdx482dC59fbBJx/Tvop/wVrqAnWagWWq1OaHaIs8Xfh5OvpOOjp1Ojp/xgaQAJr6jgo7+kbG3bumT8z7LjnWrBUcagsuxUutsoAsmWy5dlIVfMYR3KENr80rbZKsT2bTv9we6Np36qS684cTG57LPLtnnO/+OIeMie5uJ7a1jFt/C8n7HCt5iZju4UC7Nhi+Iec3bl34UWoPvtfY1O+4WOz80qE7bWLpGAVjDkmssL/nTbz6U5jOAUqmRJUZwcj/iRJow5/MBLO57k/l6vr+w4V7J52687YO2/4efx3EMhbFfAS3a4Bi2aZoCZSMErNzb2DEVfTAgFPTBg+LvjolFJPmsGwbgGIFmpwjjIYmCHgHcEugieCS4K/4Z9zjqSdfVohr1/DWKSHZ7ZQD+wKHuLZ+njp1kBpF5/nB18iaMooADgFkATSxQq4QQRayeDwH8GnNaB41IFoVy95730sEO0aJb8d5sGU3hlUGbCzAssEGoqtnaa1ewF+bx21dZDH6EYZVtMVYPL+kCSYN9Y/zyiPn+HZhktFLIc7OHCdnZClYULLARPzHEWgOAV2pIbNhLkke/0jj/T2+Jza0KkRRYTkxgc+1BUKU2VvTQBVltRvbOcBm0c96VsAjr2Cv9ZP6yXtG0qo752XT83LrQ81qvCwhWSap3DSqLKBKKdIlHdsdJFWSyMpdyKJMJnGZ6pnhbGJx8YgYmT2V/PVqbMy+ukqlsE2N51GyRTAtm0Shi9rGF0mXIGdC0bQRSwa+SIjErDQWDp9OSgAb4a9nNlN7m4danUMRYwq7fIWk0UNzx8ckKjXkKhalfI5eJc/ucJkbE4VPrl8/OvavMwH07vr81ZZe6125L1yz5+EjLBRUKjY0KqCsbrH0zVzmtyvR0Zs3j334vzfeib/zuNdd/cAh1SEPNzY427Fs1mO5pVLRmNrO/X5+dfWDzbv5vwErUW66xLs5NQAAAABJRU5ErkJggg=="/>
+    </capability>
+    <capability namespace="ranking:Double:999">
+      <attribute name="org.bndtools.template" value="project"/>
+      <attribute name="name" value="Servlet Component"/>
+      <attribute name="category" value="bbb/OSGi Standard Templates"/>
+      <attribute name="dir" value="templates/servlet"/>
+      <attribute name="help" value="servlet-help.xml"/>
+      <attribute name="engine" value="mustache"/>
+      <attribute name="icon" value="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAADYUlEQVR4nGWTW2hbBQCGv3PJOT1JeslJejeu6Q1bW1ulY5vZppg6n5RhH9SBA4dziChT5nxpEUEG7kkUcQ6kE5lUkY2+iA/rQFRscU666TrtNemaNGma2CTN5STnHB/mYOr/9D98/A8f/AL/Scf+95tcnu4XfLockpyFdmwbM6MuJZOlqXx6eXxh5vX1u3nhTmnuPybUdx482dC59fbBJx/Tvop/wVrqAnWagWWq1OaHaIs8Xfh5OvpOOjp1Ojp/xgaQAJr6jgo7+kbG3bumT8z7LjnWrBUcagsuxUutsoAsmWy5dlIVfMYR3KENr80rbZKsT2bTv9we6Np36qS684cTG57LPLtnnO/+OIeMie5uJ7a1jFt/C8n7HCt5iZju4UC7Nhi+Iec3bl34UWoPvtfY1O+4WOz80qE7bWLpGAVjDkmssL/nTbz6U5jOAUqmRJUZwcj/iRJow5/MBLO57k/l6vr+w4V7J52687YO2/4efx3EMhbFfAS3a4Bi2aZoCZSMErNzb2DEVfTAgFPTBg+LvjolFJPmsGwbgGIFmpwjjIYmCHgHcEugieCS4K/4Z9zjqSdfVohr1/DWKSHZ7ZQD+wKHuLZ+njp1kBpF5/nB18iaMooADgFkATSxQq4QQRayeDwH8GnNaB41IFoVy95730sEO0aJb8d5sGU3hlUGbCzAssEGoqtnaa1ewF+bx21dZDH6EYZVtMVYPL+kCSYN9Y/zyiPn+HZhktFLIc7OHCdnZClYULLARPzHEWgOAV2pIbNhLkke/0jj/T2+Jza0KkRRYTkxgc+1BUKU2VvTQBVltRvbOcBm0c96VsAjr2Cv9ZP6yXtG0qo752XT83LrQ81qvCwhWSap3DSqLKBKKdIlHdsdJFWSyMpdyKJMJnGZ6pnhbGJx8YgYmT2V/PVqbMy+ukqlsE2N51GyRTAtm0Shi9rGF0mXIGdC0bQRSwa+SIjErDQWDp9OSgAb4a9nNlN7m4danUMRYwq7fIWk0UNzx8ckKjXkKhalfI5eJc/ucJkbE4VPrl8/OvavMwH07vr81ZZe6125L1yz5+EjLBRUKjY0KqCsbrH0zVzmtyvR0Zs3j334vzfeib/zuNdd/cAh1SEPNzY427Fs1mO5pVLRmNrO/X5+dfWDzbv5vwErUW66xLs5NQAAAABJRU5ErkJggg=="/>
+    </capability>
+    <capability namespace="org.bndtools.template">
+      <attribute name="org.bndtools.template" value="workspace"/>
+      <attribute name="name" value="Minimal Workspace"/>
+      <attribute name="category" value="bbb/OSGi Standard Templates"/>
+      <attribute name="ranking" type="Double" value="0.0"/>
+      <attribute name="dir" value="templates/workspace-minimal"/>
+    </capability>
+    <capability namespace="org.bndtools.template">
+      <attribute name="org.bndtools.template" value="bndrun"/>
+      <attribute name="name" value="Felix 4+"/>
+      <attribute name="category" value="bbb/OSGi Standard Templates"/>
+      <attribute name="ranking" type="Double" value="1001.0"/>
+      <attribute name="dir" value="templates/launch/felix-gogo"/>
+      <attribute name="icon" value="data:image/gif;base64,R0lGODlhEAAQAOYAAAAAAP///+EdiTcIsd/AXIyltvCtwoUNb8VoTy4FVW07zOh0lH9/f4oHstbg4tvQmSItMbYDjuc5YMWfuD8FgXYO2OIMY8WkUuheZNyCucnJyWUGrfXt1oYemFkDaemWoaysrOtVgiMGeFYGks0CfMkferAdktxBd+fdraAFo0wKwffZ5e7Fxfzu8e64rt7Vg7oHdOglXuZodUQGbYIMw+AZdc+6VNeauePq6uWJltkCbpIEmfPc1nQGqGwJzeuhqygGa+RBa+hHevf5+UcKiuAyaMcEiOQdaukUXd0XYiMFUbwLiJ8HmH2GieLRjHgIx+ywudgMbvfi4rQHlr8Di1AGl+qDlokKq/76+/r18eNAdqQEnI2rs9MDed8EbGcHs+iXp/Lx2Pnv7ScETvfe5uYLZNsFcKQFoNni47sIiv37+MoFh74EiP79/Pv7+/Pf1v34+sADiP////fa5AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACH5BAkAAHQALAAAAAAQABAAAAeRgA8vKC10hoeIhk4XNic/YomJYQQIB2lFH1mRh29BMB47SzEsm4YGJQ0UVUZIOXClNyZUIzNTZVpSm3JWUWcbCUw6GDybbWAWbD1jV2YSHKVQSRFfSjRrMmqlC14pKkAVAi6lWEIkTwNEXSGldGRHcT4iHRM47HM1WwoQXGjsdCsZCjQB4c/QEAduGBREpIFOIAA7"/>
+      <attribute name="help" value="templates/launch/felix-gogo.xml"/>
+    </capability>
+    <capability namespace="org.bndtools.template">
+      <attribute name="org.bndtools.template" value="bndrun"/>
+      <attribute name="name" value="OSGi enRoute Base Launcher"/>
+      <attribute name="category" value="ccc/OSGi enRoute"/>
+      <attribute name="ranking" type="Double" value="1000.0"/>
+      <attribute name="dir" value="templates/launch/enroute/base"/>
+      <attribute name="icon" value="data:image/gif;base64,R0lGODlhEQAQAPUvAAAAACQkJUVFR1RVV1VWWGBhY2JjZWNkZm9wcnBxc3R1d3V2eXx9f4eJjIiJjJOVmJianZ6go6CipaiqramrrqyusbO1uLa3urm7vbq8vsbHycfIysjJy8rLzdHS1NTV1tbX2dzd3t7f4e3u7vDw8fLy8/X19fb29vf39/j5+fr6+/v7+/z8/P39/f7+/v///wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACH5BAEAADAALAAAAAARABAAAAaMQJhwCAMYiUiicZlEGh3QAqA53LyuV5SCinpBLhGAIvRqvlADwKZQMVrKyFfDuK5IAyO4UINargUbRhF6MBoeSx8HAB9pBy9TRRsfRgKPAA9zBY9CABR9ABhtAA4YAIOQAJoODC9SYhsBKBxHRhxnF0sPHCAvArRGIi8TaQEYXQpMRUYYWFcirlTRQkEAOw=="/>
+      <attribute name="help" value="templates/launch/enroute/base.xml"/>
+    </capability>
+    <capability namespace="org.bndtools.template">
+      <attribute name="org.bndtools.template" value="bndrun"/>
+      <attribute name="name" value="OSGi enRoute Debug Launcher"/>
+      <attribute name="category" value="ccc/OSGi enRoute"/>
+      <attribute name="ranking" type="Double" value="999.0"/>
+      <attribute name="dir" value="templates/launch/enroute/debug"/>
+      <attribute name="icon" value="data:image/gif;base64,R0lGODlhEQAQAPUvAAAAACQkJUVFR1RVV1VWWGBhY2JjZWNkZm9wcnBxc3R1d3V2eXx9f4eJjIiJjJOVmJianZ6go6CipaiqramrrqyusbO1uLa3urm7vbq8vsbHycfIysjJy8rLzdHS1NTV1tbX2dzd3t7f4e3u7vDw8fLy8/X19fb29vf39/j5+fr6+/v7+/z8/P39/f7+/v///wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACH5BAEAADAALAAAAAARABAAAAaMQJhwCAMYiUiicZlEGh3QAqA53LyuV5SCinpBLhGAIvRqvlADwKZQMVrKyFfDuK5IAyO4UINargUbRhF6MBoeSx8HAB9pBy9TRRsfRgKPAA9zBY9CABR9ABhtAA4YAIOQAJoODC9SYhsBKBxHRhxnF0sPHCAvArRGIi8TaQEYXQpMRUYYWFcirlTRQkEAOw=="/>
+      <attribute name="help" value="templates/launch/enroute/debug.xml"/>
+    </capability>
+    <capability namespace="org.bndtools.template">
+      <attribute name="org.bndtools.template" value="bndrun"/>
+      <attribute name="name" value="OSGi enRoute JPM Launcher"/>
+      <attribute name="category" value="ccc/OSGi enRoute"/>
+      <attribute name="ranking" type="Double" value="998.0"/>
+      <attribute name="dir" value="templates/launch/enroute/jpm"/>
+      <attribute name="icon" value="data:image/gif;base64,R0lGODlhEQAQAPUvAAAAACQkJUVFR1RVV1VWWGBhY2JjZWNkZm9wcnBxc3R1d3V2eXx9f4eJjIiJjJOVmJianZ6go6CipaiqramrrqyusbO1uLa3urm7vbq8vsbHycfIysjJy8rLzdHS1NTV1tbX2dzd3t7f4e3u7vDw8fLy8/X19fb29vf39/j5+fr6+/v7+/z8/P39/f7+/v///wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACH5BAEAADAALAAAAAARABAAAAaMQJhwCAMYiUiicZlEGh3QAqA53LyuV5SCinpBLhGAIvRqvlADwKZQMVrKyFfDuK5IAyO4UINargUbRhF6MBoeSx8HAB9pBy9TRRsfRgKPAA9zBY9CABR9ABhtAA4YAIOQAJoODC9SYhsBKBxHRhxnF0sPHCAvArRGIi8TaQEYXQpMRUYYWFcirlTRQkEAOw=="/>
+      <attribute name="help" value="templates/launch/enroute/jpm.xml"/>
+    </capability>
+  </resource>
+</repository>

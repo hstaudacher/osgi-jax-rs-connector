@@ -1,5 +1,3 @@
 bin
-.DS_Store
-target
-.idea
-*.iml
+.gradle/
+.metadata

@@ -1,4 +1,10 @@
+sudo: false
+
 language: java
+
 jdk:
-  - oraclejdk7
-script: "mvn -f build/com.eclipsesource.jaxrs.build/pom.xml clean verify"
+  - oraclejdk8
+
+install: ./gradlew --version
+
+script: ./gradlew --continue
