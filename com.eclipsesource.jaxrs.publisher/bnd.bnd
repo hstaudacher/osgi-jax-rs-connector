@@ -3,8 +3,12 @@
 	osgi.core;version=6.0,\
 	osgi.cmpn;version=6.0,\
 	javax.servlet-api;version=3.1,\
+	org.glassfish.jersey.core.jersey-common;version=2.23,\
 	org.glassfish.jersey.core.jersey-server;version=2.23,\
-	org.glassfish.jersey.containers.jersey-container-servlet-core;version=2.23
+	org.glassfish.jersey.containers.jersey-container-servlet-core;version=2.23,\
+	org.glassfish.jersey.bundles.repackaged.jersey-guava;version=2.23,\
+	${junit},\
+	org.glassfish.hk2.api;version=2.5
 Bundle-Name: OSGi JAX-RS Connector
 Bundle-Vendor: EclipseSource
 Bundle-Version: 6.0.0

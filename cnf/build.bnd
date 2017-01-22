@@ -34,4 +34,6 @@ javac.target: 			1.7
 -baselinerepo: Release
 
 # JUnit
-junit: org.apache.servicemix.bundles.junit; version=4.12
+junit: org.apache.servicemix.bundles.junit; version=4.12, \
+       org.mockito.mockito-core; version=1.10.19, \
+       org.objenesis; version=2.2.0
