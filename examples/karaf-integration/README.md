@@ -15,7 +15,7 @@ You will get some files installed in your local Maven repo:
 * a **features.xml** a list of bundles for Karaf to install
 * **jax-rs-sample** - a sample jax-rs project used for demo
 
-To make use of the project download the latest [http://karaf.apache.org/](Apache Karaf). Follow the installation instructions (unpack and run `./bin/karaf` ).
+To make use of the project download the latest [Apache Karaf](http://karaf.apache.org/). Follow the installation instructions (unpack and run `./bin/karaf` ).
 
 In the Karaf shell run the following commands:
 ```
