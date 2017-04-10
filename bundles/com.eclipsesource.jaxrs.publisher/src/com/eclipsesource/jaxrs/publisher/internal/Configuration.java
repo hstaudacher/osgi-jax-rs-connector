@@ -64,7 +64,13 @@ public class Configuration implements ManagedService {
     if( interval == null ){
       return DEFAULT_PUBLISH_DELAY;
     }
-    return ( ( Long )interval );
+    if ( interval instanceof Long ) {
+      return ( ( Long ) interval ).longValue();
+    }
+    if ( interval instanceof Integer ) {
+      return ( ( Integer ) interval ).longValue(); 
+    }
+    return ( Long.parseLong( interval.toString() ) );
   }
 
   public long getPublishDelay() {
