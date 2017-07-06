@@ -201,7 +201,7 @@ public class JAXRSConnector {
     HttpService result = null;
     for( ServiceHolder serviceHolder : serviceHolders ) {
       Object servicePort = getPort( serviceHolder );
-      if( servicePort.equals( port ) ) {
+      if( String.valueOf(servicePort).equals( port ) ) {
         result = ( HttpService )serviceHolder.getService();
       }
     }
