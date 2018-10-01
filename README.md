@@ -104,6 +104,9 @@ With Jersey 2.0 the library was splitted into several modules with a whole bunch
 ## Changelog
 Checkout the [github releases](https://github.com/hstaudacher/osgi-jax-rs-connector/releases).
 
+- Upgrade to Jersey 2.25.1
+- Bugfix [Fixed following scenarios not returning HTTP Error 503 while Jersey s…](https://github.com/hstaudacher/osgi-jax-rs-connector/pull/147), publischer version changed to 5.3.2 
+
 ## License
 The code is published under the terms of the [Eclipse Public License, version 1.0](http://www.eclipse.org/legal/epl-v10.html).
 

@@ -3,12 +3,12 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.eclipsesource.jaxrs</groupId>
 	<artifactId>jersey-all</artifactId>
-	<version>2.22.2</version>
+	<version>2.25.1</version>
 
 	<properties>
 		<maven.compiler.source>1.7</maven.compiler.source>
 		<maven.compiler.target>1.7</maven.compiler.target>
-		<jersey.version>2.22.2</jersey.version>
+		<jersey.version>2.25.1</jersey.version>
 		<jaxrs.version>2.0</jaxrs.version>
 	</properties>
 
@@ -18,7 +18,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-jar-plugin</artifactId>
-				<version>2.4</version>
+				<version>3.1.0</version>
 				<configuration>
 					<archive>
 						<index>false</index>
@@ -35,7 +35,7 @@
 			<plugin>
 				<groupId>org.apache.felix</groupId>
 				<artifactId>maven-bundle-plugin</artifactId>
-				<version>2.3.7</version>
+				<version>3.5.1</version>
 				<extensions>true</extensions>
 				<configuration>
 					<instructions>
@@ -80,7 +80,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-shade-plugin</artifactId>
-				<version>2.4.1</version>
+				<version>3.1.1</version>
 				<configuration>
 					<finalName>shaded-DO-NOT-USE</finalName>
 					<createSourcesJar>true</createSourcesJar>

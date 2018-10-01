@@ -56,6 +56,24 @@ public class JerseyContext {
     this.servletConfiguration = servletConfiguration;
     this.resourcePublisher = new ResourcePublisher( servletContainerBridge, configuration.getPublishDelay() );
   }
+  
+  // for testing purposes
+  JerseyContext( HttpService httpService,
+                        Configuration configuration,
+                        ServletConfiguration servletConfiguration,
+                        ServiceContainer applicationConfigurations,
+                        RootApplication rootApplication,
+                        ServletContainerBridge servletContainerBridge)
+  {
+    this.httpService = httpService;
+    this.rootPath = configuration.getRoothPath();
+    this.application = rootApplication;
+    this.applicationConfigurations = applicationConfigurations;
+    applyApplicationConfigurations( applicationConfigurations );
+    this.servletContainerBridge = servletContainerBridge;
+    this.servletConfiguration = servletConfiguration;
+    this.resourcePublisher = new ResourcePublisher( servletContainerBridge, configuration.getPublishDelay() );
+  }
 
   void applyApplicationConfigurations( ServiceContainer applicationConfigurations ) {
     getRootApplication().addProperties( new DefaultApplicationConfiguration().getProperties() );
@@ -181,7 +199,15 @@ public class JerseyContext {
   }
 
   public void removeResource( Object resource ) {
-    getRootApplication().removeResource( resource );
+    boolean isDirty = getRootApplication().removeResource( resource );
+    // When removing resources that cause the application to be dirty, it makes sense to turn off
+    // request servicing until Jersey is reloaded as Jersey will hold on to the old OSGi instances
+    // of registered resources and we may see some exceptions if a request comes in that should be
+    // processed by a service that is in the process of deactivating (for example some unset methods
+    // were called). This way we'll send out a nice 503 until Jersey reloads which is much cleaner.
+    if( isDirty ) {
+      servletContainerBridge.setJerseyReady( false );
+    }
     unregisterServletWhenNoResourcePresents();
     resourcePublisher.schedulePublishing();
   }
@@ -220,5 +246,9 @@ public class JerseyContext {
   // For testing purpose
   RootApplication getRootApplication() {
     return application;
+  }
+  
+  ServletContainerBridge getServletContainerBridge() {
+    return servletContainerBridge;
   }
 }

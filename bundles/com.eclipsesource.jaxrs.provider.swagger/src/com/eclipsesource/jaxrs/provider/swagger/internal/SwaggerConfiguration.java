@@ -53,8 +53,9 @@ public class SwaggerConfiguration implements ManagedService {
 
   private Dictionary<String, ?> configuration;
 
+  @SuppressWarnings( "unchecked" )
   @Override
-  public void updated( Dictionary<String, ?> configuration ) throws ConfigurationException {
+  public void updated( @SuppressWarnings( "rawtypes" ) Dictionary configuration ) throws ConfigurationException {
     this.configuration = configuration;
   }
 
