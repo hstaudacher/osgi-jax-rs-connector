@@ -2,3 +2,6 @@ language: java
 jdk:
   - oraclejdk7
 script: "mvn -f build/com.eclipsesource.jaxrs.build/pom.xml clean verify"
+cache:
+  directories:
+  - $HOME/.m2
