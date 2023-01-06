@@ -78,7 +78,7 @@ Examples for the publisher and consumer can be found within the [examples](https
 
 ### Publisher Examples
 Some examples exist for the publisher. They are located in the bundles `com.eclipsesource.jaxrs.connector.example` and `com.eclipsesource.jaxrs.connector.example.ds`. As the names say one uses Declarative services and the other don't.
-In both exampels a simple POJO is annotated with `@Path` and will be registered as an OSGIi service. Both bundles contain an Eclipse Launch Configuration to start them (please don't forget to add the publisher bundle to the launch config). After starting the launch configs the service will be available at `http://localhost:9090/services/osgi-jax-rs`.
+In both examples a simple POJO is annotated with `@Path` and will be registered as an OSGIi service. Both bundles contain an Eclipse Launch Configuration to start them (please don't forget to add the publisher bundle to the launch config). After starting the launch configs the service will be available at `http://localhost:9090/services/osgi-jax-rs`.
 
 As a bonus the `com.eclipsesource.jaxrs.connector.example.ds` contains an example how to use the `@Provider` together with the publisher.
 
