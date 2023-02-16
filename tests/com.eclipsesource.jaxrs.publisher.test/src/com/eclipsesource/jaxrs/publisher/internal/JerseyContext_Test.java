@@ -12,18 +12,22 @@
 package com.eclipsesource.jaxrs.publisher.internal;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.anyString;
 import static org.mockito.Matchers.eq;
+import static org.mockito.Mockito.doAnswer;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.spy;
+import static org.mockito.Mockito.timeout;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import java.io.IOException;
 import java.util.Dictionary;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -33,6 +37,9 @@ import java.util.Set;
 
 import javax.servlet.Servlet;
 import javax.servlet.ServletException;
+import javax.servlet.ServletRequest;
+import javax.servlet.ServletResponse;
+import javax.servlet.http.HttpServletResponse;
 
 import org.glassfish.jersey.server.ServerProperties;
 import org.glassfish.jersey.servlet.ServletContainer;
@@ -40,7 +47,9 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
+import org.mockito.invocation.InvocationOnMock;
 import org.mockito.runners.MockitoJUnitRunner;
+import org.mockito.stubbing.Answer;
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.ServiceReference;
 import org.osgi.service.http.HttpContext;
@@ -61,6 +70,8 @@ public class JerseyContext_Test {
   private HttpService httpService;
   @Mock
   private RootApplication rootApplication;
+  @Mock
+  private ServletContainerBridge servletContainerBridge;
 
   @Before
   public void setUp() {
@@ -69,9 +80,10 @@ public class JerseyContext_Test {
     JerseyContext original = new JerseyContext( httpService,
                                                 configuration,
                                                 servletConfigurationService,
-                                                new ServiceContainer( mock( BundleContext.class ) ) );
+                                                new ServiceContainer( mock( BundleContext.class ) ),
+                                                rootApplication,
+                                                servletContainerBridge);
     jerseyContext = spy( original );
-    doReturn( rootApplication ).when( jerseyContext ).getRootApplication();
   }
 
   @Test
@@ -205,13 +217,15 @@ public class JerseyContext_Test {
     JerseyContext withConfiguration = spy( new JerseyContext( httpService,
                                                               configuration,
                                                               servletConfigurationService,
-                                                              new ServiceContainer( mock( BundleContext.class ) ) ) );
+                                                              new ServiceContainer( mock( BundleContext.class ) ),
+                                                              rootApplication,
+                                                              servletContainerBridge ) );
     Object resource = new Object();
-
     withConfiguration.addResource( resource );
-
-    verify( servletConfigurationService, times( 1 ) ).getHttpContext( any( HttpService.class ), anyString() );
-    verify( servletConfigurationService, times( 1 ) ).getInitParams( any( HttpService.class ), anyString() );
+    verify( servletConfigurationService, times( 1 ) ).getHttpContext( any( HttpService.class ),
+                                                                      anyString() );
+    verify( servletConfigurationService, times( 1 ) ).getInitParams( any( HttpService.class ),
+                                                                     anyString() );
   }
 
   @Test
@@ -300,6 +314,124 @@ public class JerseyContext_Test {
     verify( jerseyContext ).updateServletConfiguration( configuration );
     verify( jerseyContext ).safeUnregister( "/test" );
     verify( jerseyContext, times( 2 ) ).registerServletWhenNotAlreadyRegistered();
+  }
+  
+  @Test
+  public void testRemoveResourceServletBridgeStatus()
+    throws ServletException, NamespaceException, IOException, InterruptedException
+  {
+    Object monitor = new Object();
+    JerseyContext jerseyContext = getJerseyContextWithSpyServletContainerBridgeRunMonitor( 1500L, monitor );
+    ServletContainerBridge servletContainerBridge = jerseyContext.getServletContainerBridge();
+    
+    // Add two resources, but not the third
+    Object resource1 = new Object();
+    Object resource2 = new Object();
+    Object resource3 = new Object();
+    
+    jerseyContext.addResource( resource1 );
+    jerseyContext.addResource( resource2 );
+    
+    // Check if Jersey was loaded
+    waitForMonitor( monitor, 1500L );
+    verify( servletContainerBridge, timeout( Integer.MAX_VALUE ).times( 1 ) ).run();
+    
+    // Should not reload when removing a resource that is not present
+    jerseyContext.removeResource( resource3 );
+    verify( servletContainerBridge, times( 1 ) ).run();
+    
+    // Fire up a request - it should be serviced as jersey did not need to reload
+    verifyServiceWasExecuted(servletContainerBridge, 1);
+    
+    // Jersy is marked as not ready and should reload
+    jerseyContext.removeResource( resource2 );
+
+    
+    // Fire up a request again - should get a 503 as jersey will need to reload
+    verifyServiceWasNotExecuted(servletContainerBridge, 1);
+    waitForMonitor( monitor, 1500L );
+    
+    // Wait for the run method to be executed
+    verify( servletContainerBridge, timeout( Integer.MAX_VALUE ).times( 2) ).run();
+    
+    // Fire up a request - it should be serviced after reload
+    verifyServiceWasExecuted(servletContainerBridge, 2);
+  }
+  
+  /**
+   * Calls the service method of the given {@link ServletContainerBridge} and verifies that the
+   * underlying {@link ServletContainer#service(ServletRequest, ServletResponse)} has been executed
+   * the given numberOfTimes.
+   * 
+   * @param servletContainerBridge
+   * @param numberOfTimes
+   * @throws ServletException
+   * @throws IOException
+   */
+  private void verifyServiceWasExecuted( ServletContainerBridge servletContainerBridge,
+                                         int numberOfTimes ) throws ServletException, IOException
+  {
+    servletContainerBridge.service( mock( ServletRequest.class ), mock( ServletResponse.class ) );
+    verify( servletContainerBridge.getServletContainer(), times( numberOfTimes ) )
+      .service( any( ServletRequest.class ), any( ServletResponse.class ) );
+  }
+  
+  /**
+   * Calls the service method of the given {@link ServletContainerBridge} and verifies that the
+   * {@link HttpServletResponse#sendError(int)} is executed with
+   * HttpServletResponse.SC_SERVICE_UNAVAILABLE.
+   * 
+   * @param servletContainerBridge
+   * @param numberOfTimes
+   * @throws ServletException
+   * @throws IOException
+   */
+  private void verifyServiceWasNotExecuted( ServletContainerBridge servletContainerBridge,
+                                            int numberOfTimes )
+                                              throws ServletException, IOException
+  {
+    HttpServletResponse response = mock( HttpServletResponse.class );
+    servletContainerBridge.service( mock( ServletRequest.class ), response );
+    verify( response, times( numberOfTimes ) )
+      .sendError( eq( HttpServletResponse.SC_SERVICE_UNAVAILABLE ), any( String.class ) );
+  }
+  
+  private JerseyContext getJerseyContextWithSpyServletContainerBridgeRunMonitor(Long publishDelay, final Object monitor) {
+    Configuration configuration = createConfiguration( "/test", false, publishDelay );
+    ServletConfiguration servletConfigurationService = mock( ServletConfiguration.class );
+    
+    RootApplication rootApplication = spy( new RootApplication() );
+    ServletContainerBridge servletContainerBridge = spy( new ServletContainerBridge( rootApplication ) );
+    
+    ServletContainer spyContainer = mock( ServletContainer.class );
+    when( servletContainerBridge.getServletContainer() ).thenReturn( spyContainer );
+    
+    // Mock destroy so that it will block until the given monitor is notified!
+    doAnswer( new Answer<Object>() {
+
+      @Override
+      public Object answer( InvocationOnMock invocation ) throws Throwable {
+        invocation.callRealMethod();
+        synchronized( monitor ) {
+          monitor.notifyAll();
+        }
+        return null;
+      }
+    } ).when( servletContainerBridge ).run();
+    
+    
+    return spy( new JerseyContext( httpService,
+                                   configuration,
+                                   servletConfigurationService,
+                                   new ServiceContainer( mock( BundleContext.class ) ),
+                                   rootApplication,
+                                   servletContainerBridge ) );
+  }
+  
+  private void waitForMonitor(Object monitor, Long timeout) throws InterruptedException {
+    synchronized(monitor) {
+      monitor.wait(timeout);
+    }
   }
 
   private Configuration createConfiguration( String path, boolean wadlDisable, long publishDelay ) {
